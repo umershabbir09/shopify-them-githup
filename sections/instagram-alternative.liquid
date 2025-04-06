@@ -1,0 +1,342 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+<section class="instagram-area {{ bg_image_class }}" id="section-{{ section.id }}" data-section="InstagramAlternativeSlider" {{ sections_bg_image }}>
+  <div class="container">
+    {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+    <div class="row">
+      <div class="col-12">
+        <!-- section title start -->
+        <div class="section-title text-center">
+          {%- if section.settings.section_title != '' -%}
+          <h2 class="title">{{ section.settings.section_title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_sub_title != '' -%}
+          <div class="sub-title">{{ section.settings.section_sub_title }}</div>
+          {%- endif -%}
+        </div>
+        <!-- section title start -->
+      </div>
+    </div>
+    {%- endif -%}	
+    {%- capture data_slick_activation -%}
+        data-slick='{
+         "slidesToShow": {{ section.settings.instagram_column }},
+          "responsive":[
+              {"breakpoint":992, "settings": {"slidesToShow": {{ section.settings.instagram_column_md }}} },
+              {"breakpoint":768, "settings": {"slidesToShow": {{ section.settings.instagram_column_md }}} },
+              {"breakpoint":480, "settings": {"slidesToShow": {{ section.settings.instagram_column_sm }}, "slidesToScroll": {{ section.settings.instagram_column_sm }}, "arrows": false, "dots": true} }
+            ]
+        }'
+        {%- endcapture -%}
+    <div class="row">
+      <div class="col-12">
+        <div class="instagram-feed-thumb">
+          <div class="instagram-alternative-carousel pro-row-2 slick-row-10 slick-arrow-style slick-dot-style slick-dot-style-2" {{ data_slick_activation }}>
+            {%- for block in section.blocks -%}
+            {%- case block.type -%}
+            {%- when 'instagram_image' -%}
+            <div class="instagram-item" {{ block.shopify_attributes }}>
+              <a target="_blank" href="{{ block.settings.image_url }}">
+                {%- if block.settings.image -%}
+                <div class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100}}%;">
+                  {%- render 'responsive-image' with image: block.settings.image, image_class: "lazyload-main-image" -%}
+                </div>
+                {%- else -%}
+                <img class="lazyload" data-src="https://via.placeholder.com/350x350" alt="{{ block.settings.image.alt }}">
+                {%- endif -%}
+                <div class="instagram-hvr-content"><span class="tottallikes"><i class="fa fa-instagram"></i></span></div>
+              </a>
+            </div>
+            {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%- render 'section-style' -%}
+{% schema %}
+  {
+    "name": "Instagram - Alternative",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title Here"
+      	},
+		{
+          "type": "richtext",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+		  "default": "<p>Follow our Instagram @HasThemes</p>"
+      	},
+		{
+			"type": "header",
+            "content": "Instagram Column"
+        },
+		{
+            "type": "range",
+            "id": "instagram_column",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Desktop",
+            "default": 5
+        },
+		{
+            "type": "range",
+            "id": "instagram_column_md",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Tablet",
+            "default": 3
+        },
+		{
+            "type": "range",
+            "id": "instagram_column_sm",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Mobile",
+            "default": 2
+        }
+	],
+	"blocks":[
+          {
+            "type": "instagram_image",
+            "name": "Image",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+              },
+              {
+                "type": "url",
+                "id": "image_url",
+                "label": "URL"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+			"name": "Instagram - Alternative",
+			"category": "others",
+		  	"blocks":[
+				{
+					"type": "instagram_image"
+				},
+				{
+					"type": "instagram_image"
+				},
+				{
+					"type": "instagram_image"
+				},
+				{
+					"type": "instagram_image"
+				},
+				{
+					"type": "instagram_image"
+				},
+				{
+					"type": "instagram_image"
+				},
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

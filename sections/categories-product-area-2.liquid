@@ -1,0 +1,341 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+ 
+  <div class="rts-box-catagory-section  {{ bg_image_class }}"   id="section-{{ section.id }}" {{ sections_bg_image }}  data-section="CategoriesProduct_2">
+        <div class="box-catagory-inner">
+            <div class="row">
+                        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'collection_banner' -%}
+                <div class="col-xl-3 col-md-6 col-sm-6">
+                    <div class="catagory-box  {% if block.settings.bg_color_style == 'style_1' %} box1 {% elsif block.settings.bg_color_style == 'style_2' %} box2 {% elsif block.settings.bg_color_style == 'style_3' %} box3  {% elsif block.settings.bg_color_style == 'style_4' %}  box4 {% endif %}">
+                        <a href="{{ block.settings.button_title_url }}" class="picture">
+                          <img src="{{ block.settings.banner_hover_image | img_url: 'master' }}"  alt="{{ block.settings.banner_hover_image.alt }}">
+                        </a>
+          {%- if block.settings.button_title != '' -%}
+                        <a href="{{ block.settings.button_title_url }}" class="view-collection-btn">{{ block.settings.button_title }}</a>
+          {%- endif -%}
+                        <div class="contents">
+                            <div class="icon"><img src="{{ block.settings.banner_icon_image | img_url: 'thumb' }}" alt="{{ block.settings.banner_icon_image.alt }}"></div>
+                            <h2 class="box-heading">{{ block.settings.banner_title }}</h2>
+                        </div>
+                        <span class="item-update">{{ block.settings.banner_sub_title }}</span>
+                    </div>
+                </div>
+          {%- endcase -%}
+          {%- endfor -%}
+            </div>
+        </div>
+    </div>
+
+<style>
+                        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'collection_banner' -%}
+            {% if block.settings.bg_color_style == 'style_1' %}
+            .rts-box-catagory-section .catagory-box.box1::before {
+  background: {{ block.settings.banner_bg_color }};
+}   
+{% elsif block.settings.bg_color_style == 'style_2' %}
+  .rts-box-catagory-section .catagory-box.box2::before {
+  background: {{ block.settings.banner_bg_color }};
+}
+{% elsif block.settings.bg_color_style == 'style_3' %}
+            .rts-box-catagory-section .catagory-box.box3::before {
+  background: {{ block.settings.banner_bg_color }};
+}  
+{% elsif block.settings.bg_color_style == 'style_4' %}     
+              .rts-box-catagory-section .catagory-box.box4::before {
+  background: {{ block.settings.banner_bg_color }};
+}
+{% endif %}
+          {%- endcase -%}
+          {%- endfor -%}
+</style>
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Categories Product 2",
+    "settings": [
+      
+    ],
+	"blocks":[
+          {
+            "type": "collection_banner",
+            "name": "Categories banner",
+            "settings": [
+              {
+                "type": "select",
+                "id": "bg_color_style",
+                "label": "Bg Color Style",
+                "options": [
+                  {
+                    "label": "Style One",
+                    "value": "style_1"
+                  },
+                  {
+                    "label": "Style Two",
+                    "value": "style_2"
+                  },
+                  {
+                    "label": "Style Three",
+                    "value": "style_3"
+                  },
+                  {
+                    "label": "Style Four",
+                    "value": "style_4"
+                  }
+                ],
+                "default": "style_1"
+              },
+              {
+                "type": "color",
+                "id": "banner_bg_color",
+                "label": "BG Color",
+                "default": "#eeede9"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_icon_image",
+                "label": "Icon Image"
+              },
+              {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "Stationary & Gift Card"
+              },
+              {
+                "type": "text",
+                "id": "banner_sub_title",
+                "label": "Sub Title",
+                "default": "100 New Added"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_hover_image",
+                "label": "Image"
+              },
+              {
+                "type": "text",
+                "id": "button_title",
+                "label": "Button Title",
+                "default": "View Collection"
+              },
+              {
+                "type": "url",
+                "id": "button_title_url",
+                "label": "URL"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Categories Product 2",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,381 @@
+{%- if section.settings.collection_filtering_handle == 'storefront_filtering' -%}
+<div class="sidebar-wrapper shop-sidebar storefront-filter shop-side-action">
+  <form class="filter-form" name="testform" id="myform">
+    <div class="blog-sidebar sidebar-single selected-filter-value">
+      <ul class="blog-tags">
+        {%- for filter in collection.filters -%}
+        {% if filter.type == "price_range"  %}
+        {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+        <li>
+          <a class="active-filter-data-remove" href="{{ filter.url_to_remove }}">
+            {%- assign min_value = filter.min_value.value | default: 0 -%}
+            {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+            {{ min_value | money }} - {{ max_value | money }} <i class="pe-7s-close"></i>
+          </a>
+        </li>
+        {%- endif -%}
+        {% endif %}
+        {%- for filter_value in filter.active_values -%}
+        <li>
+          <a class="active-filter-data-remove" href="{{ filter_value.url_to_remove }}">
+            {{ filter_value.label }} <i class="pe-7s-close"></i>
+          </a>
+        </li>
+        {%- endfor -%}
+        {%- endfor -%}
+        <li class="active">
+          <a href="{{ collection.url }}" class="active-filters-clear">Clear all</a>
+        </li>
+      </ul>
+    </div>
+    
+    {%- for filter in collection.filters -%}
+    {%- case filter.type -%}
+    {%- when 'list' -%}
+    <div class="blog-sidebar sidebar-single action-item widget-collapse">
+      <h5 class="action-top">
+        {{ filter.label }}
+     </h5>
+      <div class="sidebar-body widget-collapse-hide">
+        <div class="filter-value-counter">
+          <span class="filter-value-selected">{{ filter.active_values.size }} selected</span>
+          {%- if filter.active_values.size > 0 -%}
+          <a href="{{ filter.url_to_remove }}" class="filter-reset-selected-value">Reset</a>
+          {%- endif -%}
+        </div>
+        <ul class="checkbox-container categories-list">
+          {%- for filter_value in filter.values -%}
+          <li>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox"
+                     name="{{ filter_value.param_name }}"
+                     value="{{ filter_value.value }}"
+                     id="Filter-{{ filter.label | handle }}-{{ forloop.index }}"
+                     {% if filter_value.active -%}checked{%- endif %}
+                    {% if filter_value.count == 0 and filter_value.active == false %}disabled{% endif %}
+                     class="custom-control-input"
+                     >
+              <label for="Filter-{{ filter.label | handle }}-{{ forloop.index }}" class="custom-control-label">{{ filter_value.label | escape }} ({{ filter_value.count }})</label>
+            </div>
+          </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+    
+    {%- when 'price_range' -%}
+    <div class="blog-sidebar action-item sidebar-single widget-collapse">
+        <h5 class="action-top">
+        {{ filter.label }}
+     </h5>
+      <div class="sidebar-body widget-collapse-hide">
+        <div class="filter-value-counter">
+          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+          <span class="filter-value-selected">
+            {%- assign min_value = filter.min_value.value | default: 0 -%}
+            {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+            Price: {{ min_value | money }} - {{ max_value | money }}
+          </span>
+          <a href="{{ filter.url_to_remove }}" class="filter-reset-selected-value">Reset</a>
+          {%- else -%}
+          <span class="filter-value-selected">{{ filter.active_values.size }} selected</span>
+          {%- endif -%}
+        </div>
+        <div class="checkbox-container sidebar-price-filter">
+          
+          <div class="filter-range-from">
+            <span>{{ cart.currency.symbol }}</span>
+            <input name="{{ filter.min_value.param_name }}"
+                   id="Filter-{{ filter.label | handle }}-{{ forloop.index }}"
+                   {% if filter.min_value.value -%}
+                   value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                   {%- endif %}
+                  type="number"
+                   placeholder="0"
+                   min="0"
+                   max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                   >
+            <label for="Filter-{{ filter.label | handle }}-{{ forloop.index }}">From</label>
+          </div>
+          <div class="filter-price-range-to">
+            <span>{{ cart.currency.symbol }}</span>
+            <input name="{{ filter.max_value.param_name }}"
+                   id="Filter-{{ filter.label | handle }}-{{ forloop.index }}"
+                   {% if filter.max_value.value -%}
+                   value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                   {%- endif %}
+                  type="number"
+                   placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                   min="0"
+                   max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                   >
+            <label for="Filter-{{ filter.label | handle }}-{{ forloop.index }}">To</label>
+          </div>
+          
+        </div>
+        <input class="mt-20 theme-default-button" type="submit" value="Filter">
+      </div>
+    </div>
+    {%- endcase -%}
+    {%- endfor -%}
+  </form>
+</div>
+
+<script>  
+  /* Slidebar collapse */ 
+  $('.widget-collapse h5').on("click", function(){
+    $(this).siblings('.widget-collapse-hide').slideToggle();
+    $(this).toggleClass('widget-collapse-show');
+  });
+
+  $('input[type="checkbox"]').click(function() {
+    setTimeout(function() {
+      $('form[name="testform"]').submit();
+    }, 500);
+  });
+  
+//   $(document).ready(function () {
+//     $('#myform').on('submit', function(e) {
+//       e.preventDefault();
+//       $.ajax({
+//         url : $(this).attr('action') || window.location.pathname,
+//         type: "GET",
+//         data: $(this).serialize(),
+//         success: function (data) {
+//           $("#form_output").html(data);
+//         },
+//         error: function (jXHR, textStatus, errorThrown) {
+//           alert(errorThrown);
+//         }
+//       });
+//     });
+//   });
+</script>
+{%- elsif section.settings.collection_filtering_handle == 'tag_filtering' -%}
+<div class="sidebar-wrapper shop-sidebar">
+  {%- for block in section.blocks -%}
+  {%- case block.type -%}
+  {%- when 'recent-view' -%}
+  {%- render 'recent-view', block: block -%}
+  {%- when 'search' -%}
+  <div class="blog-sidebar widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <div class="sidebar-serch-form  widget-collapse-hide">
+      <form action="/search" method="get" role="search">
+        <input type="hidden" name="type" value="product">
+        <input type="search" name="q" class="search-field" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+        <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+  {%- when 'category' -%}
+  <div class="blog-sidebar widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <ul class="blog-archive blog-category widget-collapse-hide">
+      {%- assign categories_list_limit = block.settings.categories_list_limit_hanlde -%}
+      {%- for c in collections limit: categories_list_limit -%}
+      <li class="{% if collection and collection.handle == c.handle %}active{% endif %}"><a href="{{ c.url }}">{{ c.title }} ({{ c.products_count }})</a></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- when 'vendor' -%}
+  <div class="blog-sidebar sidebar-single widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <div class="sidebar-body widget-collapse-hide">
+      <ul class="checkbox-container categories-list">
+        {% assign vendors_list_limit = block.settings.vendors_list_limit_hanlde %}
+        {% for product_vendor in collection.all_vendors limit: vendors_list_limit %}
+        <li>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" {% if collection.current_vendor %}checked{% endif %} class="custom-control-input">
+            <a class="custom-control-label" href="{{ product_vendor | url_for_vendor }}">{{ product_vendor }}</a>
+          </div>
+        </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+  {%- when 'type' -%}
+  <div class="blog-sidebar sidebar-single widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <div class="sidebar-body widget-collapse-hide">
+      <ul class="checkbox-container categories-list">
+        {% assign types_list_limit = block.settings.types_list_limit_hanlde %}
+        {% for product_type in collection.all_types limit: types_list_limit %}
+        <li>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" {% if collection.current_type %}checked{% endif %} class="custom-control-input">
+            <a class="custom-control-label" href="{{ product_type | url_for_type }}">{{ product_type }}</a>
+          </div>
+        </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+  {%- when 'color' -%}
+  <div class="blog-sidebar sidebar-single widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <div class="sidebar-body widget-collapse-hide">
+      <ul class="checkbox-container categories-list">
+        {%- assign tags = block.settings.color_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' -%}
+        {%- assign colors_list_limit = block.settings.colors_list_limit_hanlde -%}
+        {%- for t in tags limit: colors_list_limit -%}
+        {%- assign tag = t | strip -%}
+        {%- if current_tags contains tag -%}
+        <li>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" checked>
+            {{ tag | link_to_remove_tag: tag | replace: '<a', '<a class="custom-control-label"' }}
+          </div>
+        </li>
+        {%- elsif collection.all_tags contains tag -%}
+        <li>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input">
+            {{ tag | link_to_add_tag: tag | replace: '<a', '<a class="custom-control-label"' }}
+          </div>
+        </li>
+        {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+  {%- when 'size' -%}
+  <div class="blog-sidebar sidebar-single widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <div class="sidebar-body widget-collapse-hide">
+      <ul class="checkbox-container categories-list">
+        {%- assign tags = block.settings.size_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' -%}
+        {%- assign size_list_limit = block.settings.size_list_limit_hanlde -%}
+        {%- for t in tags limit: size_list_limit -%}
+        {%- assign tag = t | strip -%}
+        {%- if current_tags contains tag -%}
+        <li>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" checked>
+            {{ tag | link_to_remove_tag: tag | replace: '<a', '<a class="custom-control-label"' }}
+          </div>
+        </li>
+        {%- elsif collection.all_tags contains tag -%}
+        <li>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input">
+            {{ tag | link_to_add_tag: tag | replace: '<a', '<a class="custom-control-label"' }}
+          </div>
+        </li>
+        {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+  {%- when 'tag' -%}
+  <div class="blog-sidebar widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <ul class="blog-tags widget-collapse-hide">
+      {%- assign tags_list_limit = block.settings.tags_list_limit_hanlde -%}    
+      <li{% unless current_tags %} class="active"{% endunless %}>
+        {%- if collection.handle -%}
+        <a href="/collections/{{ collection.handle }}{% if collection.sort_by %}?sort_by={{ collection.sort_by }}{% endif %}">All</a>
+        {%- elsif collection.current_type -%}
+        <a href="{{ collection.current_type | url_for_type | sort_by: collection.sort_by }}">All</a>
+        {%- elsif collection.current_vendor -%}
+        <a href="{{ collection.current_vendor | url_for_vendor | sort_by: collection.sort_by }}">All</a>
+        {% endif %}
+      </li>
+      {%- for tag in collection.all_tags limit: tags_list_limit -%}
+      {%- if current_tags contains tag -%}
+      <li class="active">
+        {{ tag | link_to_remove_tag: tag }}
+      </li>
+      {%- else -%}
+      <li>
+        {{ tag | link_to_tag: tag }}
+      </li>
+      {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- when 'menu' -%}
+  <div class="blog-sidebar category-sub-menu widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <ul class="blog-archive blog-category widget-collapse-hide">
+      {%- assign menu = block.settings.menu_handle -%}
+      {%- for link in linklists[menu].links -%}
+      {%- assign childlink_handle = link.title | handle -%}
+      {%- if linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 -%}
+      <li class="has-sub {% if link.active %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a><span></span>
+        <ul>
+          {%- for childlink in linklists[childlink_handle].links -%}
+          <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </li>
+      {%- else -%}
+      <li class="{% if link.active %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- when 'banner' -%}
+  {% capture i %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+  <div class="sidebar-banner blog-sidebar widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <div class="img-container widget-collapse-hide">
+      {%- if block.settings.banner_image != blank and block.settings.banner_image_url != blank -%}
+      <a href="{{ block.settings.banner_image_url }}">
+        <img class="lazyload" data-sizes="auto" data-src="{{ block.settings.banner_image | img_url: 'grande' }}" alt="{{ block.settings.banner_image.alt }}">
+      </a>
+      {%- elsif block.settings.banner_image != blank -%}
+      <img class="lazyload" data-sizes="auto" data-src="{{ block.settings.banner_image | img_url: 'grande' }}" alt="{{ block.settings.banner_image.alt }}">
+      {%- else -%}
+      {{ 'collection-' | append: i | placeholder_svg_tag: 'banner-svg-image' }}
+      {%- endif -%}
+    </div>
+  </div>
+  {%- endcase -%}
+  {%- endfor -%}
+</div>
+<script>
+  $(".sidebar-wrapper li.active > a").removeAttr("href");
+  $('.category-sub-menu li.has-sub span').on('click', function () {
+    var element = $(this).parents('li');
+    if (element.hasClass('open')) {
+      element.removeClass('open');
+      element.find('li').removeClass('open');
+      element.find('ul').slideUp();
+    } else {
+      element.addClass('open');
+      element.children('ul').slideDown();
+      element.siblings('li').children('ul').slideUp();
+      element.siblings('li').removeClass('open');
+      element.siblings('li').find('li').removeClass('open');
+      element.siblings('li').find('ul').slideUp();
+    }
+  }); 
+  
+  /* Slidebar collapse */ 
+  $('.widget-collapse h5').on("click", function(){
+    $(this).siblings('.widget-collapse-hide').slideToggle();
+    $(this).toggleClass('widget-collapse-show');
+  });
+  
+</script>
+{%- endif -%}

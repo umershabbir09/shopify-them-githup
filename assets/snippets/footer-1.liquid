@@ -1,0 +1,199 @@
+
+<footer class="footer-widget-area" data-section="FooterSection">
+  {%- if section.settings.snow_enable -%}
+  <span class="effect-body ice_effect"></span>
+  {%- endif -%}
+  <div class="footer-top section-padding">
+    <div class="container">
+      <div class="row">
+        {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when 'about' -%}
+        {%- assign margin_top = block.settings.margin_top_enable -%}
+        <div {{ block.shopify_attributes }} class="col-sm-{{ block.settings.widget_column_sm }} col-md-{{ block.settings.widget_column_md }} col-lg-{{ block.settings.widget_column }} {% if margin_top %}mt-20{% endif %}">
+          <div class="widget-item" id="block-{{ block.id }}">
+            {%- if block.settings.logo -%}
+            <div class="widget-title">
+              <div class="widget-logo">
+                {% capture logo_size %}{{ block.settings.logo_width | escape }}x{% endcapture %}
+                <a href="{{ routes.root_url }}" class="theme-logo">
+                  <img  class="lazyload" data-sizes="auto" data-src="{{ block.settings.logo | img_url: logo_size }}" alt="{{ block.settings.logo.alt | default: shop.name }}"
+                       {%- if block.settings.ratina_logo_enable -%}
+                       srcset="{{ block.settings.logo | img_url: logo_size }} 1x, {{ block.settings.logo | img_url: logo_size, scale: 2 }} 2x"
+                       {%- endif -%}>
+                </a>
+              </div>
+            </div>
+            {%- endif -%}
+            <div class="widget-body">
+              {{ block.settings.about_content }}
+            </div>
+          </div>
+        </div>
+        <style>
+          #block-{{ block.id }} .theme-logo img{
+            max-width: {{ section.settings.logo_width }}px;
+          }
+        </style>
+        {%- when 'contact' -%}
+        {%- assign margin_top = block.settings.margin_top_enable -%}
+        <div {{ block.shopify_attributes }} class="col-sm-{{ block.settings.widget_column_sm }} col-md-{{ block.settings.widget_column_md }} col-lg-{{ block.settings.widget_column }} {% if margin_top %}mt-20{% endif %}">
+          <div class="widget-item widget-collapse">
+            {%- if block.settings.widget_title != '' -%}
+            <h6 class="widget-title">{{ block.settings.widget_title }}</h6>
+            {%- endif -%}
+            <div class="widget-body widget-collapse-hide">
+              <address class="contact-block">
+                <ul>
+                  {%- if block.settings.address != '' -%}
+                  <li><i class="pe-7s-{{ block.settings.icon_1 }}"></i> {{ block.settings.address }}</li>
+                  {%- endif -%}
+                  {%- if block.settings.email != '' -%}
+                  <li><i class="pe-7s-{{ block.settings.icon_2 }}"></i> <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }} </a></li>
+                  {%- endif -%}
+                  {%- if block.settings.phone != '' -%}
+                  <li><i class="pe-7s-{{ block.settings.icon_3 }}"></i> <a href="tel:{{ block.settings.phone }}">{{ block.settings.phone }}</a></li>
+                  {%- endif -%}
+                </ul>
+              </address>
+            </div>
+          </div>
+        </div>
+        {%- when 'menu' -%}
+        {%- assign margin_top = block.settings.margin_top_enable -%}
+        <div {{ block.shopify_attributes }} class="col-sm-{{ block.settings.widget_column_sm }} col-md-{{ block.settings.widget_column_md }} col-lg-{{ block.settings.widget_column }} {% if margin_top %}mt-20{% endif %}">
+          <div class="widget-item widget-collapse" id="block-{{ block.id }}">
+            {%- if block.settings.widget_title != '' -%}
+            <h6 class="widget-title">{{ block.settings.widget_title }}</h6>
+            {%- endif -%}
+            <div class="widget-body widget-collapse-hide">
+              <ul class="info-list">
+                {%- assign menu = block.settings.menu_handle -%}
+                {%- for link in linklists[menu].links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </div>
+        {%- unless block.settings.grid_view_enable -%}
+        <style>
+          #block-{{ block.id }} .info-list{
+            display: block;
+          }
+        </style>
+        {%- endunless -%}
+        {%- when 'social_midea' -%}
+        {%- assign margin_top = block.settings.margin_top_enable -%}
+        <div {{ block.shopify_attributes }} class="{{ block.settings.widget_column_sm }} col-md-{{ block.settings.widget_column_md }} col-lg-{{ block.settings.widget_column }} {% if margin_top %}mt-20{% endif %}">
+          <div class="widget-item widget-collapse">
+            {%- if block.settings.widget_title != '' -%}
+            <h6 class="widget-title">{{ block.settings.widget_title }}</h6>
+            {%- endif -%}
+            <div class="widget-collapse-hide">
+              {%- if block.settings.social_content != '' -%}
+              {{ block.settings.social_content }}
+              {%- endif -%}
+              <div class="widget-body social-link">
+                {% render 'social-midea', block: block %}
+              </div>
+              {%- if block.settings.app_image_1 or block.settings.app_image_2 -%}
+              <div class="app-image">
+                {%- if block.settings.app_image_1 -%}
+                <a href="{{ block.settings.app_image_1_url }}" target="_blank">
+                  <img class="lazyload" data-sizes="auto" data-src="{{ block.settings.app_image_1 | img_url: 'medium' }}" alt="{{ block.settings.app_image_1.alt }}">
+                </a>
+                {%- endif -%}
+                {%- if block.settings.app_image_2 -%}
+                <a href="{{ block.settings.app_image_2_url }}" target="_blank">
+                  <img class="lazyload" data-sizes="auto" data-src="{{ block.settings.app_image_2 | img_url: 'medium' }}" alt="{{ block.settings.app_image_2.alt }}">
+                </a>
+                {%- endif -%}
+              </div>
+              {%- endif -%}
+          	</div>
+          </div>
+        </div>
+        {%- when 'newsletter' -%}
+        {%- assign margin_top = block.settings.margin_top_enable -%}
+        <div {{ block.shopify_attributes }} class="col-sm-{{ block.settings.widget_column_sm }} col-md-{{ block.settings.widget_column_md }} col-lg-{{ block.settings.widget_column }} {% if margin_top %}mt-20{% endif %}">
+          <div class="widget-item newsletter-wrapper widget-collapse">
+            {%- if block.settings.widget_title != '' -%}
+            <h6 class="widget-title-text widget-title">{{ block.settings.widget_title }}</h6>
+            {%- endif -%}
+            <div class="widget-collapse-hide">
+              {%- if settings.newsletter_system == 'by_shopify_form' -%}
+              {%- assign formId = 'Contact_' | append: section.id -%}
+              {%- form 'customer', id: formId, class: 'newsletter-inner' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input class="news-field" type="email" name="contact[email]" id="{{ formId }}-email" value="{% if customer %}{{ customer.email }}{% endif %}"
+                     placeholder="{{ 'general.newsletter_form.newsletter_email'| t }}" aria-label="{{ 'general.newsletter_form.newsletter_email'| t }}" {% if form.errors %}aria-invalid="true"{% endif %} autocorrect="off" autocapitalize="off">
+              <button type="submit" class="news-btn" name="commit" id="subscribe2" {% if settings.privacy_policy_checbox_enable %}disabled{% endif %}>{{ settings.newsletter_button_name }}</button>
+              {%- if form.posted_successfully? -%}
+              <p class="form-message form-message--success form-success">{{ 'general.newsletter_form.confirmation'| t }}</p>
+              {%- endif -%}
+              {%- if form.errors -%}
+              <div class="form-message form-message--error">
+                {{ form.errors | default_errors }}
+              </div>
+              {%- endif -%}
+              {%- endform -%}
+              {%- elsif settings.newsletter_system == 'by_mailchimp' -%}         
+              <form class="newsletter-inner" {% if settings.newsletter_action != '' %}action="{{ settings.newsletter_action }}"{% else %}action="#"{% endif %} method="post" id="mc-form" name="mc-embedded-subscribe-form" target="_blank">
+                <input type="email" class="news-field" id="mail" value="{% if customer %}{{ customer.email }}{% endif %}" name="EMAIL" placeholder="{{ 'general.newsletter_form.newsletter_email'| t }}">
+                <button type="submit" class="news-btn" id="subscribe2" {% if settings.privacy_policy_checbox_enable %}disabled{% endif %}>{{ settings.newsletter_button_name }}</button>
+              </form>
+              {%- endif -%} 
+              {%- if block.settings.newsletter_content != '' -%}
+              <div class="newsletter-content">
+                {{ block.settings.newsletter_content }}
+              </div>
+              {%- endif -%}
+              {%- if settings.privacy_policy_checbox_enable -%}
+              <div class="privacy-policy-checkbox">
+                <input type="checkbox" id="privacyoption2">
+                {{ settings.privacy_policy_content }}
+              </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+        {%- when 'payment_image' -%}
+        {%- assign margin_top = block.settings.margin_top_enable -%}
+        <div {{ block.shopify_attributes }} class="col-sm-{{ block.settings.widget_column_sm }} col-md-{{ block.settings.widget_column_md }} col-lg-{{ block.settings.widget_column }} {% if margin_top %}mt-20{% endif %}">
+          {%- if block.settings.payment_image -%}
+          {%- comment -%}
+          <div class="footer-payment lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: block.settings.payment_image.aspect_ratio | times: 100}}%;">
+            {%- render 'responsive-image' with image: block.settings.payment_image, image_class: "lazyload-main-image", max_width: 480, max_height: '', block: block -%}
+          </div>
+          {%- endcomment -%}
+          <div class="footer-payment">
+            <img class="lazyload" data-src="{{ block.settings.payment_image | img_url: 'large' }}" alt="{{ block.settings.payment_image.alt }}" />
+          </div>
+          {%- elsif shop.enabled_payment_types -%}
+          <div class="footer-payment">
+            {%- for type in shop.enabled_payment_types -%}
+            <img class="lazyload" data-sizes="auto" data-src="{{ type | payment_type_img_url }}" height="35" alt="{{ type }}" />
+            {%- endfor -%}
+          </div>
+          {%- endif -%}
+        </div>
+        {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  {%- if section.settings.copy_ritht_text_enable -%}
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="copyright-text text-center">
+            {{ section.settings.copy_ritht_text }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+</footer>

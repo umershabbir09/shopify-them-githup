@@ -1,0 +1,275 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+  
+  <div class="rts-testimonial-section {{ bg_image_class }}" id="section-{{ section.id }}" data-section="TestimonialSection_2" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="section-inner">
+                <div class="swiper testimonialSlide">
+                    <div class="swiper-wrapper">
+              {%- for block in section.blocks -%}
+              {%- case block.type -%}
+              {%- when 'testimonial' -%}
+                        <div class="swiper-slide">
+                            <div class="slider-inner">
+                                <img class="icon" src="{% if block.settings.testimonial_image %}{{ block.settings.testimonial_image | img_url: 'compact' }}{% else %}http:\/\/via.placeholder.com\/100x100{% endif %}" alt="{{ testimonial_image.alt }}">
+                                <div class="content">
+                                    <p class="description">{{ block.settings.testionial_description }}</p>
+                                </div>
+                                <div class="author-box">
+                                    <h3 class="author-name">{{ block.settings.testionial_author }}</h3>
+                                    <p>{{ block.settings.author_post }}</p>
+                                </div>
+                            </div>
+                        </div>
+              {%- endcase -%}
+              {%- endfor -%}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Testimonial",
+    "settings": [
+	],
+	"blocks":[
+          {
+            "type": "testimonial",
+            "name": "Testimonial",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "testimonial_image",
+                "label": "Image"
+              },
+              {
+                "type": "textarea",
+                "id": "testionial_description",
+                "label": "Description",
+                "default": "“ This is genuinely the first theme I bought for which I did not have to write one line of code. I would recommend everybody to get it. “"
+              },
+              {
+                "type": "text",
+                "id": "testionial_author",
+                "label": "Name",
+                "default": "Jennifer Lopez"
+              },
+              {
+                  "type": "text",
+                  "id": "author_post",
+                  "label": "Author Post",
+                  "default": "Head Of Idea"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 60
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#F5F5F5"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Testimonial 2",
+		  "category": "5. about",
+		  "blocks":[
+				{
+					"type": "testimonial"
+				},
+				{
+					"type": "testimonial"
+				},
+				{
+					"type": "testimonial"
+				},
+				{
+					"type": "section_background"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,567 @@
+{%- if section.settings.delivery_date_enable -%}
+{{ '//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' | stylesheet_tag }}
+{{ '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js' | script_tag }}
+{%- endif -%}
+
+<!-- PAGE SECTION START -->
+<div class="cart-page theme-default-margin" id="section-{{ section.id }}">
+  <div class="container">
+    {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate class="cart" name="cart-update-form">
+      <div class="row">
+        <div class="col-lg-12 col-12">
+          <div class="cart-table table-responsive mb-40">
+            <table>
+              <thead>
+                <tr>
+                  <th class="pro-thumbnail">{{ section.settings.table_image_title }}</th>
+                  <th class="pro-title">{{ section.settings.table_product_title }}</th>
+                  <th class="pro-price">{{ section.settings.table_price_title }}</th>
+                  <th class="pro-quantity">{{ section.settings.table_quantity_title }}</th>
+                  <th class="pro-subtotal">{{ section.settings.table_total_title }}</th>
+                  <th class="pro-remove">{{ section.settings.table_reomove_title }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in cart.items %}
+                <tr>
+                  <td class="pro-thumbnail"><a href="{{ item.url }}"><img src="{{ item | img_url: 'compact' }}" alt="{{ item.title | escape }}" /></a></td>
+                  <td class="pro-title">
+                    <a href="{{ item.url }}">{{ item.product.title }}</a>
+                    {%- unless item.variant.title contains 'Default' -%}
+                    <span>{{ item.variant.title }}</span>
+                    {%- endunless -%}
+                    {% if section.settings.cart_vendor_enable %}
+                    <p>{{ item.vendor }}</p>
+                    {% endif %}
+
+                    {%- for property in item.properties -%}
+                      {%- assign property_first_char = property.first | slice: 0 -%}
+                      {%- if property.last != blank and property_first_char != '_' -%}
+                        <div class="product-option">
+                          <dt>{{ property.first }}:</dt>
+                          <dd>
+                            {%- if property.last contains '/uploads/' -%}
+                              <a href="{{ property.last }}" class="link" target="_blank">
+                                {{ property.last | split: '/' | last }}
+                              </a>
+                            {%- else -%}
+                              {{ property.last }}
+                            {%- endif -%}
+                          </dd>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                  </td>
+                  <td class="pro-price"><span class="amount">{{ item.original_price | money }}</span></td>
+                  <td class="pro-quantity">
+                    <div class="product-quantity quantity">
+                      <input type="number" min="1" step="1" value="{{ item.quantity }}" name="updates[]" />
+                    </div>
+                  </td>
+                  <td class="pro-subtotal">{{ item.original_line_price | money }}</td>
+                  <td class="pro-remove"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="pe-7s-trash"></i></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-lg-12 col-12">
+          <div class="cart-buttons">
+            {%- if section.settings.update_button_title != '' -%}
+            <input class="theme-default-button" name="update" type="submit" value="{{ section.settings.update_button_title }}" />
+            {%- endif -%}
+            {%- if section.settings.continue_shopping_title != '' -%}
+            <a class="theme-default-button" href="javascript:history.back()">{{ section.settings.continue_shopping_title }}</a>
+            {%- endif -%}
+            {%- if section.settings.clear_cart_title != '' -%}
+            <a class="theme-default-button" href="{{ routes.cart_clear_url }}">{{ section.settings.clear_cart_title }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="col-lg-12 col-12">
+          <div class="cart-payment">
+            <div class="row">
+              <div class="col-lg-6">
+                {%- if section.settings.delivery_date_enable -%}
+                {% render 'delivery-date' %}
+                
+                {%- if section.settings.weekend_handle == 'default' -%}
+                <script>
+                  jQuery(function() {
+                    jQuery("#date").datepicker( { 
+                      minDate: +1, 
+                      maxDate: '+2M',
+                      beforeShowDay: jQuery.datepicker.noWeekends
+                    } );
+                  });
+                </script>
+                {%- elsif section.settings.weekend_handle == 'customize' -%}
+                <script>
+                  $(document).ready( function() { 
+                    $(function() { 
+                      $("#date").datepicker({ 
+                        minDate: +1, 
+                        maxDate: '+2M', 
+                        beforeShowDay: function(day){ var day = day.getDay(); return [({{ section.settings.weekend }})]; } 
+                      }); 
+                    }); 
+                  });
+                </script>
+                {%- endif -%}
+                {%- endif -%}
+                
+                {%- unless section.settings.cart_feature == 'without_both' -%}
+                {%- if section.settings.cart_feature == 'cart_note' -%}
+                <div class="cart-coupon">
+                  <h3>{{ section.settings.cart_note_title }}</h3>
+                  <textarea name="note" class="" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+                </div>
+                {%- endif -%}
+                {%- if section.settings.cart_feature == 'shipping_calculator' -%}
+                {%- render 'cart-shipping-calculator' -%}
+                {%- endif -%}
+                {%- endunless -%}
+              </div>
+              <div class="col-lg-6{% if section.settings.cart_feature == 'without_both' %} offset-lg-6{% endif %}">
+                <div class="cart-total">
+                  <h3>{{ section.settings.cart_total_heading_title }}</h3>
+                  <table>
+                    <tbody>
+                      <tr class="cart-subtotal">
+                        <th>{{ section.settings.cart_subtotal_title }}</th>
+                        <td><span class="amount"><span id="bk-cart-subtotal-price">{{ cart.total_price | money }}</span></span></td>
+                      </tr>
+                      <tr class="order-total">
+                        <th>{{ section.settings.cart_total_title }}</th>
+                        <td>
+                          <strong><span class="amount"><span id="bk-cart-subtotal-price">{{ cart.total_price | money }}</span></span></strong>
+                        </td>
+                      </tr>											
+                    </tbody>
+                  </table>
+                  {%- if cart.total_discounts > 0 -%}
+                  {% assign savings = cart.total_discounts | money %}
+                  <p>
+                    <span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span>
+                  </p>
+                  {%- endif -%}
+                  <div class="proceed-to-checkout">
+                    <button type="submit" class="theme-default-button" name="checkout">{{ section.settings.checkout_button_title }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    {%- else -%}
+    <div class="row">
+      <div class="col-lg-12 col-12">
+        <div class="empty-cart-page">
+          <h2>{{ section.settings.shopping_cart_title }}</h2>
+          <h3>{{ section.settings.cart_empty_title }}</h3>
+          <p>{{ section.settings.cart_continue_title }} <a href="{{ routes.all_products_collection_url }}">{{ section.settings.here_title }}</a></p>
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+<!-- PAGE SECTION END -->
+
+
+{%- if section.settings.cart_feature == 'shipping_calculator' -%}
+<script id="shipping-calculator-response-template" type="text/template">
+  <p id="shipping-rates-feedback" <% if (success) { %> class="success" <% } else { %> class="error" <% } %>>
+  <% if (success) { %>
+    <% if (rates.length > 1) { %> 
+    There are <%= rates.length %> shipping rates available for <%= address %>, starting at <%= rates[0].price %>.
+    <% } else if (rates.length == 1) { %>
+    There is one shipping rate available for <%= address %>.
+    <% } else { %>
+    We do not ship to this destination.
+    <% } %>
+  <% } else { %>
+    <%= errorFeedback %>
+  <% } %>
+  </p>
+  <ul id="shipping-rates">
+    <% for (var i=0; i<rates.length; i++) { %>
+    <li><%= rates[i].name %> at <%= rates[i].price %></li>
+    <% } %>
+  </ul> 
+</script>
+
+<!--[if lte IE 8]> 
+<style> #shipping-calculator { display: none; } </style> 
+<![endif]--> 
+
+{{ '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js' | script_tag }}
+{{ '/services/javascripts/countries.js' | script_tag }}
+{% comment %}Here include must be shopify common js. but if already has your ( theme.liquid ) it don't need here. {% endcomment %}
+{{ 'cart-shipping-calculator.min.js' | asset_url | script_tag }}
+
+<script>
+  Shopify.Cart.ShippingCalculator.show( {
+    submitButton: "{{ settings.shipping_calculator_submit_button_label | default: 'Calculate shipping' }}", 
+    submitButtonDisabled: "{{ settings.shipping_calculator_submit_button_label_disabled | default: 'Calculating...' }}"{% if shop.customer_accounts_enabled and customer %},
+    customerIsLoggedIn: true{% endif %},
+    moneyFormat: {{ shop.money_with_currency_format | json }}
+  } );
+</script>
+{%- endif -%}
+
+
+<!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+<!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+
+<script>
+  setTimeout(function() {
+    $('.product-quantity span').click(function() {
+      $('form[name="cart-update-form"]').submit();
+    });
+  }, 500);
+</script>
+
+<script>
+  $('.product-quantity').append('<span class="dec qtybtn">-</span><span class="inc qtybtn">+</span>');
+  $('.qtybtn').on('click', function() {
+    var $button = $(this);
+    var oldValue = $button.parent().find('input').val();
+    if ($button.hasClass('inc')) {
+      var newVal = parseFloat(oldValue) + 1;
+    } else {
+      // Don't allow decrementing below zero
+      if (oldValue > 0) {
+        var newVal = parseFloat(oldValue) - 1;
+      } else {
+        newVal = 0;
+      }
+    }
+    $button.parent().find('input').val(newVal);
+  });
+</script>
+
+<style>
+  @media (max-width: 767px) {
+    /* Force table to not be like tables anymore */
+    .cart-table table, .cart-table thead, .cart-table tbody, .cart-table th, .cart-table td, .cart-table tr { 
+      display: block; 
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .cart-table thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    .cart-table tr { border-bottom: 1px solid #ccc; }
+
+    .cart-table td { 
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee; 
+      position: relative;
+      padding-left: 50%; 
+    }
+
+    .cart-table td:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding-right: 0;
+      white-space: nowrap;
+    }
+
+    /*
+    Label the data
+    
+    td:nth-of-type(1):before { content: "{{ section.settings.table_image_title }}"; }
+    td:nth-of-type(2):before { content: "{{ section.settings.table_product_title }}"; }
+    td:nth-of-type(3):before { content: "{{ section.settings.table_price_title }}"; }
+    td:nth-of-type(4):before { content: "{{ section.settings.table_quantity_title }}"; }
+    td:nth-of-type(5):before { content: "{{ section.settings.table_total_title }}"; }
+    td:nth-of-type(6):before { content: "{{ section.settings.table_reomove_title }}"; }
+    */
+    .cart-table table tbody tr td.pro-thumbnail {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-thumbnail {
+      width: auto;
+      max-width: 100%;
+      min-width: 100%;
+      text-align: center;
+    }
+    .cart-table table tbody tr td.pro-thumbnail a {
+      display: block;
+      min-width: unset;
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-thumbnail a img {
+      width: auto;
+      max-width: 100%;
+    }
+    .cart-table table tbody tr td.pro-title {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-price {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-quantity {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-subtotal {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-remove {
+      width: auto;
+    }
+    .cart-table table tbody tr td.pro-remove a {
+      width: auto;
+    }
+    .cart-table table tbody tr td {
+      padding: 5px 5px;
+    }
+    .cart-table td.pro-thumbnail a {
+      border: 0px solid #eee;
+    }
+    .cart-table table tbody tr td {
+      border-bottom: 0px solid #ddd;
+    }
+  }
+</style>
+
+
+
+
+{% schema %}
+  {
+    "name": "Cart Page",
+    "settings": [
+		{
+			"type": "header",
+			"content": "Table Heading Title"
+		},
+		{
+			"type": "text",
+			"id": "table_image_title",
+			"label": "Image Heading Title",
+			"default": "Image"
+		},
+		{
+			"type": "text",
+			"id": "table_product_title",
+			"label": "Product Heading Title",
+			"default": "Product"
+		},
+		{
+			"type": "text",
+			"id": "table_price_title",
+			"label": "Price Heading Title",
+			"default": "Price"
+		},
+		{
+			"type": "text",
+			"id": "table_quantity_title",
+			"label": "Quantity Heading Title",
+			"default": "Quantity"
+		},
+		{
+			"type": "text",
+			"id": "table_total_title",
+			"label": "Total Heading Title",
+			"default": "Total"
+		},
+		{
+			"type": "text",
+			"id": "table_reomove_title",
+			"label": "Remove Heading Title",
+			"default": "Remove"
+		},
+		{
+			"type": "header",
+			"content": "Button Title"
+		},
+		{
+			"type": "text",
+			"id": "update_button_title",
+			"label": "Update Button Title",
+			"default": "Update Cart"
+		},
+		{
+			"type": "text",
+			"id": "continue_shopping_title",
+			"label": "Continue Shopping Button Title",
+			"default": "Continue Shopping"
+		},
+		{
+			"type": "text",
+			"id": "clear_cart_title",
+			"label": "Clear Cart Button Title",
+			"default": "Clear Cart"
+		},
+		{
+			"type": "checkbox",
+			"id": "cart_vendor_enable",
+			"label": "Show Product Vendor",
+			"default": false
+		},
+		{
+			"type": "header",
+			"content": "Delivery Date"
+		},
+		{
+			"type": "checkbox",
+			"id": "delivery_date_enable",
+			"label": "Show Delivery Date",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "delivery_title",
+			"label": "Delivery Date Title",
+			"default": "Delivery Date"
+		},
+		{
+			"type": "text",
+			"id": "delivery_date_title",
+			"label": "Delevery Date Picker Title",
+			"default": "Pick a delivery date:"
+		},
+		{
+			"type": "text",
+			"id": "delivery_note",
+			"label": "Delivery Note",
+			"default": "We do not deliver during the week-end."
+		},
+		{
+            "type": "radio",
+            "id": "weekend_handle",
+            "label": "Weekend",
+            "options": [
+                {
+                    "value": "default",
+                    "label": "Default"
+                },
+                {
+                    "value": "customize",
+                    "label": "Customize"
+                }
+            ],
+            "default": "default"
+        },
+		{
+			"type": "textarea",
+			"id": "weekend",
+			"label": "Set Weekend",
+			"default": "day != 1 && day != 3 && day != 5",
+			"info" : "The days of the week being 0 = Sun, 1 = Mon, 2 = Tues, 3 = Wed, 4 = Thurs, 5 = Fri and 6 = Saturdays"
+		},
+		{
+			"type": "header",
+			"content": "Cart Note / Shipping Calculator"
+		},
+		{
+            "type": "radio",
+            "id": "cart_feature",
+            "label": "Show Any One",
+            "options": [
+                {
+                    "value": "shipping_calculator",
+                    "label": "Shipping Calculator"
+                },
+                {
+                    "value": "cart_note",
+                    "label": "Cart Note"
+                },
+                {
+                    "value": "without_both",
+                    "label": "Without Both"
+                }
+            ],
+            "default": "cart_note",
+            "info": "The 'Shipping Calculator' It's not applicable in mobile device"
+        },
+		{
+			"type": "text",
+			"id": "shipping_calculator_heading",
+			"label": "Shipping Calculator Title",
+			"default": "Get shipping estimates"
+		},
+		{
+			"type": "text",
+			"id": "shipping_calculator_button_title",
+			"label": "Shipping Calculator Button Title",
+			"default": "Calculate shipping"
+		},
+		{
+			"type": "text",
+			"id": "cart_note_title",
+			"label": "Cart Note Title",
+			"default": "Special instructions for seller"
+		},
+		{
+			"type": "header",
+			"content": "Cart Totals"
+		},
+		{
+			"type": "text",
+			"id": "cart_total_heading_title",
+			"label": "Cart Total Heading Title",
+			"default": "Cart Totals"
+		},
+		{
+			"type": "text",
+			"id": "cart_subtotal_title",
+			"label": "Cart Subtotal Title",
+			"default": "Subtotal"
+		},
+		{
+			"type": "text",
+			"id": "cart_total_title",
+			"label": "Cart Total Title",
+			"default": "Total"
+		},
+		{
+			"type": "text",
+			"id": "checkout_button_title",
+			"label": "Checkout Button Title",
+			"default": "Proceed to Checkout"
+		},
+		{
+			"type": "header",
+			"content": "Cart Empty"
+		},
+		{
+			"type": "text",
+			"id": "shopping_cart_title",
+			"label": "Shopping Cart Title",
+			"default": "Shopping Cart"
+		},
+		{
+			"type": "text",
+			"id": "cart_empty_title",
+			"label": "Cart Empty Title",
+			"default": "Your cart is currently empty."
+		},
+		{
+			"type": "text",
+			"id": "cart_continue_title",
+			"label": "Continue Browsing Title",
+			"default": "Continue browsing"
+		},
+		{
+			"type": "text",
+			"id": "here_title",
+			"label": "Here Title",
+			"default": "here"
+		}
+	]
+  }
+{% endschema %}

@@ -1,0 +1,193 @@
+  {% liquid
+  assign theme_rtl = false
+  if settings.rtl_enable and settings.langauges_rtl == blank
+    assign theme_rtl = true
+  endif
+
+  if settings.rtl_enable and settings.langauges_rtl != blank
+    assign rtl_languages = settings.langauges_rtl | split: ','
+    for language in rtl_languages
+      if language == request.locale.iso_code
+        assign theme_rtl = true
+      endif
+    endfor
+  endif
+%}
+
+<section class="related-products pb-80 product-recommendations" id="section-{{ section.id }}" data-section="RelatedProduct" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.related_product_limit_handle }}&intent=related">
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+  <div class="container">
+    {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+    <div class="row">
+      <div class="col-12">
+        <!-- section title start -->
+        <div class="section-title text-center">
+          {%- if section.settings.section_title != '' -%}
+          <h2 class="title">{{ section.settings.section_title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_sub_title != '' -%}
+          <p class="sub-title">{{ section.settings.section_sub_title }}</p>
+          {%- endif -%}
+        </div>
+        <!-- section title start -->
+      </div>
+    </div>
+    {%- endif -%}
+    <div class="row">
+      <div class="col-12">
+        {%- capture data_slick_activation -%}
+        data-slick='{
+              {%- if section.settings.autoplay_true -%}
+              "autoplay": true,
+              "autoplaySpeed": {{ section.settings.autoplay_speed }},
+              {%- endif -%}
+              {%- if theme_rtl -%}
+              "rtl": true,
+              {%- endif -%}
+             "slidesToShow": {{ section.settings.product_column }},
+              "responsive":[
+                  {"breakpoint":992, "settings": {"slidesToShow": {{ section.settings.product_column_md }}} },
+                  {"breakpoint":768, "settings": {"slidesToShow": {{ section.settings.product_column_sm }}, "slidesToScroll": {{ section.settings.product_column_sm }}, "arrows": false, "dots": true} },
+                  {"breakpoint":480, "settings": {"slidesToShow": {{ section.settings.product_column_sm }}, "slidesToScroll": {{ section.settings.product_column_sm }}, "arrows": false, "dots": true} }
+                ] 
+
+        }'
+        {%- endcapture -%}
+        <div class="product-carousel-6 slick-row-10 slick-arrow-style slick-dot-style slick-dot-style-2" {% if settings.rtl_enable %}dir="rtl"{% endif %} {{ data_slick_activation }}>
+          {%- for product in recommendations.products -%}
+          {%- render 'product-grid-item', product: product -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+</section>
+
+{% javascript %}
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+
+          // product carousel active
+          $('.product-carousel-6').slick({
+              adaptiveHeight: true,
+              prevArrow: '<button type="button" class="slick-prev"><i class="pe-7s-angle-left"></i></button>',
+              nextArrow: '<button type="button" class="slick-next"><i class="pe-7s-angle-right"></i></button>'
+          });  
+                
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+  observer.observe(productRecommendationsSection);
+{% endjavascript %}
+
+
+
+{% schema %}
+  {
+    "name": "Product recommendations",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title Here"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Section Sub Title Here"
+      	},
+		{
+            "type": "header",
+            "content": "Product Options"
+        },
+		{
+            "type": "range",
+            "id": "related_product_limit_handle",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Product Limit",
+            "default": 4
+        },
+		{
+			"type": "header",
+            "content": "Product Column"
+        },
+		{
+            "type": "range",
+            "id": "product_column",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Desktop",
+            "default": 4
+        },
+		{
+            "type": "range",
+            "id": "product_column_md",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Tablet",
+            "default": 3
+        },
+		{
+            "type": "range",
+            "id": "product_column_sm",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Mobile",
+            "default": 2
+        },
+		{
+			"type": "header",
+            "content": "Options"
+        },
+		{
+          "type": "checkbox",
+          "id": "autoplay_true",
+          "label": "Autoplay Enable",
+          "default": false
+      	},
+		{
+            "type": "range",
+            "id": "autoplay_speed",
+            "min": 1000,
+            "max": 9000,
+            "step": 1000,
+            "label": "Autoplay Speed",
+            "unit": "ms",
+            "default": 7000
+        }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,93 @@
+<header class="header-area {% if section.settings.header_style == 'header_style_1' %}header-wide{% elsif section.settings.header_style == 'header_style_3' %}header-3{% endif %}" id="section-{{ section.id }}" data-section="HeaderSection">
+  <div class="main-header d-none d-lg-block">
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'header_top' -%}
+    {%- render 'header-top', block: block -%}
+    {%- endcase -%}
+    {%- endfor -%}
+    <!-- header middle area start -->
+    <div class="header-main-area{% if section.settings.sticky_header_enable %} sticky{% endif %}">
+      <div class="container">
+        <div class="row align-items-center position-relative">
+          <!-- start logo area -->
+          <div class="col-lg-2 col-xl-2">
+            <div class="logo">
+              {%- render 'header-logo' -%}
+            </div>
+          </div>
+          <!-- start logo area -->
+          <!-- main menu area start -->
+          <div class="col-lg-7 col-xl-6 position-static">
+            <div class="main-menu-area">
+              <div class="main-menu">
+                {%- render 'main-menu' -%}
+              </div>
+            </div>
+          </div>
+          <!-- main menu area end -->
+          <!-- mini cart area start -->
+          {%- if section.settings.header_style == 'header_style_1' -%}
+          <div class="col-lg-3 col-xl-4">
+            <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
+              <div class="header-search-container">
+                <predictive-search id="predictive-search-toggle" search-open="false">
+                  <form action="{{ routes.search_url }}" method="get" role="search" class="header-search-box d-lg-none d-xl-block animated jackInTheBox">
+                    <input
+                           id="Search"
+                           type="search"
+                           name="q"
+                           value="{{ search.terms | escape }}"
+                           {%- if settings.predictive_search_enabled -%}
+                           role="combobox"
+                           aria-expanded="false"
+                           aria-owns="predictive-search-results-list"
+                           aria-controls="predictive-search-results-list"
+                           aria-haspopup="listbox"
+                           aria-autocomplete="list"
+                           autocorrect="off"
+                           autocomplete="off"
+                           autocapitalize="off"
+                           spellcheck="false"
+                           {%- endif -%}
+                           class="header-search-field"
+                           placeholder="{{ 'general.search.placeholder' | t }}"
+                           >
+                    <button type="submit" class="header-search-btn"><i class="pe-7s-search"></i></button>
+                    <input name="options[prefix]" type="hidden" value="last">
+
+                    {%- if settings.predictive_search_enabled -%}
+                    <div id="predictive-search" tabindex="-1"></div>
+                    {%- endif -%}
+                  </form>
+                </predictive-search>
+              </div>
+              <div class="header-configure-area">
+                <ul class="nav justify-content-end">
+                  {%- render 'header-action-button' -%}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {%- elsif section.settings.header_style == 'header_style_3' -%}
+          <div class="col-lg-3 col-xl-4">
+            <div class="header-right d-flex align-items-center justify-content-end">
+              <div class="header-configure-area">
+                <ul class="nav justify-content-end">
+                  <li class="header-search-container mr-0">
+                    <button class="search-trigger d-block"><i class="pe-7s-search"></i></button>
+                    {%- render 'main-search' -%}
+                  </li>
+                  {%- render 'header-action-button' -%}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {%- endif -%}
+          <!-- mini cart area end -->
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- render 'mobile-header' -%}
+</header>

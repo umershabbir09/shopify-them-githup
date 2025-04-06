@@ -1,0 +1,315 @@
+{%- for block in section.blocks -%}
+{%- case block.type -%}
+{%- when 'vendor' -%}
+<div class="manufacturer-name" {{ block.shopify_attributes }}>
+  <span>{{ product.vendor }}</span>
+  {%- if collection.previous_product or collection.next_product -%}
+  <div class="product-nav">
+    <ul>
+      {%- if collection.previous_product and block.settings.prev_title != '' -%}
+      <li class="prev">
+        <a href="{{ collection.previous_product.url }}" data-toggle="tooltip" data-placement="top" title="{{ collection.previous_product.title | truncate: 25 }}">{{ block.settings.prev_title }}</a>
+      </li>
+      {%- endif -%} 
+      {%- if collection.next_product and block.settings.next_title != '' -%}
+      <li class="next">
+        <a href="{{ collection.next_product.url }}" data-toggle="tooltip" data-placement="top" title="{{ collection.next_product.title | truncate: 25 }}">{{ block.settings.next_title }}</a>
+      </li>
+      {%- endif -%} 
+    </ul>
+  </div>
+  {%- endif -%}
+</div>
+
+{%- when 'title' -%}
+<h1 {{ block.shopify_attributes }} id="popup_cart_title" class="product-name">{{ product.title }}</h1>
+
+{%- when 'review' -%}
+<div class="ratings d-flex" {{ block.shopify_attributes }}>
+  {%- if block.settings.review_handle == 'shopify_review' -%}
+  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+  {%- elsif block.settings.review_handle == 'ali_review' -%}
+  <div product-id="{{ product.id }}" class="alr-display-review-badge"></div>
+  {%- endif -%}
+</div>
+
+{%- when 'sku' -%}
+{%- if current_variant.sku.size > 0 -%}
+<div class="vendor-sku" {{ block.shopify_attributes }}> 
+  <span class="product-sku">{{ block.settings.product_sku_title }} <span class="variant-sku">{{ current_variant.sku }}</span></span>
+</div>
+{%- endif -%}
+
+{%- when 'price' -%}
+<div class="price-box-1" {{ block.shopify_attributes }}>
+  <div class="price-box">
+    {%- if product.compare_at_price_max > product.price -%}
+    <del><span id="ComparePrice" class="price-old">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span></del>
+    {%- endif -%}
+    <span id="ProductPrice" class="price-regular">{{ product.selected_or_first_available_variant.price | money }}</span>
+    {%- if on_sale -%}
+    {%- if settings.save_title != '' or settings.sale_percent_enable -%}
+    <span class="single-product-label discount">
+      {%- if settings.save_title != '' -%}
+      <span class="sale-title">{{ settings.save_title }} </span>
+      {%- endif -%}
+      {%- if settings.sale_percent_enable -%}
+      <span class="percent-count save__price_box">-<span class="sale__save--percent">{{ product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100.0 | divided_by: product.selected_or_first_available_variant.compare_at_price | money_without_currency | replace: ',', '.' | times: 100 | remove: '.0'}}</span>%</span>
+      {%- endif -%}
+    </span>
+    {%- endif -%}
+    {%- endif -%}
+  </div>
+
+  <!-- For Unit Price  -->
+  <small class="unit_price_box caption {% if available == false or current_variant.unit_price_measurement == nil %} hidden{% endif %}">
+    <dd>
+      <span id="product__unit_price">{{- current_variant.unit_price | money -}}</span>
+      <span aria-hidden="true">/</span>
+      <span id="product__unit_price_value">
+        {%- if current_variant.unit_price_measurement.reference_value != 1 -%}
+        {{- current_variant.unit_price_measurement.reference_value -}}
+        {%- endif -%}
+
+        {{ current_variant.unit_price_measurement.reference_unit }}
+      </span>
+    </dd>
+  </small>
+  <!-- For Unit Price  -->
+</div>
+
+{%- when 'inventory' -%}
+{%- unless product.tags contains 'comingsoon' -%}         
+<script>       
+  var inv_qty = {};
+  {%- for var in product.variants -%}
+  inv_qty[{{- var.id -}}] = {{ var.inventory_quantity | default: 0 }};
+  {%- endfor -%}
+</script>            
+{%- if current_variant.inventory_management == "shopify" -%}
+<div class="product-variant-inventory" {{ block.shopify_attributes }}>
+  <span class="inventory-title">{{ block.settings.availability_title }}</span> 
+  <span class="variant-inventory">{{ current_variant.inventory_quantity }} {{ block.settings.left_in_stock_title }}</span>
+</div>
+{%- endif -%}
+{%- endunless -%}
+
+{%- when 'description' -%}
+{%- assign short_description = product.metafields.short_description -%}
+{%- assign key = 'description' -%}
+{%- if short_description != empty -%}
+<div class="product-description pro-desc metafield-description" {{ block.shopify_attributes }}>
+  <p>{{ short_description.description | metafield_tag }}</p>
+</div>
+{%- else -%}
+{%- unless block.settings.product_description_handle == 'without_description' -%}
+<div class="product-description pro-desc" {{ block.shopify_attributes }}>
+  {%- if block.settings.product_description_handle == 'full_description' -%}
+  {{ product.description | split: '[short_description]' | first | split: '[product_description]' | first | split: '[new_products]' | first | split: '[product_video]' | first | split: '[affiliate_link]' | first | split: '[countdown]' | first | split: '[unique_description_1]' | first | split: '[unique_description_2]' | first | split: '[unique_description_3]' | first }}
+  {%- elsif block.settings.product_description_handle == 'short_description' -%}
+  {%- if product.description contains '[short_description]' -%} 
+  {%- assign short_description_first = product.description | split:'[/short_description]' | first -%}
+  {%- assign short_description_final = short_description_first | split:'[short_description]' | last -%}
+  {{ short_description_final }}
+  {%- else -%}
+  {%- assign truncateletter_count = block.settings.truncateletter_count_handle -%}
+  {{ product.description | truncate: truncateletter_count | split: '[short_description]' | first | split: '[product_description]' | first | split: '[new_products]' | first | split: '[product_video]' | first | split: '[affiliate_link]' | first | split: '[countdown]' | first | split: '[unique_description_1]' | first | split: '[unique_description_2]' | first | split: '[unique_description_3]' | first }}
+  {%- endif -%}
+  {%- endif -%}
+</div>
+{%- endunless -%}
+{%- endif -%}
+
+{%- when 'variants' -%}
+{%- render 'product-variant', variant: variant, current_variant: current_variant, block: block -%}
+
+{%- when 'countdown' -%}
+
+{%- if product.metafields.countdown != empty -%}
+<div class="single-product-countdown" {{ block.shopify_attributes }}>
+  <h5 class="offer-text">{{ block.settings.countdown_heading }}</h5>
+  <div class="product-countdown" data-countdown="{{ product.metafields.countdown.date }}"></div> 
+</div>
+{%- elsif product.description contains '[countdown]' -%}
+<div class="single-product-countdown" {{ block.shopify_attributes }}>
+  <h5 class="offer-text">{{ block.settings.countdown_heading }}</h5>
+  {%- assign count_down_first = product.description | split:'[/countdown]' | first -%}
+  {%- assign count_down_final = count_down_first | split:'[countdown]' | last -%}
+  <div class="product-countdown" data-countdown="{{ count_down_final }}"></div> 
+</div>
+{%- endif -%}
+
+{%- when 'action_buttons' -%}
+<div {{ block.shopify_attributes }}>
+  {%- unless product.tags contains 'comingsoon' or product.tags contains 'contact-us' -%}
+  {%- if product.description contains '[affiliate_link]' -%}
+  {%- render 'affiliate-product-cart-action', product: product -%}
+  {%- else -%}
+
+  {% if product.gift_card? %}
+  {%- render 'gift-card-recipient-form', product: product, form: form, block: block, section: section -%}     
+  {% endif %}
+  
+  <div class="quantity-cart-box d-flex align-items-center">
+    <h6 class="option-title quantity-selector">{{ block.settings.quantity_title }}</h6>
+    <div class="quantity quantity-selector">
+      <div class="pro-qty">
+        <input type="number" min="1" step="1" value="1" name="quantity">
+      </div>
+    </div>
+    {%- render 'product-cart-action' with product as product, current_variant: current_variant, block: block -%}
+  </div>
+  {%- if product.available and block.settings.dynamic_checkout_button_enable -%}
+  {{ form | payment_button }}
+  {%- if block.settings.buy_it_now_button_title != '' -%}
+  <script>
+    $( document ).ready(function() {
+      /* for desktop view */
+      setTimeout(function(){
+        $('.shopify-payment-button__button').text('{{ block.settings.buy_it_now_button_title }}');
+                                                  },1000),
+          /* for mobile view */
+          setTimeout(function(){
+          $('.shopify-payment-button__button--unbranded').text('{{ block.settings.buy_it_now_button_title }}');
+                                                               },2000)
+        });
+  </script>
+  {%- endif -%}
+  {%- endif -%}
+  {%- endif -%}
+  {%- endunless -%}
+  {%- if product.tags contains 'contact-us' -%}
+  <div class="quantity-cart-box d-flex align-items-center">
+    <div class="product-cart-action action_link">
+      <a class="ajax-spin-cart btn btn-cart2" href="mailto:{{ shop.email }}">{{ settings.contact_button_title }}</a> 
+    </div>
+  </div>
+  {%- endif -%}
+
+  <div class="useful-links">
+    {%- unless product.tags contains 'comingsoon' -%}
+    {%- if settings.compare_product_enalbe -%}
+    <a href="#" class="compare" data-pid="{{ product.handle  }}" data-toggle="tooltip" data-placement="top" title="{{ block.settings.compare_button_title }}">
+      {{ settings.compare_button_title }}
+    </a>
+    <style>
+      .product-details-des .useful-links a.compare::after {
+        content: "{{ block.settings.compare_button_title }}";
+      }
+    </style>
+    {%- endif -%}
+    {%- endunless -%} 
+    {%- if settings.wishlist_enable -%}
+    {%- render 'wishlist-button' with product as product -%}
+    {%- endif -%}
+    {%- if block.settings.contact_form_enable and product.available -%}
+    <a href="#ask-question" data-placement="top" title="{{ block.settings.contact_form_button_title }}" data-toggle="modal" data-target="#ask-question" href="javascript:void(0);">
+      <i class="pe-7s-mail"></i> {{ block.settings.contact_form_button_title }}
+    </a>
+    {%- endif -%}
+  </div>
+</div>
+{%- when 'share_and_payment' -%}
+<div {{ block.shopify_attributes }}>
+  {%- if block.settings.social_share_enable -%}
+  {%- render 'social-share', share_title: product.title, share_permalink: product.url, share_image: product -%}
+  {%- endif -%}
+  {%- if block.settings.payment_option_enable -%}
+  <div class="custom-payment-options">
+    {%- if block.settings.payment_information != '' -%}
+    <div>
+      {{ block.settings.payment_information }}
+    </div>
+    {%- endif -%}
+    {%- if block.settings.payment_image -%}
+    <img src="{{ block.settings.payment_image | img_url: '1024x1024' }}" alt="{{ block.settings.payment_image.alt }}">
+    {%- endif -%}
+    {%- render 'payment-icon', block: block -%}
+  </div>
+  {%- endif -%}
+</div>
+{%- when 'complementary' -%}
+<div
+  class="product-complementary"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent=complementary"
+>
+  {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+      <h6>Pair it with</h6>
+      <div class="product-complementary__carousel slick-row-10 slick-arrow-style slick-dot-style slick-dot-style-2">
+        {%- for product in recommendations.products -%}
+          {% render 'product-grid-item-small-2' with product as product %}
+        {%- endfor -%}
+      </div>
+  {%- endif -%}
+</div>
+
+<script>
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-complementary');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+
+          // product carousel active
+          $('.product-complementary__carousel').slick({
+        		speed: 1000,
+        		autoplay: false,
+        		slidesToShow: 3,
+        		adaptiveHeight: true,
+        		prevArrow: '<button type="button" class="slick-prev"><i class="pe-7s-angle-left"></i></button>',
+        		nextArrow: '<button type="button" class="slick-next"><i class="pe-7s-angle-right"></i></button>',
+        		responsive: [{
+        			breakpoint: 992,
+        			settings: {
+        				slidesToShow: 3
+        			}
+        		},
+        		{
+        			breakpoint: 768,
+        			settings: {
+        				slidesToShow: 2,
+        				arrows: true
+        			}
+        		},
+        		{
+        			breakpoint: 480,
+        			settings: {
+        				slidesToShow: 2,
+        				arrows: true
+        			}
+        		}]
+        	});
+          
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-complementary');
+  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+  observer.observe(productRecommendationsSection);
+</script>
+
+{%- when 'text' -%}
+<p class="product-text" {{ block.shopify_attributes }}>
+  {{ block.settings.text }}
+</p>
+
+{%- when '@app' -%}
+{%- render block -%}
+{% endcase %}
+{% endfor %}

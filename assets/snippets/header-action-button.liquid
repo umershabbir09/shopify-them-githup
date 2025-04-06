@@ -1,0 +1,41 @@
+{%- if section.settings.user_menu_enable -%}
+<li class="user-hover">
+  <a href="#">
+    <i class="pe-7s-user"></i>
+  </a>
+  <ul class="dropdown-list">
+    {%- assign user_menu = section.settings.user_menu_handle -%}
+    {%- for link in linklists[user_menu].links -%}
+    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+    {%- endfor -%}
+    {%- if shop.customer_accounts_enabled and customer and section.settings.logout_title != '' -%}
+    <li>
+      <a href="{{ routes.account_logout_url }}">{{ section.settings.logout_title }}</a>
+    </li>
+    {%- elsif shop.customer_accounts_enabled and section.settings.login_title != '' -%}
+    <li>
+      <a href="{{ routes.account_login_url }}">{{ section.settings.login_title }}</a>
+    </li>
+    {%- endif -%}
+  </ul>
+</li>
+{%- endif -%}
+{%- if section.settings.wishlit_icon_enable -%}
+<li>
+  <a href="{{ pages[section.settings.wishlist_page_handle].url }}">
+    <i class="pe-7s-like"></i>
+  </a>
+</li>
+{%- endif -%}
+{%- if section.settings.cart_icon_enable -%}
+<li>
+  <a href="javascript: void(0)" class="minicart-btn">
+    {%- if section.settings.cart_icon_select == 'shopbag' -%}
+    <i class="pe-7s-shopbag"></i>
+    {%- elsif section.settings.cart_icon_select == 'cart' -%}
+    <i class="pe-7s-cart"></i>
+    {%- endif -%}
+    <div class="notification"><span class="bigcounter">{{ cart.item_count }}</span></div>
+  </a>
+</li>
+{%- endif -%}

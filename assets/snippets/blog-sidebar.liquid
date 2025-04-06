@@ -1,0 +1,241 @@
+<aside class="blog-sidebar-wrapper">
+  {%- for block in section.blocks -%}
+  {%- case block.type -%}
+  {%- when 'search' -%} 
+  <div class="blog-sidebar widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.widget_title != '' -%}
+    <h5 class="title">{{ block.settings.widget_title }}</h5>
+    {%- endif -%}
+    <div class="sidebar-serch-form widget-collapse-hide">
+      <form action="/search" method="get" role="search">
+        <input type="hidden" name="type" value="article">
+        <input type="search" name="q" class="search-field" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+        <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+  {%- when 'menu' -%}
+  <div class="blog-sidebar category-sub-menu widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.menu_title != '' -%}
+    <h5 class="title">{{ block.settings.menu_title }}</h5>
+    {%- endif -%}
+    <ul class="blog-archive blog-category widget-collapse-hide">
+      {%- assign menu = block.settings.menu_handle -%}
+      {%- for link in linklists[menu].links -%}
+      {%- assign childlink_handle = link.title | handle -%}
+      {%- if linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 -%}
+      <li class="has-sub {% if link.active %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a><span></span>
+        <ul>
+          {%- for childlink in linklists[childlink_handle].links -%}
+          <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </li>
+      {%- else -%}
+      <li class="{% if link.active %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- when 'archive' -%}
+  <div class="blog-sidebar widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.archive_title != '' -%}	
+    <h5 class="title">{{ block.settings.archive_title }}</h5>
+    {%- endif -%}
+    <div class="blog-archive widget-collapse-hide pt-0">
+      {% capture ddmm %}{{ 'now' | date: "%B %Y" }}{% endcapture %}
+      {% capture month %}{{ 'now' | date: "%B" }}{% endcapture %}
+      {% capture year %}{{ 'now' | date: "%Y" }}{% endcapture %}
+
+      {% case month %}
+      {% when 'January' %}{% assign k = 1 %}
+      {% when 'February' %}{% assign k = 2 %}
+      {% when 'March' %}{% assign k = 3 %}
+      {% when 'April' %}{% assign k = 4 %}
+      {% when 'June' %}{% assign k = 5 %}
+      {% when 'July' %}{% assign k = 6 %}
+      {% when 'August' %}{% assign k = 7 %}
+      {% when 'September' %}{% assign k = 8 %}
+      {% when 'October' %}{% assign k = 9 %}
+      {% when 'November' %}{% assign k = 10 %}
+      {% when 'December' %}{% assign k = 11 %}
+      {% endcase %}
+
+      {% for i in (1..k) %}
+      {% case month %}
+      {% when 'January' %}{% assign previous_month = 'December' %}
+      {% when 'February' %}{% assign previous_month = 'January' %}
+      {% when 'March' %}{% assign previous_month = 'February' %}
+      {% when 'April' %}{% assign previous_month = 'March' %}
+      {% when 'May' %}{% assign previous_month = 'April' %}
+      {% when 'June' %}{% assign previous_month = 'May' %}
+      {% when 'July' %}{% assign previous_month = 'June' %}
+      {% when 'August' %}{% assign previous_month = 'July' %}
+      {% when 'September' %}{% assign previous_month = 'August' %}
+      {% when 'October' %}{% assign previous_month = 'September' %}
+      {% when 'November' %}{% assign previous_month = 'October' %}
+      {% when 'December' %}{% assign previous_month = 'November' %}
+      {% endcase %}
+      <dl>
+        <dt>
+          {% assign blogPresent = 0 %}
+          {% for article in blogs[blog.handle].articles limit: 10 %}
+          {% capture date %}
+          {{ article.published_at | date: "%B %Y" }}
+          {% endcapture %}
+          {% assign checkDate = month | append: ' ' | append: year %}
+          {% if date contains checkDate %}
+          {% assign blogPresent = 1 %}
+          {% endif %}
+          {% endfor %}
+
+          {% if blogPresent == 1 %}
+          {{ month }} {{year}}
+          {% else %}
+
+          {% endif %}
+
+        </dt>
+        <dd>
+          <ul class="archive-sidebar">
+            {% for article in blogs[blog.handle].articles limit: 10 %}
+            {% capture date %}
+            {{ article.published_at | date: "%B %Y" }}
+            {% endcapture %}
+            {% assign checkDate = month | append: ' ' | append: year %}
+            {% if date contains checkDate %}
+            <li>{{ article.title | link_to: article.url }}</li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </dd>
+      </dl>
+      {% assign month = previous_month %}
+      {% endfor %}
+
+      {% assign prevYearsMonths = 'December' %}
+      {% assign year = year | minus: 1 %}
+      {% for y in (1..15) %}
+
+      {% for i in (1..12) %}
+      {% case prevYearsMonths %}
+      {% when 'January' %}{% assign previous_month = 'December' %}
+      {% when 'February' %}{% assign previous_month = 'January' %}
+      {% when 'March' %}{% assign previous_month = 'February' %}
+      {% when 'April' %}{% assign previous_month = 'March' %}
+      {% when 'May' %}{% assign previous_month = 'April' %}
+      {% when 'June' %}{% assign previous_month = 'May' %}
+      {% when 'July' %}{% assign previous_month = 'June' %}
+      {% when 'August' %}{% assign previous_month = 'July' %}
+      {% when 'September' %}{% assign previous_month = 'August' %}
+      {% when 'October' %}{% assign previous_month = 'September' %}
+      {% when 'November' %}{% assign previous_month = 'October' %}
+      {% when 'December' %}{% assign previous_month = 'November' %}
+      {% endcase %}
+      {% assign test = prevYearsMonths | append: ' ' | append: year %}
+      <dl>
+        <dt>
+
+          {% assign blogPresent = 0 %}
+          {% for article in blogs[blog.handle].articles limit: 10 %}
+          {% capture date %}
+          {{ article.published_at | date: "%B %Y" }}
+          {% endcapture %}
+          {% assign checkDate = prevYearsMonths | append: ' ' | append: year %}
+          {% if date contains checkDate %}
+          {% assign blogPresent = 1 %}
+          {% endif %}
+          {% endfor %}
+
+          {% if blogPresent == 1 %}
+          {{ prevYearsMonths }} {{year}}
+          {% else %}
+
+          {% endif %}
+        </dt>
+        <dd>
+          <ul class="archive-sidebar">
+            {% for article in blogs[blog.handle].articles limit: 10 %}
+            {% capture date %}
+            {{ article.published_at | date: "%B %Y" }}
+            {% endcapture %}
+            {% if date contains test %}
+            <li>{{ article.title | link_to: article.url }}</li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </dd>
+      </dl>
+      {% assign prevYearsMonths = previous_month %}
+      {% endfor %}
+
+      {% assign year = year | minus: 1 %}
+      {% endfor %}
+    </div>
+  </div>
+  {%- when 'recent_post' -%}
+  <div class="blog-sidebar widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.recent_post_title != blank -%}
+    <h5 class="title">{{ block.settings.recent_post_title }}</h5>
+    {%- endif -%}
+    <div class="recent-post widget-collapse-hide">
+      {%- assign recent_post_limit = block.settings.recent_post_limit_handle -%}
+        {%- for article in blogs[blog.handle].articles limit: recent_post_limit -%}
+      <div class="recent-post-item">
+        <figure class="product-thumb">
+          <a href="{{ article.url }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+            {%- render 'responsive-image' with image: article.image, image_class: "lazyload-main-image", max_width: 70, max_height: 50 -%}
+          </a>
+        </figure>
+        <div class="recent-post-description">
+          <div class="product-name">
+            <h6><a href="{{ article.url }}">{{ article.title }}</a></h6>
+            <p>{{ article.published_at | date: "%b %d, %Y" }}</p>
+          </div>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- when 'tag' -%}
+  {%- if blog.all_tags.size > 0 -%}
+  <div class="blog-sidebar widget-collapse" {{ block.shopify_attributes }}>
+    {%- if block.settings.blog_tags_title != blank -%}
+    <h5 class="title">{{ block.settings.blog_tags_title }}</h5>
+    {%- endif -%}
+    <ul class="blog-tags widget-collapse-hide">
+      {%- assign tags_list_limit = block.settings.blog_tags_list_limit_handle -%}
+      {%- for tag in blog.all_tags limit: tags_list_limit -%}
+      <li><a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="{% if current_tags contains tag %}active{% endif %}">{{ tag }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
+  {%- endcase -%}
+  {%- endfor -%}
+</aside>
+
+<script>
+  $(".sidebar-widget li.active a").removeAttr("href");
+  $('.category-sub-menu li.has-sub span').on('click', function () {
+    var element = $(this).parents('li');
+    if (element.hasClass('open')) {
+      element.removeClass('open');
+      element.find('li').removeClass('open');
+      element.find('ul').slideUp();
+    } else {
+      element.addClass('open');
+      element.children('ul').slideDown();
+      element.siblings('li').children('ul').slideUp();
+      element.siblings('li').removeClass('open');
+      element.siblings('li').find('li').removeClass('open');
+      element.siblings('li').find('ul').slideUp();
+    }
+  });
+  
+  /* Slidebar collapse */ 
+  $('.widget-collapse h5').on("click", function(){
+    $(this).siblings('.widget-collapse-hide').slideToggle();
+    $(this).toggleClass('widget-collapse-show');
+  });
+</script>

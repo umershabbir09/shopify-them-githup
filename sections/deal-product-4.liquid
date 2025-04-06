@@ -1,0 +1,604 @@
+     {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+ <div class="rts-deal-section section-gap {{ bg_image_class }}"   id="section-{{ section.id }}" {{ sections_bg_image }}>
+        <div class="container position-relative">
+            <div class="section-header section-header4">
+                <div class="flex-wrapper">
+                    <span class="section-title section-title-2 mb--5">{{ section.settings.section_title }}</span>
+                    <div class="countdown" id="countdown">
+                        <ul>
+                            <li><span id="days"></span>D</li>
+                            <li><span id="hours"></span>H</li>
+                            <li><span id="minutes"></span>M</li>
+                            <li><span id="seconds"></span>S</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="{{ section.settings.button_title_url }}" class="go-btn">{{ section.settings.button_title }} <i class="fal fa-long-arrow-right"></i></a>
+            </div>
+            <div class="">
+                <div class="">
+                    <div class="">
+                        <div class="deal-box">
+                            <div class="deal-box-inner">
+
+                              
+                                <div class="deal-product">
+                                    <div class="filter-buttons">
+                    {%- assign i = 1 -%}
+                    {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                    {%- when 'tab_with_product' -%}
+                    {%- assign tab_product = collections[block.settings.tab_product_handle] -%}
+                    {%- if tab_product == empty -%}
+                                        <div class="filter-btn {% if forloop.first == true %}active{% endif %}" data-show=".tab-{{ i }}">
+                                          <img src="{{ block.settings.tab_image | img_url: 'large' }}" alt="{{ block.settings.tab_image.alt }}">
+                                        </div>
+                    {%- assign i = i | plus: 1 -%}
+                    {%- else -%}
+                                        <div class="filter-btn  {% if forloop.first == true %} active{% endif %}" data-show=".tab-{{ block.id }}-{{ tab_product.title | handle }}">
+                                          <img src="{{ block.settings.tab_image | img_url: 'large' }}" alt="{{ block.settings.tab_image.alt }}">
+                                        </div>
+                    {%- endif -%}
+                    {%- endcase -%}
+                    {%- endfor -%}
+                                    </div>
+                                    <div class="product-area">
+                                      
+            {%- assign i = 1 -%}
+            {%- for block in section.blocks -%}
+            {%- case block.type -%}
+            {%- when 'tab_with_product' -%}
+            {%- assign tab_product = collections[block.settings.tab_product_handle] -%}
+            {%- assign product_limit = section.settings.product_limit_handle -%}
+            {%- if tab_product == empty -%}
+                                        <div class="product detail-product tab-{{ i }} filterd-items    {% if forloop.first == true %}  {% else %} hide {% endif %}">
+                                           
+                {%- for i in (1..product_limit) -%}
+                {% capture a %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                                          <div class="product-thumb">
+                          {%- assign product_item = "product-" | append: a  -%}
+                          {{ product_item | placeholder_svg_tag: 'product-svg-image' }}
+                                            </div>
+                                            <div class="contents">
+                                                <h2 class="product-title">Dragon Touch Max10 Tablet Android 10.0 OS</h2>
+                                                <span class="product-price">$129.99 <span
+                                                        class="old-price">$349.99</span></span>
+                                                <div class="product-buttons">
+                                                    <button class="select-option-btn">
+                                                      <i class="fal fa-shopping-cart mr--5"></i> Select Option
+                                                    </button>
+                                                    <button class="wishlist-btn"><i class="rt-heart"></i></button>
+                                                    <button class="exchange-btn">
+                                                      <i class="fal fa-exchange"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            </div>
+                {%- endfor -%} 
+            {%- assign i = i | plus: 1 -%}
+            {%- else -%}
+                                        <div class="product detail-product tab-{{ block.id }}-{{ tab_product.title | handle }} filterd-items   {% if forloop.first == true %}  {% else %} hide {% endif %}">
+                                          
+                {%- assign product_column = section.settings.product_column_handle -%}
+                {%- for product in tab_product.products limit: product_limit -%}
+                                            <div class="product-thumb">
+                                               <a href="{{ product.url | within: collection }}">
+                                                     <img class="popup_cart_image" src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+                                                </a>
+                                            </div>
+                                            <div class="contents">
+         {%- assign truncate_count = settings.truncate_count_handle -%}
+                                                <h2 class="product-title">
+                                                {%- if settings.truncate_count_enable -%}
+                                                {{ product.title | truncate: truncate_count }}
+                                                {%- else -%}
+                                                {{ product.title }}
+                                                {%- endif -%}
+                                                </h2>
+                                                <span class="product-price">{{ product.variants.first.price | money }}
+      {%- if product.variants.first.compare_at_price > product.variants.first.price -%}
+                                                  <span class="old-price">{{ product.variants.first.compare_at_price | money }}</span>
+      {%- endif -%}
+                                                </span>
+                                              
+    {%- if settings.product_action_button_enable -%}
+                                                <div class="product-buttons">
+
+                                                  {%- if product.available -%}
+                                                  {%- if product.variants.size > 1 -%}
+                                                  <a href="{{ product.url | within: collection }}" class="select-option-btn">
+                                                    <span>
+                                                      <span><i class="fal fa-shopping-cart mr--5"></i>{{ settings.select_option_title }}</span>
+                                                    </span>
+                                                  </a>
+                                                  {%- else -%}
+                                                  {%- if settings.product_cart_type == 'ajax_cart_drawer' -%}
+                                                  <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart ajax-spin-cart-drawer select-option-btn">
+                                                    <span>
+                                                      <span class="cart-title"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.cart_button_title }}</span>
+                                                      <span class="cart-loading"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.wait_title }}</span>
+                                                      <span class="cart-added"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.added_title }}</span>
+                                                      <span class="cart-unavailable"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.unavailable_title }}</span>
+                                                    </span>
+                                                  </a>
+                                                  {%- elsif settings.product_cart_type == 'ajax_spin_cart' -%}
+                                                  <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart  select-option-btn">
+                                                    <span>
+                                                      <span class="cart-title"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.cart_button_title }}</span>
+                                                      <span class="cart-loading"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.wait_title }}</span>
+                                                      <span class="cart-added"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.added_title }}</span>
+                                                      <span class="cart-unavailable"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.unavailable_title }}</span>
+                                                    </span>
+                                                  </a>
+                                                  {%- elsif settings.product_cart_type == 'ajax_popup_cart' -%}
+                                                  <a href="javascript:void(0);" onclick="{{ func }}; return false;" class=" select-option-btn>
+                                                    <span>
+                                                      <span class="cart-title"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.cart_button_title }}</span>
+                                                    </span>
+                                                  </a>
+                                                  {%- elsif settings.product_cart_type == 'without_ajax_cart' -%}
+                                                  <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                                    <select name="id" style="display:none;">
+                                                      {% for variant in product.variants %}
+                                                      <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+                                                      {% endfor %}
+                                                    </select>
+                                                    <button type="submit" class=" select-option-btn">
+                                                      <span>
+                                                        <span class="cart-title"><i class="fal fa-shopping-cart mr--5"></i>{{ settings.cart_button_title }}</span>
+                                                      </span>
+                                                    </button>
+                                                  </form>
+                                                  {%- endif -%}
+                                                  {%- endif -%}
+                                                  {%- else -%}
+                                                  <button class="cart-disable select-option-btn">
+                                                    <span class="cart-text"><i class="fal fa-shopping-cart  mr--5"></i>{{ settings.soldout_button_title }}</span>
+                                                  </button>
+                                                  {%- endif -%}
+                                                  
+                                                    {%- if settings.wishlist_enable -%}
+                                                    {%- if product.handle != blank -%}
+                                                    <a class="action-wishlist tile-actions--btn flex wishlist-btn wishlist" href="javascript: void(0)" button-wishlist data-product-handle="{{ product.handle }}" data-toggle="tooltip" data-placement="left" title="{{ settings.wishlist_title }}">
+                                                      <span class="add-wishlist"><i class="rt-heart"></i></span>
+                                                      <span class="loading-wishlist"><i class="pe-7s-settings"></i></span>
+                                                      <span class="remove-wishlist"><i class="pe-7s-close"></i></span>
+                                                    </a>
+                                                    {%- endif -%}
+                                                    {%- endif -%}
+                                                    {%- if settings.compare_product_enalbe -%}
+                                                    <a class="exchange-btn"  class="compare" data-pid="{{ product.handle  }}">
+                                                      <i class="fal fa-exchange"></i>
+                                                    </a>
+                                                    {%- endif -%}
+                                                  
+                                                </div>
+                                        {%- endif -%}
+                                              
+                                            </div>
+                {%- endfor -%}
+                                        </div>
+            {%- endif -%}
+            {%- endcase -%}
+            {%- endfor -%}
+                                      
+                                    </div>
+                                </div>
+                              
+                                <div class="side-box">
+        {%- assign featured_product = collections[section.settings.featured_product_handle] -%}
+        {%- assign featured_product_limit = section.settings.featured_product_limit_handle -%}
+        {%- if featured_product == empty -%}
+                        {%- assign a = 1 -%}
+          {%- for i in (1..featured_product_limit) -%}
+          {%- assign product_item = "product-" | append: a  -%}
+          {%- assign a = a | plus: 1 -%}
+                                    <div class="product">
+                                        <div class="product-thumb">
+                                          {{ product_item | placeholder_svg_tag: 'product-svg-image' }}
+                                        </div>
+                                        <div class="contents">
+                                            <span class="product-catagory">Electronics</span>
+                                            <h2 class="product-title">Samsung Ultra Wide 92” Monitor</h2>
+                                            <span class="product-price">$230,00
+                                              <spanclass="old-price">$460,00</span>
+                                            </span>
+                                            <button class="cart-btn"><i class="fal fa-shopping-cart"></i></button>
+                                        </div>
+                                    </div>
+          {%- if a == 7 -%}
+          {%- assign a = 1 -%}
+          {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+                      {%- for product in featured_product.products limit: featured_product_limit -%}
+
+                                    <div class="product">
+                                        <div class="product-thumb">
+                                           <a href="{{ product.url | within: collection }}">
+                                             <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+                                           </a>
+                                        </div>
+                                        <div class="contents">
+                                              {%- if settings.grid_product_type_enable -%}
+                                            <span class="product-catagory">{{ product.type }}</span>
+                                            {%- endif -%}
+         {%- assign truncate_count = settings.truncate_count_handle -%}
+                                                <h2 class="product-title">
+                                                {%- if settings.truncate_count_enable -%}
+                                                {{ product.title | truncate: truncate_count }}
+                                                {%- else -%}
+                                                {{ product.title }}
+                                                {%- endif -%}
+                                                </h2>
+                                            <span class="product-price">{{ product.variants.first.price | money }}
+                                            {%- if product.variants.first.compare_at_price > product.variants.first.price -%}
+                                            <span class="old-price">{{ product.variants.first.compare_at_price | money }}</span>
+                                            {%- endif -%}
+                                            </span>
+
+                                          
+    {%- if settings.product_action_button_enable -%}
+                                          
+                                              {%- unless product.description contains '[affiliate_link]' -%}
+                                              {%- if product.tags contains 'comingsoon' -%}
+                                              <div class="cta-single cart-btn">
+                                                <a href="{{ product.url | within: collection }}" class="">
+                                                  <span class="cart-text"><i class="fal fa-shopping-cart"></i></span>
+                                                </a>
+                                              </div>
+                                              {%- elsif product.tags contains 'contact-us' -%}
+                                              <div class="cta-single cart-btn">
+                                                <a href="{{ product.url | within: collection }}" class="">
+                                                  <span class="cart-text"><i class="fal fa-shopping-cart"></i></span>
+                                                </a>
+                                              </div>
+                                              {%- else -%}
+                                              <div class="cta-single cart-btn">
+                                                {%- if product.available -%}
+                                                {%- if product.variants.size > 1 -%}
+                                                <a href="{{ product.url | within: collection }}" class="">
+                                                  <i class="fal fa-shopping-cart"></i></span>
+                                                </a>
+                                                {%- else -%}
+                                                {%- if settings.product_cart_type == 'ajax_cart_drawer' -%}
+                                                <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart ajax-spin-cart-drawer cart-btn">
+                                                  <span>
+                                                    <span class="cart-title"><i class="fal fa-shopping-cart"></i></span>
+                                                    <span class="cart-loading"> <i class="fa fa-circle-o-notch fa-spin"></i></span>
+                                                    <span class="cart-added"><i class="fa fa-check"></i></span>
+                                                    <span class="cart-unavailable"><i class="fa fa-times"></i></span>
+                                                  </span>
+                                                </a>
+                                                {%- elsif settings.product_cart_type == 'ajax_spin_cart' -%}
+                                                <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart cart-btn">
+                                                  <span>
+                                                    <span class="cart-title"><i class="fal fa-shopping-cart"></i></span>
+                                                    <span class="cart-loading"> <i class="fa fa-circle-o-notch fa-spin"></i></span>
+                                                    <span class="cart-added"><i class="fa fa-check"></i></span>
+                                                    <span class="cart-unavailable"><i class="fa fa-times"></i></span>
+                                                  </span>
+                                                </a>
+                                                {%- elsif settings.product_cart_type == 'ajax_popup_cart' -%}
+                                                <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="cart-btn">
+                                                  <span>
+                                                    <span class="cart-title"><i class="fal fa-shopping-cart"></i></span>
+                                                  </span>
+                                                </a>
+                                                {%- elsif settings.product_cart_type == 'without_ajax_cart' -%}
+                                                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                                  <select name="id" style="display:none;">
+                                                    {% for variant in product.variants %}
+                                                    <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+                                                    {% endfor %}
+                                                  </select>
+                                                  <button type="submit" class="cart-btn">
+                                                    <span>
+                                                      <span class="cart-title"><i class="fal fa-shopping-cart"></i></span>
+                                                    </span>
+                                                  </button>
+                                                </form>
+                                                {%- endif -%}
+                                                {%- endif -%}
+                                                {%- else -%}
+                                                <button class="cart-disable cart-btn">
+                                                  <span class="cart-text"><i class="fal fa-shopping-cart"></i></span>
+                                                </button>
+                                                {%- endif -%}
+                                              </div>
+                                              {%- endif -%}
+                                              {%- endunless -%}
+      
+                                              {%- endif -%}
+                                        </div>
+                                    </div>
+                                  
+          {%- endfor -%}
+        {%- endif -%}
+                                                
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Deal Product 4",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Super Deals Of The Week"
+      	},
+		{
+          "type": "textarea",
+          "id": "button_title",
+          "label": "Button Title",
+          "default": "All Products"
+      	},	
+		{
+          "type": "url",
+          "id": "button_title_url",
+          "label": "URL"
+      	},
+		{
+			"type": "header",
+            "content": "Tab Product"
+        },
+		{
+            "type": "range",
+            "id": "product_limit_handle",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Limit",
+            "default": 1
+        },
+		{
+		  "type": "header",
+          "content": "Product"
+        },
+       {
+          "type": "collection",
+            "id": "featured_product_handle",
+            "label": "Select Collection"
+        },
+        {
+            "type": "range",
+            "id": "featured_product_limit_handle",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Limit",
+            "default": 1
+        }
+    ],
+	"blocks":[
+	   {
+          "type": "tab_with_product",
+          "name": "Tab with product",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "tab_image",
+              "label": "Image",
+              "info": "Recommended Size: 80 x 80px"
+            },
+			{
+			  "type": "collection",
+			  "id": "tab_product_handle",
+			  "label": "Tab With Product"
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Deal Product 4",
+		  "category": "3. collections",
+		  "blocks":[
+            
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

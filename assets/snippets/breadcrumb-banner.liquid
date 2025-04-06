@@ -1,0 +1,19 @@
+<div class="breadcrumb-area breadcrumbs-section">
+  <div class="breadcrumbs overlay-bg">
+    {%- if section.settings.breadcrumb_snow_enable -%}
+    <span class="effect-body ice_effect"></span>
+    {%- endif -%}
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="breadcrumb-wrap">
+            {%- if section.settings.breadcrub_page_title_enable -%}
+            <h2 class="breadcrumbs-title text-left">{{ page_title | truncate: 25 }}</h2>
+            {%- endif -%}
+            {%- render 'breadcrumb-builtin' -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

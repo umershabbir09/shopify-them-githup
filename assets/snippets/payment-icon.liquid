@@ -1,0 +1,74 @@
+<div class="methods-of-payment">  
+  {%- if shop.enabled_payment_types and block.settings.payment_icon == 'automatic' -%}
+  {%- for type in shop.enabled_payment_types -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ type | payment_type_img_url }}" height="35" alt="{{ type }}" />
+  {%- endfor -%}
+  {%- elsif block.settings.payment_icon == 'custom_icon' -%}
+
+  {%- if block.settings.amazon_payments -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'amazon_payments' | payment_type_img_url }}" height="35" alt="amazon payments" />
+  {%- endif -%}
+  {%- if block.settings.american_express -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'american_express' | payment_type_img_url }}" height="35" alt="american express" />
+  {%- endif -%}
+  {%- if block.settings.apple_pay -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'apple_pay' | payment_type_img_url }}" height="35" alt="apple pay" />
+  {%- endif -%}
+  {%- if block.settings.bitcoin -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'bitcoin' | payment_type_img_url }}" height="35" alt="bitcoin" />
+  {%- endif -%}
+  {%- if block.settings.dankort -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'dankort' | payment_type_img_url }}" height="35" alt="dankort" />
+  {%- endif -%}
+  {%- if block.settings.diners_club -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'diners_club' | payment_type_img_url }}" height="35" alt="diners club" />
+  {%- endif -%}
+  {%- if block.settings.discover -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'discover' | payment_type_img_url }}" height="35" alt="discover" />
+  {%- endif -%}
+  {%- if block.settings.dogecoin -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'dogecoin' | payment_type_img_url }}" height="35" alt="dogecoin" />
+  {%- endif -%}
+  {%- if block.settings.dwolla -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'dwolla' | payment_type_img_url }}" height="35" alt="dwolla" />
+  {%- endif -%}
+  {%- if block.settings.forbrugsforeningen -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'forbrugsforeningen' | payment_type_img_url }}" height="35" alt="forbrugsforeningen" />
+  {%- endif -%}
+  {%- if block.settings.google_pay -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'google_pay' | payment_type_img_url }}" height="35" alt="google pay" />
+  {%- endif -%}
+  {%- if block.settings.jcb -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'jcb' | payment_type_img_url }}" height="35" alt="jcb" />
+  {%- endif -%}
+  {%- if block.settings.klarna -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'klarna' | payment_type_img_url }}" height="35" alt="klarna" />
+  {%- endif -%}
+  {%- if block.settings.litecoin -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'litecoin' | payment_type_img_url }}" height="35" alt="litecoin" />
+  {%- endif -%}
+  {%- if block.settings.maestro -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'maestro' | payment_type_img_url }}" height="35" alt="maestro" />
+  {%- endif -%}
+  {%- if block.settings.master -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'master' | payment_type_img_url }}" height="35" alt="master" />
+  {%- endif -%}
+  {%- if block.settings.paypal -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'paypal' | payment_type_img_url }}" height="35" alt="paypal" />
+  {%- endif -%}
+  {%- if block.settings.shopify_pay -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'shopify_pay' | payment_type_img_url }}" height="35" alt="shopify pay" />
+  {%- endif -%}
+  {%- if block.settings.sofort -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'sofort' | payment_type_img_url }}" height="35" alt="sofort" />
+  {%- endif -%}
+  {%- if block.settings.visa -%}
+  <img class="lazyload" data-sizes="auto" data-src="{{ 'visa' | payment_type_img_url }}" height="35" alt="visa" />
+  {%- endif -%}
+  {%- endif -%}
+</div>
+
+<style>
+  .methods-of-payment img { padding: 0.2em; }
+  .lt-ie9 .methods-of-payment, .ie8 .methods-of-payment, .oldie .methods-of-payment { display: none; }
+</style>

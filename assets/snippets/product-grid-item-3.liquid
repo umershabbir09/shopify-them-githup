@@ -1,0 +1,166 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- if product.available -%}
+{%- assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" -%}
+{%- endif -%} 
+
+<div class="product-item element-item1 {{ variant.id }}">
+    <a  href="{{ product.url | within: collection }}"  class="product-image image-hover-variations">
+        {% if product.images.size > 1 %}
+          <div class="image-vari1 image-vari">
+        <img class="popup_cart_image" src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+          </div>
+        {% for image in product.images limit: 1  offset: 1 %} 
+          <div class="image-vari2 image-vari">
+        <img src="{{ image.src | img_url : 'grande' }}" alt="{{ product.image.alt | escape }}">
+           </div>
+        {% endfor %}
+        {% else %}
+          
+          <div class="image-vari1 image-vari">
+        <img class="popup_cart_image" src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+            </div>
+        {% endif %}
+      </a>
+      
+    <div class="bottom-content">
+      <div class="star-rating">
+               <!-- Start of Judge.me code -->
+            <div class='jdgm-widget jdgm-preview-badge'>
+              {{ product.metafields.judgeme.badge }}
+            </div>
+          <!-- End of Judge.me code -->
+                                </div>
+      
+         {%- assign truncate_count = settings.truncate_count_handle -%}
+      <a class="product-name popup_cart_title" href="{{ product.url | within: collection }}">
+        {%- if settings.truncate_count_enable -%}
+        {{ product.title | truncate: truncate_count }}
+        {%- else -%}
+        {{ product.title }}
+        {%- endif -%}
+      </a>
+        <div class="action-wrap">
+            <span class="price">{{ product.variants.first.price | money }}</span>
+      {%- if product.variants.first.compare_at_price > product.variants.first.price -%}
+      <span class="price-old"><del>{{ product.variants.first.compare_at_price | money }}</del></span>
+      {%- endif -%}
+        </div>
+    </div>
+  
+    {%- if settings.product_action_button_enable -%}
+    <div class="quick-action-button">
+      
+      {%- unless product.tags contains 'comingsoon' -%}
+      {%- if settings.compare_product_enalbe -%}
+        <div class="cta-single cta-plus">
+      <a href="#" class="compare" data-pid="{{ product.handle  }}"><i class="rt-plus"></i></a>
+        </div>
+      {%- endif -%}
+      {%- if settings.product_quickview_enalbe -%}
+      {%- unless product.description contains '[affiliate_link]' or product.tags contains 'contact-us' or template == 'product' or recommendations.performed -%}
+        <div class="cta-single cta-quickview">
+      <a class="action-plus product-details-popup-btn" title="{{ settings.quickview_title }}" data-toggle="modal" data-target="#quickViewModal" href="javascript:void(0);" 
+         onclick="quiqview('{{ product.handle | handleize }}')"><span data-toggle="tooltip" data-placement="left" title="{{ settings.quickview_title }}"><i class="far fa-eye"></i></span>
+      </a>
+        </div>
+      {%- endunless -%}
+      {%- endif -%}
+      {%- endunless -%}
+
+      {%- if settings.wishlist_enable -%}
+      {%- if product.handle != blank -%}
+         <div class="cta-single cta-wishlist">
+<a class="action-wishlist tile-actions--btn flex wishlist-btn wishlist" href="javascript: void(0)" button-wishlist data-product-handle="{{ product.handle }}" data-toggle="tooltip" data-placement="left" title="{{ settings.wishlist_title }}">
+  <span class="add-wishlist"><i class="far fa-heart"></i></span>
+  <span class="loading-wishlist"><i class="pe-7s-settings"></i></span>
+  <span class="remove-wishlist"><i class="pe-7s-close"></i></span>
+</a>
+         </div>
+{%- endif -%}
+      {%- endif -%}
+
+      {%- unless product.description contains '[affiliate_link]' -%}
+    {%- if product.tags contains 'comingsoon' -%}
+    <div class="cta-single cta-addtocart">
+      <a href="{{ product.url | within: collection }}" class="">
+        <span class="cart-text"><i class="rt-basket-shopping"></i></span>
+      </a>
+    </div>
+    {%- elsif product.tags contains 'contact-us' -%}
+    <div class="cta-single cta-addtocart">
+      <a href="{{ product.url | within: collection }}" class="">
+        <span class="cart-text"><i class="rt-basket-shopping"></i></span>
+      </a>
+    </div>
+    {%- else -%}
+    <div class="cta-single cta-addtocart">
+      {%- if product.available -%}
+      {%- if product.variants.size > 1 -%}
+      <a href="{{ product.url | within: collection }}" class="">
+        <i class="rt-basket-shopping"></i></span>
+      </a>
+      {%- else -%}
+      {%- if settings.product_cart_type == 'ajax_cart_drawer' -%}
+      <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart ajax-spin-cart-drawer">
+        <span>
+          <span class="cart-title"><i class="rt-basket-shopping"></i></span>
+          <span class="cart-loading"> <i class="fa fa-circle-o-notch fa-spin"></i></span>
+          <span class="cart-added"><i class="fa fa-check"></i></span>
+          <span class="cart-unavailable"><i class="fa fa-times"></i></span>
+        </span>
+      </a>
+      {%- elsif settings.product_cart_type == 'ajax_spin_cart' -%}
+      <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart">
+        <span>
+          <span class="cart-title"><i class="rt-basket-shopping"></i></span>
+          <span class="cart-loading"> <i class="fa fa-circle-o-notch fa-spin"></i></span>
+          <span class="cart-added"><i class="fa fa-check"></i></span>
+          <span class="cart-unavailable"><i class="fa fa-times"></i></span>
+        </span>
+      </a>
+      {%- elsif settings.product_cart_type == 'ajax_popup_cart' -%}
+      <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="">
+        <span>
+          <span class="cart-title"><i class="rt-basket-shopping"></i></span>
+        </span>
+      </a>
+      {%- elsif settings.product_cart_type == 'without_ajax_cart' -%}
+      <form action="/cart/add" method="post" enctype="multipart/form-data">
+        <select name="id" style="display:none;">
+          {% for variant in product.variants %}
+          <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="">
+          <span>
+            <span class="cart-title"><i class="rt-basket-shopping"></i></span>
+          </span>
+        </button>
+      </form>
+      {%- endif -%}
+      {%- endif -%}
+      {%- else -%}
+      <button class="cart-disable">
+        <span class="cart-text"><i class="rt-basket-shopping"></i></span>
+      </button>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+    {%- endunless -%}
+
+    </div>
+    {%- endif -%}
+
+  
+                            <div class="product-features">
+                                {%- render 'product-badge', product: product, on_sale: on_sale, sold_out: sold_out -%}
+                            </div>
+</div>

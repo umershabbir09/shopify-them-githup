@@ -1,0 +1,299 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+  <div class="{% if section.settings.category_style == 'style_1' %} rts-offer-section   {% else %} rts-offer-section section-8   {% endif %} {{ bg_image_class }}"   id="section-{{ section.id }}" {{ sections_bg_image }}  data-section="CategoriesProduct_5">
+        <div class="container">
+            <div class="section-inner">
+                <div class="row">
+                        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'category_product' -%}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="product-item7">
+                            <div class="product-image">
+                                <img src="{{ block.settings.category_image | img_url: 'large' }}" alt="{{ block.settings.category_image.alt }}">
+                            </div>
+                            <div class="bottom-text">
+          {%- if block.settings.category_sub_title != '' -%}
+                                <h4 class="sub-title">{{ block.settings.category_sub_title }}</h4>
+          {%- endif -%}
+          {%- if block.settings.category_title != '' -%}
+                                <h3 class="title">{{ block.settings.category_title }}</h3>
+          {%- endif -%}
+          {%- if block.settings.button_title != '' -%}
+                                <a href="{{ block.settings.button_title_url }}" class="btn-text">{{ block.settings.button_title }}</a>
+          {%- endif -%}
+                            </div>
+                        </div>
+                    </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Categories Product 5",
+    "settings": [
+        {
+          "type": "select",
+          "id": "category_style",
+          "label": "Categories Style",
+          "options": [
+            {
+              "label": "Style One",
+              "value": "style_1"
+            },
+            {
+              "label": "Style Two",
+              "value": "style_2"
+            }
+          ],
+          "default": "style_1"
+        }
+    ],
+	"blocks":[
+          {
+            "type": "category_product",
+            "name": "Category Product",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "category_image",
+                "label": "Image",
+                "info": "Recommended Size: 460 x 360px"
+              },
+              {
+                "type": "text",
+                "id": "category_sub_title",
+                "label": "Category Sub Title",
+                "default": "New Collections"
+              },
+              {
+                "type": "text",
+                "id": "category_title",
+                "label": "Category Title",
+                "default": "Splash Into Summer"
+              },
+              {
+                "type": "textarea",
+                "id": "button_title",
+                "label": "Button Title",
+                "default": "SHOP NOW"
+              },	
+              {
+                "type": "url",
+                "id": "button_title_url",
+                "label": "URL"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Categories Product 5",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "category_product"
+				},
+				{
+					"type": "category_product"
+				},
+				{
+					"type": "category_product"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

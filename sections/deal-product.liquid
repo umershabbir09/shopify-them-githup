@@ -1,0 +1,333 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+<!--================= Deal Section Start Here =================-->
+    <div class="{% if section.settings.deal_style == 'style_1' %}  rts-deal-section1  {% else %}   rts-deal-section1 section-7  {% endif %}  {{ bg_image_class }}"   id="section-{{ section.id }}" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="section-inner">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    {% if section.settings.deal_style == 'style_1' %}  
+                      {% else %}   
+                        <div class="product-image">
+                            <img src="{{ section.settings.deal_image | img_url: 'large' }}" alt="{{ block.settings.deal_image.alt }}">
+                        </div>
+                      {% endif %}
+                      
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="single-inner">
+                            <div class="content-box">
+                                <div class="sub-content">
+                                    <img class="line-1" src="{{ section.settings.title_image_1 | img_url: 'large' }}" alt="{{ block.settings.title_image_1.alt }}">
+                                    <span class="sub-text">{{ section.settings.section_sub_title }}</span>
+                                </div>
+                                <h2 class="slider-title">{{ section.settings.section_title }}</h2>
+                                <div class="slider-description">
+                                    <p>{{ section.settings.section_description }}</p>
+                                </div>
+                                <div class="countdown" id="countdown">
+                                    <ul>
+                                        <li><span id="days"></span>D</li>
+                                        <li><span id="hours"></span>H</li>
+                                        <li><span id="minutes"></span>M</li>
+                                        <li><span id="seconds"></span>S</li>
+                                    </ul>
+                                </div>
+                                <div class="content-bottom">
+                                    <div class="img-box"><img src="{{ section.settings.description_image_1 | img_url: 'large' }}" alt="{{ block.settings.description_image_1.alt }}">
+                                    </div>
+                                    <p class="content">{{ section.settings.section_description_2 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--================= Deal Section End Here =================-->
+
+    <style>
+      .rts-deal-section1 .container .section-inner {
+  background: url({{ section.settings.deal_bg_image| img_url: 'master' }});
+    background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+    </style>
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Deal Product",
+    "settings": [
+        {
+          "type": "select",
+          "id": "deal_style",
+          "label": "Deal Style",
+          "options": [
+            {
+              "label": "Style One",
+              "value": "style_1"
+            },
+            {
+              "label": "Style Two",
+              "value": "style_2"
+            }
+          ],
+          "default": "style_1"
+        },
+        {
+          "type": "image_picker",
+          "id": "deal_bg_image",
+          "label": "BG Image",
+          "info": "Recommended Size: 1440 x 570px"
+        },
+        {
+          "type": "image_picker",
+          "id": "deal_image",
+          "label": "Deal Image",
+          "info": "Recommended Size: 501 x 465px"
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Deal Of The Week"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_1",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Roland Grand White <br> short T-shirt"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_description",
+          "label": "Section Description",
+          "default": "Our intent and our actions have always been informed by progress. We look at an impact report as a way to measure."
+      	},
+        {
+          "type": "image_picker",
+          "id": "description_image_1",
+          "label": "Description Image",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+          "type": "textarea",
+          "id": "section_description_2",
+          "label": "Section Description 2",
+          "default": "Limited time offer. The deal will expires <br> on November 12, 2022 HURRY UP!"
+      	}
+    ],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Deal Product",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

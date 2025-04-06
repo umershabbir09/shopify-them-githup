@@ -1,0 +1,482 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+ <div class="team-area {{ bg_image_class }}" id="section-{{ section.id }}" data-section="TeamMember_2" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="sub-content">
+                <img class="line-1" src="{{ section.settings.title_image_1 | img_url: 'large' }}" alt="">
+                <span class="sub-text">{{ section.settings.section_sub_title }}</span>
+                <img class="line-2" src="{{ section.settings.title_image_2 | img_url: 'large' }}" alt="">
+            </div>
+            <h2 class="title">{{ section.settings.section_title }}</h2>
+            <div class="slider-div">
+                <div class="swiper rts-cmmnSlider-over2" data-swiper="pagination">
+                    <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'team_member' -%}
+                        <div class="swiper-slide">
+                            <div class="team-wraper">
+                                <div class="team-thumb">
+                                    <img src="{{ block.settings.team_image| img_url: 'master' }}" alt="{{ block.settings.team_image.alt }}">
+                                </div>
+                                <div class="team-content">
+                                    <h3>
+                                        <div class="item-catagory-box">{{ block.settings.member_name }}</div>
+                                    </h3>
+                                    <h6>{{ block.settings.member_designation }}</h6>
+                                    <div class="footer__social">
+              {%- if block.settings.facebook_url -%}
+                                        <a class="footer-icon" href="{{ block.settings.facebook_url }}"><i aria-hidden="true"
+                                                class="fa fa-{{ block.settings.facebook_name }}"></i></a>
+              {%- endif -%}
+              {%- if block.settings.twitter_url -%}
+                                        <a class="footer-icon" href="{{ block.settings.twitter_url }}"><i aria-hidden="true"
+                                                class="fa fa-{{ block.settings.twitter_name }}"></i></a>
+              {%- endif -%}
+              {%- if block.settings.linkedin_url -%}
+                                        <a class="footer-icon" href="{{ block.settings.linkedin_url }}"><i aria-hidden="true"
+                                                class="fa fa-{{ block.settings.linkedin_name }}"></i></a>
+              {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+      {%- endcase -%}
+      {%- endfor -%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% comment %}
+<div class="team-area {{ bg_image_class }}" id="section-{{ section.id }}" data-section="TeamMember" {{ sections_bg_image }}>
+  <div class="container">
+    {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title text-center">
+          {%- if section.settings.section_title != '' -%}
+          <h2 class="title">{{ section.settings.section_title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_sub_title != '' -%}
+          <p class="sub-title">{{ section.settings.section_sub_title }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+    <div class="row mbn-30">
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'team_member' -%}
+      <div {{ block.shopify_attributes }} class="col-lg-{{ section.settings.product_column }} col-md-{{ section.settings.product_column_md }} col-{{ section.settings.product_column_sm }}">
+        <div class="team-member mb-30">
+          <div class="team-thumb">
+            {%- if block.settings.testimonial_image -%}
+            <div class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: block.settings.testimonial_image.aspect_ratio | times: 100}}%;">
+              {%- include 'responsive-image' with image: block.settings.testimonial_image, image_class: "lazyload-main-image" -%}
+            </div>
+            {%- else -%}
+            <img class="lazyload" data-src="https://via.placeholder.com/400x400" alt="Testimonial">
+            {%- endif -%}
+            {%- if block.settings.facebook_url or block.settings.twitter_url or block.settings.linkedin_url -%}
+            <div class="team-social">
+              {%- if block.settings.facebook_url -%}
+              <a href="{{ block.settings.facebook_url }}"><i class="fa fa-facebook"></i></a>
+              {%- endif -%}
+              {%- if block.settings.twitter_url -%}
+              <a href="{{ block.settings.twitter_url }}"><i class="fa fa-twitter"></i></a>
+              {%- endif -%}
+              {%- if block.settings.linkedin_url -%}
+              <a href="{{ block.settings.linkedin_url }}"><i class="fa fa-linkedin"></i></a>
+              {%- endif -%}
+            </div>
+            {%- endif -%}
+          </div>
+          <div class="team-content text-center">
+            <h6 class="team-member-name">{{ block.settings.member_name }}</h6>
+            {%- if block.settings.member_designation != '' -%}
+            <p>{{ block.settings.member_designation }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+      {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{% endcomment %}
+
+{%- render 'section-style' -%}
+{% schema %}
+  {
+    "name": "Team Member",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "team_member_enable",
+          "label": "Show Team Member",
+          "default": true
+      	},
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title Here"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Section Sub Title Here"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_1",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+        {
+          "type": "image_picker",
+          "id": "title_image_2",
+          "label": "Image 2",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+			"type": "header",
+            "content": "Team Member Column"
+        },
+		{
+          "type": "select",
+          "id": "product_column",
+          "label": "Desktop",
+		  "options":[
+				{
+                    "label": "2",
+                    "value": "6"
+                },
+                {
+                    "label": "3",
+                    "value": "4"
+                },
+                {
+                    "label": "4",
+                    "value": "3"
+                }
+			],
+			"default": "3"
+      	},
+		{
+          "type": "select",
+          "id": "product_column_md",
+          "label": "Tablet",
+		  "options":[
+				{
+                    "label": "2",
+                    "value": "6"
+                },
+                {
+                    "label": "3",
+                    "value": "4"
+                },
+                {
+                    "label": "4",
+                    "value": "3"
+                }
+			],
+			"default": "4"
+      	},
+		{
+          "type": "select",
+          "id": "product_column_sm",
+          "label": "Large Mobile",
+		  "options":[
+				{
+                    "label": "1",
+                    "value": "12"
+                },
+                {
+                    "label": "2",
+                    "value": "6"
+                }
+			],
+			"default": "6"
+      	}
+	],
+	"blocks":[
+          {
+            "type": "team_member",
+            "name": "Team Member",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "team_image",
+                "label": "Image"
+              },
+              {
+                "type": "text",
+                "id": "member_name",
+                "label": "Name",
+                "default": "Richard John"
+              },
+              {
+                "type": "text",
+                "id": "member_designation",
+                "label": "Designation",
+                "default": "Founder"
+              },
+              {
+                "type": "header",
+                "content": "Social Link"
+              },
+              {
+                "type": "text",
+                "id": "facebook_name",
+                "label": "Icon Name",
+                "default": "facebook"
+              },
+              {
+                "type": "url",
+                "id": "facebook_url",
+                "label": "Facebook"
+              },
+              {
+                "type": "text",
+                "id": "twitter_name",
+                "label": "Icon Name",
+                "default": "twitter"
+              },
+              {
+                "type": "url",
+                "id": "twitter_url",
+                "label": "Twitter"
+              },
+              {
+                "type": "text",
+                "id": "linkedin_name",
+                "label": "Icon Name",
+                "default": "linkedin-in"
+              },
+              {
+                "type": "url",
+                "id": "linkedin_url",
+                "label": "Linkedin"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Team Member",
+		  "category": "5. about",
+		  "blocks":[
+				{
+					"type": "team_member"
+				},
+				{
+					"type": "team_member"
+				},
+				{
+					"type": "team_member"
+				},
+				{
+					"type": "team_member"
+				},
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

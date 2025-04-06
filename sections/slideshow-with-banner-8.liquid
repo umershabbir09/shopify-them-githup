@@ -1,0 +1,496 @@
+<div class="banner banner-4"    id="section-{{ section.id }}" data-section="SlideShow_7">
+        <div class="container">
+            <div class="row">
+              
+                <div class="col-xl-8">
+                    <div class="swiper bannerSlide_8">
+                        <div class="swiper-wrapper">
+                                    {%- for block in section.blocks -%}
+          {%- case block.type -%}
+    {%- when 'slide' -%}  
+                            <div class="swiper-slide"  id="block-{{ block.id }}">
+                                <a href="{{ block.settings.slide_url }}" class="product-box product-box-large">
+                                    <div class="contents">
+            {%- if block.settings.slide_sub_title != '' -%}
+                                        <span class="pretitle">{{ block.settings.slide_sub_title }}</span>
+            {%- endif -%}
+            {%- if block.settings.slide_title != '' -%}
+                                        <h1 class="product-title">{{ block.settings.slide_title }}</h1>
+            {%- endif -%}
+            {%- if block.settings.slide_description != '' -%}
+                                        <span class="product-price">{{ block.settings.slide_description }}</span>
+            {%- endif -%}
+                                    </div>
+                                    <div class="product-thumb">
+                                      <img src="{{ block.settings.slide_image | img_url: 'master' }}" alt="{{ block.settings.slide_image.alt }}">
+                                    </div>
+                                </a>
+                            </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                          
+                        </div>
+                        <div class="slider-navigation">
+                            <div class="swiper-button-prev slider-btn prev"><i class="fal fa-long-arrow-up"></i></div>
+                            <div class="swiper-button-next slider-btn next"><i class="fal fa-long-arrow-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="col-xl-4">
+                    <div class="row">
+                      
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'banner' -%}
+                        <div class="col-xl-12">
+                            <a href="{{ block.settings.banner_url }}" class="product-box product-box-medium" id="block-{{ block.id }}">
+                                <div class="contents">
+              {%- if block.settings.banner_sub_title != '' -%}
+                                    <span class="pretitle">{{ block.settings.banner_sub_title }}</span>
+              {%- endif -%}
+              {%- if block.settings.banner_title != '' -%}
+                                    <h1 class="product-title">{{ block.settings.banner_title }}</h1>
+              {%- endif -%}
+              {%- if block.settings.banner_description != '' -%}
+                                    <p>{{ block.settings.banner_description }}</p>
+              {%- endif -%}
+                                </div>
+                                <div class="product-thumb"><img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="{{ block.settings.banner_image.alt }}"></div>
+                            </a>
+                        </div>
+                      
+      {%- when 'banner_2' -%}
+                        <div class="col-xl-12">
+                            <a href="{{ block.settings.banner_url }}" class="product-box product-box-medium product-box-medium2" id="block-{{ block.id }}">
+                                <div class="contents">
+              {%- if block.settings.banner_sub_title != '' -%}
+                                    <span class="pretitle">{{ block.settings.banner_sub_title }}</span>
+              {%- endif -%}
+              {%- if block.settings.banner_title != '' -%}
+                                    <h1 class="product-title">{{ block.settings.banner_title }}</h1>
+              {%- endif -%}
+              {%- if block.settings.banner_button_title != '' -%}
+                                    <div class="view-collections go-btn">{{ block.settings.banner_button_title }} <i class="fal fa-long-arrow-right"></i></div>
+              {%- endif -%}
+                                </div>
+                                <div class="product-thumb"><img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="{{ block.settings.banner_image.alt }}"></div>
+                            </a>
+                        </div>
+                      
+      {%- when 'banner_3' -%}
+                        <div class="col-xl-12">
+                            <a href="{{ block.settings.banner_url }}" class="product-box product-box-medium product-box-medium3 product-box-bg" id="block-{{ block.id }}">
+                                <div class="contents">
+              {%- if block.settings.banner_sub_title != '' -%}
+                                    <span class="pretitle">{{ block.settings.banner_sub_title }}</span>
+              {%- endif -%}
+              {%- if block.settings.banner_title != '' -%}
+                                    <h1 class="product-title">{{ block.settings.banner_title }}</h1>
+              {%- endif -%}
+              {%- if block.settings.banner_button_title != '' -%}
+                                    <div class="view-collections go-btn">{{ block.settings.banner_button_title }} <i class="fal fa-long-arrow-right"></i></div>
+              {%- endif -%}
+                                </div>
+                                <div class="product-thumb"><img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="{{ block.settings.banner_image.alt }}"></div>
+                            </a>
+                        </div>
+                      
+      {%- endcase -%}
+      {%- endfor -%}
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+<style>
+                                    {%- for block in section.blocks -%}
+          {%- case block.type -%}
+    {%- when 'slide' -%}  
+    #block-{{ block.id }} .product-box {
+  background-image: url("{{ block.settings.bg_image | img_url: 'master' }}");
+}         
+            
+      {%- when 'banner' -%}
+#block-{{ block.id }}.product-box {
+  background-image: url("{{ block.settings.banner_bg_image | img_url: 'master' }}");
+}  
+      {%- when 'banner_2' -%}
+#block-{{ block.id }}.product-box {
+  background-image: url("{{ block.settings.banner_bg_image | img_url: 'master' }}");
+}   
+      {%- when 'banner_3' -%}
+           #block-{{ block.id }}.product-box.product-box-medium.product-box-bg {
+  background-image: url("{{ block.settings.banner_bg_image | img_url: 'master' }}");
+}
+            
+            {%- endcase -%}
+          {%- endfor -%}
+</style>
+
+    
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Slideshow 8",
+    "settings": [
+      
+	],
+	"blocks":[
+	   {
+          "type": "slide",
+          "name": "Slide Show",
+		  "limit": 5,
+          "settings": [
+              {
+                "type": "image_picker",
+                "id": "bg_image",
+                "label": "BG Image",
+                "info": "Recommended Size: 950 x 630px"
+              },
+              {
+                "type": "image_picker",
+                "id": "slide_image",
+                "label": "Image",
+                "info": "Recommended Size: 1060 x 880px"
+              },
+            {
+              "type": "textarea",
+              "id": "slide_sub_title",
+              "label": "Sub Title",
+              "default": "Weekend Discount"
+            },
+            {
+              "type": "textarea",
+              "id": "slide_title",
+              "label": "Title",
+              "default": "Big screens in <br> incredibly slim <br> <span>designs...</span>",
+              "info": "Use of <br> and <span>"
+            },
+            {
+              "type": "textarea",
+              "id": "slide_description",
+              "label": "Description",
+              "default": "<span>Starts From</span> $499.99",
+              "info": "Use of <span>"
+            },
+              {
+                "type": "url",
+                "id": "slide_url",
+                "label": "URL"
+              }
+          ]
+       },
+          {
+            "type": "banner",
+            "name": "Banner",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "banner_bg_image",
+                "label": "BG Image",
+                "info": "Recommended Size: 950 x 630px"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Image",
+        		"info": "Recommended Size: 540 x 426px"
+              },
+              {
+                "type": "text",
+                "id": "banner_sub_title",
+                "label": "Sub Title",
+                "default": "-45% Offer"
+              },
+              {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "New <span>Smartphone</span>"
+              },
+              {
+                "type": "textarea",
+                "id": "banner_description",
+                "label": "Banner Description",
+                "default": "Don't miss the last opportunity"
+              },
+              {
+                "type": "url",
+                "id": "banner_url",
+                "label": "URL"
+              }
+            ]
+         },
+          {
+            "type": "banner_2",
+            "name": "Banner 2",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "banner_bg_image",
+                "label": "BG Image",
+                "info": "Recommended Size: 950 x 630px"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Image",
+        		"info": "Recommended Size: 180 x 240px"
+              },
+              {
+                "type": "text",
+                "id": "banner_sub_title",
+                "label": "Sub Title",
+                "default": "Great Stores"
+              },
+              {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "Call for up to 30% off"
+              },
+              {
+                "type": "text",
+                "id": "banner_button_title",
+                "label": "Button Title",
+                "default": "View Collections"
+              },
+              {
+                "type": "url",
+                "id": "banner_url",
+                "label": "URL"
+              }
+            ]
+         },
+          {
+            "type": "banner_3",
+            "name": "Banner 3",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "banner_bg_image",
+                "label": "BG Image",
+                "info": "Recommended Size: 475 x 200px"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Image",
+        		"info": "Recommended Size: 228 x 300px"
+              },
+              {
+                "type": "text",
+                "id": "banner_sub_title",
+                "label": "Sub Title",
+                "default": "SUPER DISCOUNT"
+              },
+              {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "Home Speaker"
+              },
+              {
+                "type": "text",
+                "id": "banner_button_title",
+                "label": "Button Title",
+                "default": "Shop Now"
+              },
+              {
+                "type": "url",
+                "id": "banner_url",
+                "label": "URL"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Slideshow 8",
+		  "category": "1. slideshow",
+		  "blocks":[
+				{
+					"type": "slide"
+				},
+				{
+					"type": "slide"
+				},
+				{
+					"type": "banner"
+				},
+				{
+					"type": "banner_2"
+				},
+				{
+					"type": "banner_3"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,151 @@
+  {% liquid
+  assign theme_rtl = false
+  if settings.rtl_enable and settings.langauges_rtl == blank
+    assign theme_rtl = true
+  endif
+
+  if settings.rtl_enable and settings.langauges_rtl != blank
+    assign rtl_languages = settings.langauges_rtl | split: ','
+    for language in rtl_languages
+      if language == request.locale.iso_code
+        assign theme_rtl = true
+      endif
+    endfor
+  endif
+%}
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ request.locale.iso_code }}" {% if theme_rtl %}dir="rtl"{% endif %}> <!--<![endif]-->
+  
+<head>
+  <!-- Basic and Helper page needs -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{canonical_url}}">
+  {%- if settings.favicon != blank -%}
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {%- endif -%}
+  <link rel="preconnect" href="https://cdn.shopify.com">
+  <link rel="preconnect" href="https://ajax.googleapis.com/">
+  <link rel="dns-prefetch" href="https://cdn.shopify.com">
+  <link rel="preload" as="style" href="{{ 'timber.css' | asset_url }}">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900&display=swap" as="style">
+  <link rel="preload" as="style" href="{{ 'vendor.css' | asset_url }}">
+  
+  <link rel="preload" as="style" href="{{ 'slick.min.css' | asset_url }}">
+  
+  <link rel="preload" as="style" href="{{ 'style.css' | asset_url }}">
+   <link rel="preload" as="style" href="{{ 'theme-style.css' | asset_url }}">
+  {%- if settings.dark_enable -%}
+  <link rel="preload" as="style" href="{{ 'dark.css' | asset_url }}">
+  {%- endif -%}
+  {% if theme_rtl %}
+  <link rel="preload" as="style" href="{{ 'theme-rtl.css' | asset_url }}">
+  {%- endif -%}
+  <link rel="preload" as="style" href="{{ 'skin-and-color.css' | asset_url }}">
+  {%- comment -%}
+  <link rel="preload" as="font" href="{{ 'Pe-icon-7-stroke.woff?d7yf1v' | asset_url }}" type="font/woff" crossorigin="anonymous">
+  <link rel="preload" as="font" href="{{ 'fontawesome-webfont.woff2?v=4.7.0' | asset_url }}" type="font/woff2" crossorigin="anonymous">
+  {%- endcomment -%}
+  <link rel="preload" href="{{ 'core-js.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'the-final-countdown.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'lazysizes.min.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'slick.min.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'recent-view.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'compare-product.js' | asset_url }}" as="script">
+  {%- if settings.wishlist_enable -%}
+  <link rel="preload" href="{{ 'wishlist.js' | asset_url }}" as="script">
+  {%- endif -%}
+  <link rel="preload" href="{{ 'option_selection.js' | shopify_asset_url }}" as="script">
+  <link rel="preload" href="{{ 'api.jquery.js' | shopify_asset_url }}" as="script">
+  <link rel="preload" href="{{ 'cart.api.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'theme.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'fastclick.min.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'timber.js' | asset_url }}" as="script">
+  {%- if template == 'index' and settings.newsletter_popup_enable -%}
+  {%- if settings.one_day_popup_enable -%}
+  <link rel="preload" href="{{ 'newsletter-js.js' | asset_url }}" as="script">
+  {%- endif -%}
+  {%- endif -%}
+  {%- if settings.currency_enable or settings.compare_product_enalbe -%}
+  <link rel="preload" href="{{ '//cdn.shopify.com/s/javascripts/currencies.js' }}" as="script">
+  <link rel="preload" href="{{ 'jquery.currencies.min.js' | asset_url }}" as="script">
+  {%- endif -%}
+  <!-- Title and description -->
+  {%- capture seo_title -%}
+  {{ page_title }}
+  {%- if current_tags -%}
+  {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+  {% endif %}
+  {%- if current_page != 1 -%}
+  &ndash; {{ 'general.meta.page' | t: page: current_page }}
+  {%- endif -%}
+  {%- unless page_title contains shop.name -%}
+  &ndash; {{ shop.name }}
+  {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title }}</title>
+  {%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+  <!-- Helpers -->
+  {%- render 'social-meta-tags', product: product, article: article -%}
+  <!-- CSS -->
+  {%- render 'header-css' -%}
+  {% if theme_rtl %}
+  {{ 'theme-rtl.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  <!-- Header hook for plugins -->
+  {{ content_for_header }}
+  {% render 'oldIE-js' %}
+  <!-- JS -->
+  {%- render 'header-js' -%}
+  {% if template contains 'customers' %}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {% endif %}
+  {% render 'alireviews_core' %}
+</head>
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }}" >
+  {%- if settings.enable_preloader -%}
+  {%- render 'preloader' -%} 
+  {%- endif -%}
+  {%- if template == 'index' and settings.newsletter_popup_enable -%}
+  {%- render 'newsletter-popup' -%}
+  {%- endif -%}
+
+  <div class="anywere "></div>
+  
+  <div class="wrapper{% if settings.box_layout_enable %} wrapper-box{% endif %}" {% if template == 'collection' %}id="form_output"{% endif %}>
+    {%- if settings.topbar_notification_enable -%}
+    {%- if settings.topbar_notification == 'topbar_in_index' and template == 'index' -%}
+    {%- render 'top-notification-bar' -%}
+    {%- elsif settings.topbar_notification == 'topbar_in_template' -%}
+    {%- render 'top-notification-bar' -%}
+    {%- endif -%}
+    {%- endif -%}
+    
+    {% sections 'header-group' %}  
+    
+    {%- if template != 'index' -%}
+    {%- section 'breadcrumb' -%}
+    {%- endif -%}
+    <main>
+      {{ content_for_layout }}
+    </main> 
+
+    {% sections 'footer-group' %}
+    
+        <div class="scroll-top-btn scroll-top-btn1"><i class="fa fa-angle-up arrow-up"></i><i
+            class="fa fa-circle-o-notch"></i></div>
+    
+  </div>
+  
+  {%- if settings.compare_product_enalbe -%}
+  {%- render 'compare-popup' -%}
+  {%- endif -%}
+  <!-- Necessary JS -->
+  {%- render 'footer-js' with content_for_layout as content_for_layout -%}
+</body>
+</html>

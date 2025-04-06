@@ -1,0 +1,283 @@
+ <div class="banner banner-3"   id="section-{{ section.id }}" data-section="SlideShow_6">
+            <div class="swiper bannerSlide_6">
+                <div class="swiper-wrapper">
+                                    {%- for block in section.blocks -%}
+          {%- case block.type -%}
+    {%- when 'slide' -%}  
+                    <div class="swiper-slide"  id="block-{{ block.id }}">
+                        <div class="banner-single bg-image bg-image-3">
+                            <div class="container">
+                                <div class="single-inner">
+                                    <div class="contents">
+            {%- if block.settings.slide_sub_title != '' -%}
+                                        <span class="banner-pretitle-box">{{ block.settings.slide_sub_title }}</span>
+            {%- endif -%}
+            {%- if block.settings.slide_title != '' -%}
+                                        <h1 class="banner-heading mb--30">{{ block.settings.slide_title }}</h1>
+            {%- endif -%}
+            {%- if block.settings.slide_button_title != '' -%}
+                                        <div class="banner-action">
+                                            <a class="banner-btn banner-btn2" href="{{ block.settings.slide_button_url }}">
+                                              <i class="rt-cart-shopping"></i>{{ block.settings.slide_button_title }}</a>
+                                        </div>
+            {%- endif -%}
+                                    </div>
+                                    <div class="banner-product-thumb">
+                                      <img src="{{ block.settings.slide_image | img_url: 'master' }}" alt="{{ block.settings.slide_image.alt }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                </div>
+                <div class="slider-navigation">
+                    <div class="swiper-button-prev slider-btn prev"><i class="fal fa-long-arrow-up"></i></div>
+                    <div class="swiper-button-next slider-btn next"><i class="fal fa-long-arrow-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+<style>
+                                    {%- for block in section.blocks -%}
+          {%- case block.type -%}
+    {%- when 'slide' -%}  
+    .banner  #block-{{ block.id }} .banner-single.bg-image-3 {
+  background-image: url("{{ block.settings.slide_bg_image | img_url: 'master' }}");
+}
+          {%- endcase -%}
+          {%- endfor -%}
+</style>
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Slideshow 7",
+    "settings": [
+      
+	],
+	"blocks":[
+	   {
+          "type": "slide",
+          "name": "Slide Show",
+		  "limit": 5,
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "slide_bg_image",
+              "label": "BG Image",
+              "info": "Recommended Size: 1920 x 670px"
+            },
+              {
+                "type": "image_picker",
+                "id": "slide_image",
+                "label": "Image",
+                "info": "Recommended Size: 960 x 770px"
+              },
+            {
+              "type": "textarea",
+              "id": "slide_sub_title",
+              "label": "Sub Title",
+              "default": "Hot Deal In This Week"
+            },
+            {
+              "type": "textarea",
+              "id": "slide_title",
+              "label": "Title",
+              "default": "Elegance <br> Hand Craft",
+              "info": "Use of <br>"
+            },
+            {
+              "type": "text",
+              "id": "slide_button_title",
+              "label": "Button Title",
+              "default": "Shop Now"
+            },
+            {
+              "type": "url",
+              "id": "slide_button_url",
+              "label": "URL"
+            }
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Slideshow 7",
+		  "category": "1. slideshow",
+		  "blocks":[
+				{
+					"type": "slide"
+				},
+				{
+					"type": "slide"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

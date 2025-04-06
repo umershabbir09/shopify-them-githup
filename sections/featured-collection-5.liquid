@@ -1,0 +1,315 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+    
+  
+  <div class="rts-recent_products-section section-gap  {{ bg_image_class }}"  id="section-{{ section.id }}" {{ sections_bg_image }}  data-section="feature_collection_5">
+        <div class="container">
+            <div class="recent-products-header section-header section-header3">
+                <span class="section-pretitle section-pretitle2 mb--15">{{ section.settings.section_sub_title }}</span>
+                <span class="section-title-2 mb--5">{{ section.settings.section_title }}</span>
+                <div class="section-line mb-0"><img src="{{ section.settings.title_image_1 | img_url: 'large' }}" alt="line"></div>
+            </div>
+            <div class="products-area products-area3">
+                <div class="row justify-content-center">
+        {%- assign featured_product = collections[section.settings.featured_product_handle] -%}
+        {%- assign featured_product_limit = section.settings.featured_product_limit_handle -%}
+        {%- if featured_product == empty -%}
+                        {%- assign a = 1 -%}
+          {%- for i in (1..featured_product_limit) -%}
+          {%- assign product_item = "product-" | append: a  -%}
+          {%- assign a = a | plus: 1 -%}
+                    <div class="col-lg-15 col-md-4 col-sm-6">
+                        <div class="product-item product-item2 element-item3">
+                               {{ product_item | placeholder_svg_tag: 'product-svg-image' }}
+                            <div class="bottom-content">
+                                <span class="product-catagory">Hand Craft</span>
+                                <a href="#" class="product-name">Minimalist Beard Mug</a>
+                                <div class="action-wrap">
+                                    <span class="product-price">$31.00</span>
+                                    <a href="#" class="addto-cart"><i class="fa fa-shopping-cart"></i> Add To
+                                        Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+          {%- if a == 7 -%}
+          {%- assign a = 1 -%}
+          {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+                      {%- for product in featured_product.products limit: featured_product_limit -%}
+                    <div class="col-lg-15 col-md-4 col-sm-6">
+                       {%- render 'product-grid-item-9', product: product, collection: featured_product -%}
+                    </div>
+          {%- endfor -%}
+        {%- endif -%}
+                </div>
+            </div>
+          
+          {%- if section.settings.banner_button_title != '' -%}
+            <div class="d-flex justify-content-center">
+                <a href="{{ section.settings.banner_button_url }}" class="all-products-link">{{ section.settings.banner_button_title }} <i class="fal fa-long-arrow-right ml--10"></i></a>
+            </div>
+          {%- endif -%}
+        </div>
+    </div>
+
+
+
+    
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Featured Collection 5",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Wood Crafted Products"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Featured"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_1",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+			"type": "header",
+            "content": "Product"
+        },
+		{
+			"type": "collection",
+            "id": "featured_product_handle",
+            "label": "Select Collection"
+        },
+		{
+            "type": "range",
+            "id": "featured_product_limit_handle",
+            "min": 2,
+            "max": 20,
+            "step": 1,
+            "label": "Limit",
+            "default": 8
+        },
+        {
+          "type": "text",
+          "id": "banner_button_title",
+          "label": "Button Title",
+          "default": "All products"
+        },
+        {
+          "type": "url",
+          "id": "banner_button_url",
+          "label": "URL"
+        }
+    ],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Featured Collection 5",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

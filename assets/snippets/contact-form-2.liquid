@@ -1,0 +1,59 @@
+{%- form 'contact', class: 'contact-form' -%}
+
+{%- if form.posted_successfully? -%}
+<p class="note form-success">{{ 'contact.form.post_success' | t }}</p>
+{%- endif -%}
+
+{{ form.errors | default_errors }}
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="input-box mb-20">    
+          <input type="text" placeholder="{{ section.settings.name_placeholder }}" class="{% if form.errors contains 'name' %}error{% endif %}" name="contact[name]" id="ContactFormName" value="{% if form.name %}{{ form.name }}{% elsif customer.name %}{{ customer.name }}{% endif %}">
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="input-box mail-input mb-20">    
+          <input type="email" placeholder="{{ section.settings.email_placeholder }}" class="{% if form.errors contains 'email' %}error{% endif %}" name="contact[email]" id="ContactFormEmail" value="{% if form.email %}{{ form.email }}{% elsif customer.email %}{{ customer.email }}{% endif %}">
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="input-box number-input mb-30">
+           <input type="text" id="ContactFormPhone" name="contact[phone]" placeholder="{{ section.settings.phone_placeholder }}" value="{{ form.phone }}">
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="input-box sub-input mb-30">
+            <input type="text" id="ContactFormCustomText" name="contact[subject_title]" placeholder="{{ section.settings.subject_placeholder }}">
+        </div>
+    </div>
+    <div class="col-lg-12 col-sm-12">
+        <div class="input-box text-input mb-20">
+            <textarea cols="30" rows="10" placeholder="{{ section.settings.message_placeholder }}" class="custom-textarea" name="contact[body]" id="ContactFormMessage">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        </div>
+    </div>
+    <div class="col-12 mb-15">
+      <button class="form-btn form-btn4" type="submit">{{ section.settings.form_button_name }}</button>
+    </div>
+</div>
+{%- endform -%}
+
+
+<script>
+  var actCallback = function (response) {
+    $('#contactFormSubmit').prop("disabled", false);
+    $('#re-captcha').remove();
+  };
+  var expCallback = function() {
+    $('#contactFormSubmit').prop("disabled", true);
+  };
+
+  var onloadCallback = function () {
+    var widget = grecaptcha.render(document.getElementById("re-captcha"), {
+      'sitekey' : "123456789", // Sitekey, Retrieving from reCaptcha
+      'theme': "light",
+      'callback' : actCallback,
+      'expired-callback': expCallback,
+    });
+  }
+</script>

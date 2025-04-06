@@ -1,0 +1,335 @@
+    <section class="news-feed-area pt-120 pb-75 pt-md-60 pb-md-15 pt-xs-50 pb-xs-10"  data-section="ArticleTemplate" id="section-{{ section.id }}">
+        <div class="container">
+            <div class="row mb-15 {% if section.settings.sidebar_handle == 'right_sidebar_handle' %}flex-row-reverse{% endif %}">
+      {%- if section.settings.sidebar_handle == 'left_sidebar_handle' or section.settings.sidebar_handle == 'right_sidebar_handle' -%}
+                <div class="col-lg-4 pl-30 pl-lg-15 pl-md-15 pl-xs-15">
+            {%- render 'blog-sidebar-2' -%}
+                </div>
+      {%- endif -%} 
+                <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-8{% endif %} pe-xl-0">
+                    <div class="news-left2">
+                        <div class="news-top">
+                            <div class="image-section">
+                              <div class="image-1 lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+                                {%- render 'responsive-image' with image: article.image, image_class: "lazyload-main-image" -%}
+                              </div>
+                            </div>
+                            <div class="icon-text">
+                                <span class="comment fs-10"><a href="#"><i class="fa fa-comments"></i>{{ 'blogs.comments.with_count' | t: count: article.comments_count }}</a></span>
+                              {% if section.settings.blog_date_enable %}
+                                <span class="date fs-10"><a href="#"><i class="fa fa-calendar"></i> {{ article.published_at | date: '%d/%m/%Y' }}</a></span>
+                              {% endif %}
+                            </div>
+                            <div class="description">
+                                {{ article.content }}
+                            </div>
+                        </div>
+                        <div class="button-area">
+                          
+                            <div class="row justify-content-between">
+                {%- if article.tags.size > 0 -%}
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="tag-area">
+                                        <h3>Related Tags</h3>
+                                        <div class="button-tag">
+                                            <ul>
+                                                {%- for tag in article.tags -%}
+                                                <li><a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a></li>
+                                                {%- endfor -%}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                {%- endif -%}
+                                <div class="col-lg-6 col-sm-6 col-12 text-sm-end text-start">
+                                    <div class="social-area">
+                                        <div class="social-title">
+                                            <h3>Social Share</h3>
+                                        </div>
+                                        <div class="social-icon">
+                                            <ul>
+                                               {% capture permalinkURL %}{{ shop.url }}{{ article.url }}{% endcapture %}
+    {% capture shareTitle %}{{ article.title | url_param_escape }}{% endcapture %}
+   <li> <a class="facebook" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}" data-toggle="tooltip" data-placement="top" title="Share on Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+    <li><a class="twitter" href="//twitter.com/share?text={{ shareTitle }}&amp;url={{ permalinkURL }};source=webclient" data-toggle="tooltip" data-placement="top" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+    {% if product.featured_image or article.image  %}
+    <li><a class="pinterest" href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{% if template contains 'product' %}{{ product | img_url: '1024x1024' }}{% else %}{{ article | img_url: '1024x1024' }}{% endif %}&amp;description={{ shareTitle }}" data-toggle="tooltip" data-placement="top" title="Share on Pinterest" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+    {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    {% if blog.next_article or blog.previous_article %}
+                            <div class="post-area">
+                                <div class="row align-items-center justify-content-between">
+                                  {% if blog.previous_article %}
+                                  <span class="left">
+                                    &larr; {{ 'blogs.article.older_post' | t | link_to: blog.previous_article }}
+                                  </span>
+                                  {% endif %}
+                                  {% if blog.next_article %}
+                                  <span class="right">
+                                    {{ 'blogs.article.newer_post' | t | link_to: blog.next_article }} &rarr;
+                                  </span>
+                                  {% endif %}
+                                </div>
+                            </div>
+                    {% endif %} 
+                          
+                      {%- if article.comments_enabled? -%}
+                      {%- assign comment_post_limit = section.settings.comment_post_limit_handle -%}
+                      {%- paginate article.comments by comment_post_limit -%}
+                      {% comment %} "comments" ID will be included in the comment section {% endcomment %}
+                      {%- if article.comments.size > 0 -%}
+                      <div id="comments" class="comment-success section-padding">
+                        {%- if comment and comment.created_at -%}
+                        <p class="note form-success">
+                          {%- if blog.comments_modareted? -%}
+                          {{ 'blogs.comments.success_moderated' | t }}            
+                          {%- else -%}
+                          {{ 'blogs.comments.success' | t }}
+                          {%- endif -%}
+                        </p>
+                        {%- endif -%}
+                        {%- render 'blog-comments-2', comment: comments, paginate: paginate -%}
+                        {%- if paginate.pages > 1 -%}
+                        <div class=" mt--20">
+                            {%- render 'pagination', paginate: paginate -%}
+                        </div>
+                        {%- endif -%}
+                      </div>
+                      {%- endif -%}
+                      {%- render 'blog-comment-form-2' -%}
+                      {%- endpaginate -%}
+                      {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% comment %}
+<div class="blog-main-wrapper section-padding" data-section="ArticleTemplate" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row {% if section.settings.sidebar_handle == 'left_sidebar_handle' %}flex-row-reverse{% endif %}">
+      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
+      <div class="col-lg-3">
+        {% render 'blog-sidebar' %}
+      </div>
+      {%- endunless -%}
+      <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9{% endif %}">
+        <div class="blog-item-wrapper">
+          <div class="blog-post-item blog-details-post">
+            <figure class="blog-thumb">
+              <div class="blog-carousel-2 slick-row-15 slick-arrow-style slick-dot-style">
+                <div class="blog-single-slide lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+                  {%- render 'responsive-image' with image: article.image, image_class: "lazyload-main-image" -%}
+                </div>
+              </div>
+            </figure>
+            <div class="blog-content">
+              <h3 class="blog-title">
+                {{ article.title }}
+              </h3>
+              {%- if section.settings.blog_date_enable or section.settings.author_name_enable -%}
+              <div class="blog-meta">
+                <p>{% if section.settings.blog_date_enable %}{{ article.published_at | date: '%d/%m/%Y' }}{% endif %} {% if section.settings.author_name_enable %}| <span>{{ article.author }}</span>{% endif %}</p>
+              </div>
+              {%- endif -%}
+              <div class="entry-summary">
+                {{ article.content }}
+                {%- if article.tags.size > 0 -%}
+                {%- render 'tags-article' with tag as tags -%}
+                {%- endif -%}
+                {%- render 'social-share' -%}
+              </div>
+            </div>
+          </div>
+          {%- if article.comments_enabled? -%}
+          {%- assign comment_post_limit = section.settings.comment_post_limit_handle -%}
+          {%- paginate article.comments by comment_post_limit -%}
+          {% comment %} "comments" ID will be included in the comment section {% endcomment %}
+          {%- if article.comments.size > 0 -%}
+          <div id="comments" class="comment-success section-padding">
+            {%- if comment and comment.created_at -%}
+            <p class="note form-success">
+              {%- if blog.comments_modareted? -%}
+              {{ 'blogs.comments.success_moderated' | t }}            
+              {%- else -%}
+              {{ 'blogs.comments.success' | t }}
+              {%- endif -%}
+            </p>
+            {%- endif -%}
+            {%- render 'blog-comments', comment: comments, paginate: paginate -%}
+            {%- if paginate.pages > 1 -%}
+            <div class="comment-pagination">
+              {%- render 'pagination' with paginate as paginate -%}
+            </div>
+            {%- endif -%}
+          </div>
+          {%- endif -%}
+          {%- render 'blog-comment-form' -%}
+          {%- endpaginate -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endcomment %}
+
+{% schema %}
+  {
+    "name": "Article Page",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "blog_date_enable",
+          "label": "Show Blog Date",
+          "default": true
+      	},
+		{
+          "type": "checkbox",
+          "id": "author_name_enable",
+          "label": "Show Blog Author",
+          "default": true
+      	},
+		{
+			"type": "header",
+			"content": "Comment Box"
+		},
+		{
+			"type": "image_picker",
+			"id": "commentator_image",
+			"label": "Comment Thumb Image",
+			"info": "Recommended Size: 80 x 80px"
+		},
+		{
+            "type": "range",
+            "id": "comment_post_limit_handle",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "label": "How Many Comment Post Show",
+            "default": 5
+        },
+		{
+			"type": "header",
+			"content": "Article Sidebar"
+		},
+		{
+			"type": "radio",
+			"id": "sidebar_handle",
+			"label": "Sidebar Position -",
+			"options": [
+				{
+					"label": "Left Sidebar",
+					"value": "left_sidebar_handle"
+				},
+				{
+					"label": "Right Sidebar",
+					"value": "right_sidebar_handle"
+				},
+				{
+					"label": "Without Sidebar",
+					"value": "without_sidebar"
+				}
+			],
+			"default": "left_sidebar_handle"
+		}
+	],
+	 "blocks":[
+		{
+          "type": "search",
+          "name": "Search",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Search"
+            }
+          ]
+       },
+	   {
+          "type": "recent_post",
+          "name": "Recent Post",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "recent_post_title",
+              "label": "Recent Post Title",
+              "default": "Recent Post"
+			},
+            {
+              "type": "range",
+              "id": "recent_post_limit_handle",
+              "min": 2,
+              "max": 10,
+              "step": 1,
+              "label": "Post Limit",
+              "default": 3
+            }
+          ]
+       },
+	   {
+          "type": "archive",
+          "name": "Archive",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "archive_title",
+              "label": "Archive Title",
+              "default": "Archive"
+            }
+          ]
+       },
+	   {
+          "type": "tag",
+          "name": "Tag",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "blog_tags_title",
+              "label": "Tags Title",
+              "default": "Tags"
+			},
+            {
+              "type": "range",
+              "id": "blog_tags_list_limit_handle",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Tag Limit",
+              "default": 10
+            }
+          ]
+       },
+	   {
+          "type": "menu",
+          "name": "Menu",
+          "settings": [
+            {
+              "type": "text",
+              "id": "menu_title",
+              "label": "Menu Title",
+              "default": "Custom Menu"
+            },
+			{
+              "type": "link_list",
+              "id": "menu_handle",
+              "label": "Menu"
+            }
+          ]
+       }
+	]
+  }
+{% endschema %}

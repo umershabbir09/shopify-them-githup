@@ -1,0 +1,16 @@
+<div class="delivery-date cart-coupon coupon_code" style="margin-bottom: 30px;">
+  <h3>{{ section.settings.delivery_title }}</h3>
+  <div class="coupon_inner">
+    <p>
+      <label for="date">{{ section.settings.delivery_date_title }}</label>
+      <span class="date-input-picker"><input id="date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" autocomplete="off" /></span>
+      <span style="display:block" class="instructions"> {{ section.settings.delivery_note }}</span>
+    </p>
+  </div>
+</div>
+
+
+{% comment %}
+  To remove days of the week that aren't Saturday and Sunday, use this:
+  http://stackoverflow.com/questions/2968414/disable-specific-days-of-the-week-on-jquery-ui-datepicker
+{% endcomment %}

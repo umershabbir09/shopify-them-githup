@@ -1,0 +1,294 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+   <div class="rts-feeds-section rts-feeds-section2 rts-feeds-section8 section-gap  {{ bg_image_class }}"  id="section-{{ section.id }}" data-section="LatestBlog" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="section-header section-header4 section-header8">
+                <span class="section-pretitle">{{ section.settings.section_sub_title }}</span>
+                <span class="section-title-2">{{ section.settings.section_title }}</span>
+            </div>
+            <div class="row justify-content-center">
+                            {%- assign blog = blogs[section.settings.blog_handle] -%}
+          {%- assign blog_limit = section.settings.blog_limit_handle -%}
+          {%- for article in blog.articles limit: blog_limit -%}
+                <div class="col-xl-4 col-md-6">
+                    <div class="feed-item">
+                        {%- if article.image -%}
+                          <a href="{{ article.url }}" class="lazyload-wraper-position feed-image" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+                            {%- render 'responsive-image' with image: article.image, image_class: "lazyload-main-image" -%}
+                          </a>
+                          {%- endif -%}
+                        <div class="contents">
+                          {% if section.settings.blog_date_enable %}
+                            <p class="date">{{ article.published_at | date: '%d/%m/%Y' }}</p>
+                          {% endif %} 
+                            <h2 class="feed-title"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                            <a href="{{ article.url }}" class="content-button">{{ 'blogs.article.read_more' | t }} <i class="fa fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+          {%- endfor -%}
+              
+            </div>
+        </div>
+    </div>
+
+
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Latest Blog 6",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Latest News"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "News"
+      	},	
+		{
+			"type": "header",
+            "content": "Blog"
+        },
+		{
+          "type": "blog",
+          "id": "blog_handle",
+          "label": "Select Blog"
+        },
+		{
+            "type": "range",
+            "id": "blog_limit_handle",
+            "min": 2,
+            "max": 12,
+            "step": 1,
+            "label": "Limit",
+            "default": 3
+        },
+		{
+          "type": "text",
+          "id": "author_title",
+          "label": "Author Title",
+          "default": "Author"
+      	},
+		{
+          "type": "checkbox",
+          "id": "blog_date_enable",
+          "label": "Show Blog Date",
+          "default": true
+      	}
+    ],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Latest Blog 6",
+		  "category": "6. blog",
+		  "blocks":[
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

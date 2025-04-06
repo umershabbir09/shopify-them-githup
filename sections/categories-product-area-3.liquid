@@ -1,0 +1,309 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+ 
+  <div class="rts-best-catagory-section section-gap  {{ bg_image_class }}"   id="section-{{ section.id }}" {{ sections_bg_image }}  data-section="CategoriesProduct_3">
+        <div class="container">
+            <div class="section-header section-header4">
+                <span class="section-title section-title-2 mb--5">{{ section.settings.section_title }}</span>
+                <a href="{{ section.settings.button_title_url }}" class="go-btn">{{ section.settings.button_title }} <i class="fal fa-long-arrow-right"></i></a>
+            </div>
+            <div class="row justify-content-center">
+                        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'collection_banner' -%}
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="catagory-card">
+                        <div class="contents">
+                            <h3 class="catagory-title">{{ block.settings.banner_title }}</h3>
+                            <ul class="catagory-lists">
+                              {%- assign menu = block.settings.menu_handle -%}
+                              {%- for link in linklists[menu].links -%}
+                                <li><a href="{{ link.url }}">{{ link.title }} <i class="fal fa-angle-right"></i></a></li>
+                              {%- endfor -%}
+                            </ul>
+          {%- if block.settings.button_title != '' -%}
+                            <a href="{{ block.settings.button_title_url }}" class="all-btn">{{ block.settings.button_title }} <i class="fal fa-long-arrow-right ml--5"></i></a>
+          {%- endif -%}
+                        </div>
+                        <div class="category-thumb">
+                          <img src="{{ block.settings.banner_image | img_url: 'large' }}" alt="{{ block.settings.banner_image.alt }}">
+                        </div>
+                    </div>
+                </div>
+          {%- endcase -%}
+          {%- endfor -%}
+            </div>
+        </div>
+    </div>
+
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Categories Product 3",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Best Category"
+      	},
+		{
+          "type": "textarea",
+          "id": "button_title",
+          "label": "Button Title",
+          "default": "Other Category"
+      	},	
+		{
+          "type": "url",
+          "id": "button_title_url",
+          "label": "URL"
+      	}
+    ],
+	"blocks":[
+          {
+            "type": "collection_banner",
+            "name": "Categories banner",
+            "settings": [
+              {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "Cell Phones"
+              },
+              {
+                "type": "link_list",
+                "id": "menu_handle",
+                "label": "Menu"
+              },
+              {
+                "type": "text",
+                "id": "button_title",
+                "label": "Button Title",
+                "default": "All Cell Phones"
+              },
+              {
+                "type": "url",
+                "id": "button_title_url",
+                "label": "URL"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Image"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Categories Product 3",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

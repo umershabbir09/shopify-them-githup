@@ -1,0 +1,459 @@
+<!-- mobile header start -->
+<div class="mobile-header d-lg-none d-md-block sticky">
+  <!--mobile header top start -->
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-12">
+        <div class="mobile-main-header">
+          <div class="mobile-logo">
+            {%- render 'header-logo' -%}
+          </div>
+          <div class="mobile-menu-toggler">
+            <div class="mini-cart-wrap">
+              
+              <button class="search-trigger"><i class="pe-7s-search"></i></button>
+              {%- render 'main-search' -%}
+              
+              {%- if section.settings.cart_icon_enable -%}
+              <a href="javascript: void(0)" class="minicart-btn">
+                {%- if section.settings.cart_icon_select == 'shopbag' -%}
+                <i class="pe-7s-shopbag"></i>
+                {%- elsif section.settings.cart_icon_select == 'cart' -%}
+                <i class="pe-7s-cart"></i>
+                {%- endif -%}
+                <div class="notification"><span class="bigcounter">{{ cart.item_count }}</span></div>
+              </a>
+              {%- endif -%}
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-trigger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- mobile header top start -->
+</div>
+<!-- mobile header end -->  
+<aside class="off-canvas-wrapper">
+  <div class="off-canvas-overlay"></div>
+  <div class="off-canvas-inner-content">
+    <div class="btn-close-off-canvas">
+      <i class="pe-7s-close"></i>
+    </div>
+    <div class="off-canvas-inner">
+      {%- if section.settings.mobile_search_field_enable -%}
+      <div class="search-box-offcanvas">
+        <form action="{{ routes.search_url }}" method="get" role="search">
+          <input type="hidden" name="type" value="product">
+          <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+          <button class="search-btn" type="submit"><i class="pe-7s-search"></i></button>
+        </form>
+      </div>
+      {%- endif -%}
+      <!-- mobile menu start -->
+      <div class="mobile-navigation">
+        <!-- mobile menu navigation start -->
+        <nav>
+          <ul class="mobile-menu">
+            {%- assign main_menu = section.settings.main_menu_handle -%}
+            {%- for link in linklists[main_menu].links -%}
+            {%- assign childlink_handle = link.title | handle -%}
+            {%- if settings.m1_megamenu_title == link.title -%}
+            <li class="menu-item-has-children"><a href="{{ link.url }}">{{ link.title }}</a>
+              <ul class="megamenu dropdown">        
+                {%- assign m1_megamenu_column_1 = linklists[settings.m1_megamenu_column_1_handle] -%}
+                {%- if m1_megamenu_column_1 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m1_megamenu_column_1_url }}">{{ m1_megamenu_column_1.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m1_megamenu_column_1.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m1_megamenu_column_2 = linklists[settings.m1_megamenu_column_2_handle] -%}
+                {%- if m1_megamenu_column_2 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m1_megamenu_column_2_url }}">{{ m1_megamenu_column_2.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m1_megamenu_column_2.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m1_megamenu_column_3 = linklists[settings.m1_megamenu_column_3_handle] -%}
+                {%- if m1_megamenu_column_3 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m1_megamenu_column_3_url }}">{{ m1_megamenu_column_3.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m1_megamenu_column_3.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m1_megamenu_column_4 = linklists[settings.m1_megamenu_column_4_handle] -%}
+                {%- if m1_megamenu_column_4 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m1_megamenu_column_4_url }}">{{ m1_megamenu_column_4.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m1_megamenu_column_4.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+              </ul>
+            </li>
+            {%- elsif settings.m2_megamenu_title == link.title -%}
+            <li class="menu-item-has-children"><a href="{{ link.url }}">{{ link.title }}</a>
+              <ul class="megamenu dropdown">        
+                {%- assign m2_megamenu_column_1 = linklists[settings.m2_megamenu_column_1_handle] -%}
+                {%- if m2_megamenu_column_1 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m2_megamenu_column_1_url }}">{{ m2_megamenu_column_1.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m2_megamenu_column_1.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m2_megamenu_column_2 = linklists[settings.m2_megamenu_column_2_handle] -%}
+                {%- if m2_megamenu_column_2 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m2_megamenu_column_2_url }}">{{ m2_megamenu_column_2.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m2_megamenu_column_2.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m2_megamenu_column_3 = linklists[settings.m2_megamenu_column_3_handle] -%}
+                {%- if m2_megamenu_column_3 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m2_megamenu_column_3_url }}">{{ m2_megamenu_column_3.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m2_megamenu_column_3.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+
+                {%- assign m2_megamenu_column_4 = linklists[settings.m2_megamenu_column_4_handle] -%}
+                {%- if m2_megamenu_column_4 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m2_megamenu_column_4_url }}">{{ m2_megamenu_column_4.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m2_megamenu_column_4.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+              </ul>
+            </li>
+            {%- elsif settings.m3_megamenu_title == link.title -%}
+            <li class="menu-item-has-children"><a href="{{ link.url }}">{{ link.title }}</a>
+              <ul class="megamenu dropdown">        
+                {%- assign m3_megamenu_column_1 = linklists[settings.m3_megamenu_column_1_handle] -%}
+                {%- if m3_megamenu_column_1 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m3_megamenu_column_1_url }}">{{ m3_megamenu_column_1.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m3_megamenu_column_1.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m3_megamenu_column_2 = linklists[settings.m3_megamenu_column_2_handle] -%}
+                {%- if m3_megamenu_column_2 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m3_megamenu_column_2_url }}">{{ m3_megamenu_column_2.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m3_megamenu_column_2.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m3_megamenu_column_3 = linklists[settings.m3_megamenu_column_3_handle] -%}
+                {%- if m3_megamenu_column_3 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m3_megamenu_column_3_url }}">{{ m3_megamenu_column_3.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m3_megamenu_column_3.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m3_megamenu_column_4 = linklists[settings.m3_megamenu_column_4_handle] -%}
+                {%- if m3_megamenu_column_4 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m3_megamenu_column_4_url }}">{{ m3_megamenu_column_4.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m3_megamenu_column_4.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+              </ul>
+            </li>
+            {%- elsif settings.m4_megamenu_title == link.title -%}
+            <li class="menu-item-has-children"><a href="{{ link.url }}">{{ link.title }}</a>
+              <ul class="megamenu dropdown">        
+                {%- assign m4_megamenu_column_1 = linklists[settings.m4_megamenu_column_1_handle] -%}
+                {%- if m4_megamenu_column_1 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m4_megamenu_column_1_url }}">{{ m4_megamenu_column_1.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m4_megamenu_column_1.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m4_megamenu_column_2 = linklists[settings.m4_megamenu_column_2_handle] -%}
+                {%- if m4_megamenu_column_2 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m4_megamenu_column_2_url }}">{{ m4_megamenu_column_2.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m4_megamenu_column_2.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m4_megamenu_column_3 = linklists[settings.m4_megamenu_column_3_handle] -%}
+                {%- if m4_megamenu_column_3 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m4_megamenu_column_3_url }}">{{ m4_megamenu_column_3.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m4_megamenu_column_3.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m4_megamenu_column_4 = linklists[settings.m4_megamenu_column_4_handle] -%}
+                {%- if m4_megamenu_column_4 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m4_megamenu_column_4_url }}">{{ m4_megamenu_column_4.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m4_megamenu_column_4.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+              </ul>
+            </li>
+            {%- elsif settings.m5_megamenu_title == link.title -%}
+            <li class="menu-item-has-children"><a href="{{ link.url }}">{{ link.title }}</a>
+              <ul class="megamenu dropdown">        
+                {%- assign m5_megamenu_column_1 = linklists[settings.m5_megamenu_column_1_handle] -%}
+                {%- if m5_megamenu_column_1 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m5_megamenu_column_1_url }}">{{ m5_megamenu_column_1.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m5_megamenu_column_1.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m5_megamenu_column_2 = linklists[settings.m5_megamenu_column_2_handle] -%}
+                {%- if m5_megamenu_column_2 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m5_megamenu_column_2_url }}">{{ m5_megamenu_column_2.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m5_megamenu_column_2.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m5_megamenu_column_3 = linklists[settings.m5_megamenu_column_3_handle] -%}
+                {%- if m5_megamenu_column_3 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m5_megamenu_column_3_url }}">{{ m5_megamenu_column_3.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m5_megamenu_column_3.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+                {%- assign m5_megamenu_column_4 = linklists[settings.m5_megamenu_column_4_handle] -%}
+                {%- if m5_megamenu_column_4 != empty -%}
+                <li class="mega-title menu-item-has-children"><a href="{{ settings.m5_megamenu_column_4_url }}">{{ m5_megamenu_column_4.title }}</a>
+                  <ul class="dropdown">
+                    {%- for link in m5_megamenu_column_4.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- endif -%}
+              </ul>
+            </li>
+            {%- elsif linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 -%}
+            <li class="menu-item-has-children">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+              <ul class="dropdown">
+                {%- for childlink in linklists[childlink_handle].links -%}
+                {%- assign grand_childlink_handle = childlink.title | handle -%}
+                {%- if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 -%}
+                <li class="menu-item-has-children">
+                  <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+                  <ul class="dropdown">
+                    {%- for grand_childlink in linklists[grand_childlink_handle].links -%}
+                    <li><a href="{{ grand_childlink.url }}">{{ grand_childlink.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {%- else -%}
+                <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+                {%- endif -%}  
+                {%- endfor -%}
+              </ul>
+            </li>
+            {%- else -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </nav>
+        <!-- mobile menu navigation end -->
+      </div>
+      <!-- mobile menu end -->
+      <div class="mobile-settings">
+        <ul class="nav">
+          
+          
+          
+          {%- if settings.google_translate_enable -%}
+
+          {%- if settings.language_handle == 'shopify_language' -%}
+          {% if localization.available_languages.size > 1 %}
+          <li>
+            <localization-form>
+              {% form 'localization' %}
+              <div class="dropdown mobile-top-dropdown">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ localization.language.endonym_name | capitalize }}
+                  <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu switcher-dropdown" hidden="true">
+                  {% for language in localization.available_languages %}
+                  <li class="currency__item" tabindex="-1">
+                    <a class="dropdown-item" href="#"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}" data-value="{{ language.iso_code }}">
+                      {{ language.endonym_name | capitalize }}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+                <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+              </div>
+              {% endform %}
+            </localization-form>
+          </li>
+          {% endif %}
+
+          {%- elsif settings.language_handle == 'google_translate' -%}
+          {%- elsif settings.language_handle == 'gtranslate' -%}
+          {%- endif -%}            
+          {%- endif -%}
+
+          {%- if settings.currency_enable -%} 
+          {%- if settings.currency_handle == 'shopify_currency' -%}
+          {% if localization.available_countries.size > 1 %}
+          <li>
+            <localization-form>
+              {% form 'localization' %}
+              <div class="dropdown mobile-top-dropdown">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+                  <i class="fa fa-angle-down"></i>
+                </button>
+
+                <ul class="dropdown-menu switcher-dropdown" hidden="true">
+                  {% for country in localization.available_countries %}
+                  <li class="currency__item" tabindex="-1">
+                    <a class="dropdown-item" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                      {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+
+                <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+              </div>
+              {% endform %}
+            </localization-form>
+          </li>
+		  {% endif %}
+
+          {%- elsif settings.currency_handle == 'ajax_currency' -%}
+          <li>
+            <div class="dropdown mobile-top-dropdown currency">
+              <a href="#" class="dropdown-toggle" id="currency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ section.settings.currency_title }} <span class="current-currency">{{ shop.currency }}</span>
+                <i class="fa fa-angle-down"></i>
+              </a>
+              {%- assign currency = settings.supported_currencies | split: '|' -%}
+              <ul class="dropdown-menu switcher-dropdown" id="currencies">
+                {%- for value in currency -%}
+                {%- assign array = value | split: ',' -%}
+                {%- assign iso_4217 = array[0] | upcase | strip -%}
+                {%- assign name = array[1] | strip -%}
+                <li data-currency="{{ iso_4217 }}" class="currency__item"><a class="dropdown-item" style="cursor: pointer">{{ name }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </li>
+          {%- endif -%}
+          {%- endif -%}
+          
+          {%- if section.settings.user_menu_enable -%}
+          <li class="dropdown mobile-top-dropdown">
+            <a href="#" class="dropdown-toggle" id="myaccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ section.settings.user_menu_title }}
+              <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              {%- assign user_menu = section.settings.user_menu_handle -%}
+              {%- for link in linklists[user_menu].links -%}
+              <li><a class="dropdown-item" href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+              {%- if shop.customer_accounts_enabled and customer and section.settings.logout_title != '' -%}
+              <li>
+                <a class="dropdown-item" href="{{ routes.account_logout_url }}">{{ section.settings.logout_title }}</a>
+              </li>
+              {%- elsif section.settings.login_title != '' -%}
+              <li>
+                <a class="dropdown-item" href="{{ routes.account_login_url }}">{{ section.settings.login_title }}</a>
+              </li>
+              {%- endif -%}
+            </ul>
+          </li>    
+          {%- endif -%}
+        </ul>
+      </div>
+      <!-- offcanvas widget area start -->
+      <div class="offcanvas-widget-area">
+        {%- if section.settings.mobile_tel_number != '' or section.settings.mobile_email_address != '' -%}
+        <div class="off-canvas-contact-widget">
+          <ul>
+            {%- if section.settings.mobile_tel_number != '' -%}
+            <li><i class="fa fa-mobile"></i> <a href="{{ section.settings.mobile_tel_number }}">{{ section.settings.mobile_tel_number }}</a></li>
+            {%- endif -%}
+            {%- if section.settings.mobile_email_address != '' -%}
+            <li><i class="fa fa-envelope-o"></i> <a href="{{ section.settings.mobile_email_address }}">{{ section.settings.mobile_email_address }}</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+        {%- endif -%}
+        {%- if section.settings.mobile_social_midea_enable -%}
+        <div class="off-canvas-social-widget">
+          {%- render 'social-midea' -%}
+        </div>
+        {%- endif -%}
+      </div>
+      <!-- offcanvas widget area end -->
+    </div>
+  </div>
+</aside>
+
+

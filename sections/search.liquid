@@ -1,0 +1,264 @@
+{% assign grid_results = false %}
+{% assign respond_js_secret_key = shop.domain | md5 %}
+{% unless search.terms == respond_js_secret_key %}
+
+{% paginate search.results by 10 %}
+<div class="theme-default-margin search-page" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-12">
+        {% if search.performed %}
+        {% if search.results_count == 0 %}
+        <h4 class="text-center page-search-title">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h4>
+        {% else %}
+        <h4 class="text-center page-search-title">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h4>
+        {% endif %}
+        {% else %}
+        <h4 class="text-center page-search-title">{{ 'general.search.title' | t }}</h4>
+        {% endif %}
+        
+        <div class="page-search-bar">
+          
+          <predictive-search id="predictive-search-toggle" search-open="false">
+            <form action="{{ routes.search_url }}" method="get" role="search" class="page-search-form">
+              <input
+                     id="Search"
+                     type="search"
+                     name="q"
+                     value="{{ search.terms | escape }}"
+                     {%- if settings.predictive_search_enabled -%}
+                     role="combobox"
+                     aria-expanded="false"
+                     aria-owns="predictive-search-results-list"
+                     aria-controls="predictive-search-results-list"
+                     aria-haspopup="listbox"
+                     aria-autocomplete="list"
+                     autocorrect="off"
+                     autocomplete="off"
+                     autocapitalize="off"
+                     spellcheck="false"
+                     {%- endif -%}
+                     class="header-search-field"
+                     placeholder="{{ 'general.search.placeholder' | t }}"
+                     >
+              <button type="submit" class="page-search-button theme-default-button">
+                <span class="fallback-text">{{ 'general.search.submit' | t }}</span>
+              </button>
+              <input name="options[prefix]" type="hidden" value="last">
+
+              {%- if settings.predictive_search_enabled -%}
+              <div id="predictive-search" tabindex="-1"></div>
+              {%- endif -%}
+            </form>
+          </predictive-search>
+        </div>
+ 
+        {% if search.performed %}
+        <div class="search-list">
+          {% for item in search.results %}
+          {% render 'product-search-item', item: item, grid_results: grid_results, respond_js_secret_key: respond_js_secret_key, search.terms: search.terms %}
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if paginate.pages > 1 %}
+        <div class="page-search-pagination">
+          {% render 'pagination', paginate: paginate %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endpaginate %}
+
+{% else %}
+{% render 'respond', grid_results: grid_results, respond_js_secret_key: respond_js_secret_key, search.terms: search.terms %}
+{% layout none %}
+{% endunless %}
+
+{%- render 'section-style' -%}
+{% schema %}
+  {
+    "name": "Search Page",
+    "settings": [
+	],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}

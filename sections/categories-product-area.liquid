@@ -1,0 +1,489 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+ 
+  <div class="rts-top-listed-items  {{ bg_image_class }}"   id="section-{{ section.id }}" {{ sections_bg_image }}  data-section="CategoriesProduct">
+        <div class="rts-new-collection-section section9">
+            <div class="container">
+                <div class="section-inner">
+                    <div class="section-header section-header3 section-header9 text-center">
+                        <div class="wrapper">
+                            <div class="sub-content">
+                                <img class="line-1" src="{{ section.settings.title_image_1 | img_url: 'large' }}" alt="">
+                                <span class="sub-text">{{ section.settings.section_sub_title }}</span>
+                                <img class="line-2" src="{{ section.settings.title_image_2 | img_url: 'large' }}" alt="">
+                            </div>
+                            <h2 class="title">{{ section.settings.section_title }}</h2>
+                        </div>
+                    </div>
+                    <div class="swiper rts-cmmnSlider-over" data-swiper="pagination">
+                        <div class="swiper-wrapper">
+                        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'collection_banner' -%}
+                            <div class="swiper-slide">
+                                <div class="collection-item">
+                                    <div class="image">
+                                       <a href="{{ block.settings.banner_image_url }}">
+                                          <img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="{{ block.settings.banner_image.alt }}">
+                                        </a>
+                                    </div>
+                                    <div class="contents">
+                                        <p class="item-quantity">{{ block.settings.item_number }}</p>
+                                        <a href="{{ block.settings.banner_title_url }}" class="item-catagory-box">
+                                            <h3 class="title">{{ block.settings.banner_title }}</h3>
+                                        </a>
+                                        <ul>
+                                            <li>{{ block.settings.banner_list_1 }}</li>
+                                            <li>{{ block.settings.banner_list_2 }}</li>
+                                        </ul>
+                                        <a href="{{ block.settings.button_title_url }}" class="shop-btn">{{ block.settings.button_title }}</a>
+                                    </div>
+                                </div>
+                            </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="section-inner">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8 col-md-6 col-sm-12 pr">
+                        <div class="content-topbar">
+                            <h3 class="heading">{{ section.settings.section_title_2 }}</h3>
+                            <a href="{{ section.settings.button_title_2_url }}" class="view-btn">{{ section.settings.button_title_2 }} <i class="rt-arrow-right-long"></i></a>
+                        </div>
+                        <div class="row justify-content-lg-center">
+        {%- assign featured_product = collections[section.settings.featured_product_handle] -%}
+        {%- assign featured_product_limit = section.settings.featured_product_limit_handle -%}
+        {%- if featured_product == empty -%}
+                        {%- assign a = 1 -%}
+          {%- for i in (1..featured_product_limit) -%}
+          {%- assign product_item = "product-" | append: a  -%}
+          {%- assign a = a | plus: 1 -%}
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-4 col-6 border-bottom p-0">
+                                <div class="wraper">
+                                    <div class="image-section">
+                                {{ product_item | placeholder_svg_tag: 'product-svg-image' }}
+                                    </div>
+                                    <div class="content">
+                                        <a href="#" class="product-title">The Linen T-shirt</a>
+                                        <p class="product-price">$21.00</p>
+                                    </div>
+                                </div>
+                            </div>
+          {%- if a == 7 -%}
+          {%- assign a = 1 -%}
+          {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+                      {%- for product in featured_product.products limit: featured_product_limit -%}
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-4 col-6 border-bottom p-0">
+          {%- render 'product-grid-item-7', product: product, collection: featured_product -%}
+                            </div>
+          {%- endfor -%}
+        {%- endif -%}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-0">
+                        <div class="right-side-banner">
+                            <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="{{ section.settings.banner_image.alt }}">
+                            <div class="banner-content text-center">
+              {%- if section.settings.banner_sub_title != '' -%}
+                                <p class="title">{{ section.settings.banner_sub_title }}</p>
+              {%- endif -%}
+              {%- if section.settings.banner_title != '' -%}
+                                <h3 class="main-title">{{ section.settings.banner_title }}</h3>
+              {%- endif -%}
+              {%- if section.settings.banner_button_title != '' -%}
+                                <a href="{{ section.settings.banner_button_url }}" class="shopnow-btn">{{ section.settings.banner_button_title }}</a>
+              {%- endif -%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Categories And Product",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Categories"
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "GET YOUR FASHION STYLE"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Featured"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_1",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+        {
+          "type": "image_picker",
+          "id": "title_image_2",
+          "label": "Image 2",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+		  "type": "header",
+          "content": "Product"
+        },
+		{
+          "type": "text",
+          "id": "section_title_2",
+          "label": "Section Title",
+          "default": "Top Listed Items"
+      	},
+        {
+          "type": "text",
+          "id": "button_title_2",
+          "label": "Button Title",
+          "default": "View All"
+        },
+        {
+          "type": "url",
+          "id": "button_title_2_url",
+          "label": "URL"
+        },
+		{
+			"type": "collection",
+            "id": "featured_product_handle",
+            "label": "Select Collection"
+        },
+		{
+            "type": "range",
+            "id": "featured_product_limit_handle",
+            "min": 2,
+            "max": 20,
+            "step": 1,
+            "label": "Limit",
+            "default": 9
+        },
+		{
+		  "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Image",
+          "info": "Recommended Size: 308 x 462px"
+        },
+        {
+          "type": "url",
+          "id": "banner_url",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "banner_sub_title",
+          "label": "Sub Title",
+          "default": "Hot monthly deal"
+        },
+        {
+          "type": "text",
+          "id": "banner_title",
+          "label": "Title",
+          "default": "Save an extra $25 <br> per order",
+          "info": "Use if <br>"
+        },
+        {
+          "type": "text",
+          "id": "banner_button_title",
+          "label": "Button Title",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "banner_button_url",
+          "label": "URL"
+        }
+    ],
+	"blocks":[
+          {
+            "type": "collection_banner",
+            "name": "Categories banner",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Image"
+              },
+              {
+                "type": "url",
+                "id": "banner_image_url",
+                "label": "URL"
+              },
+              {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "FOR WOMEN'S"
+              },
+              {
+                "type": "url",
+                "id": "banner_title_url",
+                "label": "URL"
+              },
+              {
+                "type": "textarea",
+                "id": "item_number",
+                "label": "Item Number",
+                "default": "20 <span>items</span>"
+              },
+              {
+                "type": "textarea",
+                "id": "banner_list_1",
+                "label": "List 1",
+                "default": "Save 20% on order more than $250"
+              },
+              {
+                "type": "textarea",
+                "id": "banner_list_2",
+                "label": "List 1",
+                "default": "Delivery in 2 days"
+              },
+              {
+                "type": "text",
+                "id": "button_title",
+                "label": "Title",
+                "default": "Buy Now"
+              },
+              {
+                "type": "url",
+                "id": "button_title_url",
+                "label": "URL"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Categories And Product",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				},
+				{
+					"type": "collection_banner"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,385 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+    
+    <div class="rts-picked-product-section section-gap  {{ bg_image_class }}"  id="section-{{ section.id }}" {{ sections_bg_image }}  data-section="feature_collection_7">
+        <div class="container">
+            <div class="section-header section-header4">
+                <span class="section-title section-title-2 mb--5">{{ section.settings.section_title }}</span>
+                <a href="{{ section.settings.button_title_url }}" class="go-btn">{{ section.settings.button_title }} <i class="fal fa-long-arrow-right"></i></a>
+            </div>
+            <div class="row">
+        {%- assign featured_product = collections[section.settings.featured_product_handle] -%}
+        {%- assign featured_product_limit = section.settings.featured_product_limit_handle -%}
+        {%- if featured_product == empty -%}
+                        {%- assign a = 1 -%}
+          {%- for i in (1..featured_product_limit) -%}
+          {%- assign product_item = "product-" | append: a  -%}
+          {%- assign a = a | plus: 1 -%}
+                <div class="col-d-35 col-xl-6 col-lg-6 col-md-6">
+                    <div class="product detail-product one filterd-items">
+                               {{ product_item | placeholder_svg_tag: 'product-svg-image' }}
+                        <div class="contents">
+                            <a href="#" class="product-title">Organic Broccoli Cuts <br>
+                                Android 10.0 OS</a>
+                            <span class="product-price">$129.99 <span class="old-price">$349.99</span></span>
+                        </div>
+                    </div>
+                </div>
+          {%- if a == 7 -%}
+          {%- assign a = 1 -%}
+          {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+                      {%- for product in featured_product.products limit: featured_product_limit -%}
+                <div class="col-d-35 col-xl-6 col-lg-6 col-md-6">
+                    <div class="product detail-product one filterd-items">
+                       <a href="{{ product.url | within: collection }}" class="product-thumb">
+                          <img class="popup_cart_image" src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+                         </a>
+                        <div class="contents">
+                          <div class="rating-area">
+                                <div class="rating-stars-group">
+               <!-- Start of Judge.me code -->
+            <div class='jdgm-widget jdgm-preview-badge'>
+              {{ product.metafields.judgeme.badge }}
+            </div>
+          <!-- End of Judge.me code -->
+                                </div>
+                          </div>
+                          {%- assign truncate_count = settings.truncate_count_handle -%}
+                            <a class="product-title popup_cart_title" href="{{ product.url | within: collection }}">
+                              {%- if settings.truncate_count_enable -%}
+                              {{ product.title | truncate: truncate_count }}
+                              {%- else -%}
+                              {{ product.title }}
+                              {%- endif -%}
+                            </a>
+                            <span class="product-price">{{ product.variants.first.price | money }}
+                              {%- if product.variants.first.compare_at_price > product.variants.first.price -%}
+                              <span class="old-price">{{ product.variants.first.compare_at_price | money }}</span>
+                              {%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+          {%- endfor -%}
+        {%- endif -%}
+              
+                <div class="col-d-3 col-md-12">
+                    <div class="row m-0">
+        {%- assign featured_product_2 = collections[section.settings.featured_product_handle_2] -%}
+        {%- assign featured_product_limit_2 = section.settings.featured_product_limit_handle_2 -%}
+        {%- if featured_product_2 == empty -%}
+                        {%- assign a = 1 -%}
+          {%- for i in (1..featured_product_limit_2) -%}
+          {%- assign product_item = "product-" | append: a  -%}
+          {%- assign a = a | plus: 1 -%}
+                        <div class="col-xl-12 col-md-6 {% if forloop.last == true %}last-col{% endif %}">
+                            <div class="product-item">
+                               {{ product_item | placeholder_svg_tag: 'product-svg-image' }}
+                                <div class="contents">
+                                    <span class="product-type">Seafood</span>
+                                    <a href="#" class="product-title">Chicok Butter with Canola Oil 400ML</a>
+                                    <span class="product-price">$230,00</span>
+                                </div>
+                            </div>
+                        </div>
+          {%- if a == 7 -%}
+          {%- assign a = 1 -%}
+          {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+                      {%- for product in featured_product_2.products limit: featured_product_limit_2 -%}
+                        <div class="col-xl-12 col-md-6  {% if forloop.last == true %}last-col{% endif %}">
+                            <div class="product-item">
+                               <a href="{{ product.url | within: collection }}" class="product-thumb">
+                                  <img class="popup_cart_image" src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+                                 </a>
+                                <div class="contents">
+                                  {%- if settings.grid_product_type_enable -%}
+                                      <span class="product-type">{{ product.type }}</span>
+                                  {%- endif -%}
+                                  {%- assign truncate_count = settings.truncate_count_handle -%}
+                                    <a class="product-title popup_cart_title" href="{{ product.url | within: collection }}">
+                                      {%- if settings.truncate_count_enable -%}
+                                      {{ product.title | truncate: truncate_count }}
+                                      {%- else -%}
+                                      {{ product.title }}
+                                      {%- endif -%}
+                                    </a>
+                                    <span class="product-price">{{ product.variants.first.price | money }}</span>
+                                </div>
+                            </div>
+                        </div>
+          {%- endfor -%}
+        {%- endif -%}
+                      
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+
+
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Featured Collection 7",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Hand Picked Products"
+      	},
+		{
+          "type": "textarea",
+          "id": "button_title",
+          "label": "Button Title",
+          "default": "All Products"
+      	},	
+		{
+          "type": "url",
+          "id": "button_title_url",
+          "label": "URL"
+      	},	
+		{
+			"type": "header",
+            "content": "Product"
+        },
+		{
+			"type": "collection",
+            "id": "featured_product_handle",
+            "label": "Select Collection"
+        },
+		{
+            "type": "range",
+            "id": "featured_product_limit_handle",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Limit",
+            "default": 2
+        },	
+		{
+			"type": "header",
+            "content": "Product 2"
+        },
+		{
+			"type": "collection",
+            "id": "featured_product_handle_2",
+            "label": "Select Collection"
+        },
+		{
+            "type": "range",
+            "id": "featured_product_limit_handle_2",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Limit",
+            "default": 2
+        }
+    ],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Featured Collection 7",
+		  "category": "3. collections",
+		  "blocks":[
+            
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

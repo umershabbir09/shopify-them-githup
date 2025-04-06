@@ -1,0 +1,398 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+<!-- featured product area start -->
+<section class="hot-deals {{ bg_image_class }}" id="section-{{ section.id }}" data-section="HotDeals" {{ sections_bg_image }}>
+  <div class="container">
+    {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+    <div class="row">
+      <div class="col-12">
+        <!-- section title start -->
+        <div class="section-title text-center">
+          {%- if section.settings.section_title != '' -%}
+          <h2 class="title">{{ section.settings.section_title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_sub_title != '' -%}
+          <p class="sub-title">{{ section.settings.section_sub_title }}</p>
+          {%- endif -%}
+        </div>
+        <!-- section title start -->
+      </div>
+    </div>
+    {%- endif -%}
+    <div class="row">
+      <div class="col-12">
+        {%- capture data_slick_activation -%}
+        data-slick='{
+             "rows": {{ section.settings.product_row }},
+             "slidesToShow": {{ section.settings.product_column }},
+              "responsive":[
+                  {"breakpoint":992, "settings": {"slidesToShow": {{ section.settings.product_column_md }}} },
+                  {"breakpoint":768, "settings": {"slidesToShow": {{ section.settings.product_column_sm }}, "slidesToScroll": {{ section.settings.product_column_sm }}, "arrows": false, "dots": true} },
+                  {"breakpoint":480, "settings": {"slidesToShow": {{ section.settings.product_column_sm }}, "slidesToScroll": {{ section.settings.product_column_sm }}, "arrows": false, "dots": true} }
+                ] 
+
+        }'
+        {%- endcapture -%}
+        {%- assign featured_product = collections[section.settings.featured_product_handle] -%}
+        {%- assign featured_product_limit = section.settings.featured_product_limit_handle -%}
+        {%- if featured_product == empty -%}
+        <div class="deals-carousel-active slick-row-10 slick-arrow-style slick-dot-style slick-dot-style-2" {% if settings.rtl_enable %}dir="rtl"{% endif %} {{ data_slick_activation }}>
+          {%- assign a = 1 -%}
+          {%- for i in (1..featured_product_limit) -%}
+          {%- assign product_item = "product-" | append: a  -%}
+          {%- assign a = a | plus: 1 -%}
+          <div class="hot-deals-item product-item">
+            <figure class="product-thumb">
+              {{ product_item | placeholder_svg_tag: 'product-svg-image' }}
+            </figure>
+            <div class="product-caption">
+              <h6 class="product-name">
+                Product Title
+              </h6>
+              <div class="price-box">
+                <span class="price-regular">$99.99</span>
+              </div>
+            </div>
+          </div>
+          {%- if a == 7 -%}
+          {%- assign a = 1 -%}
+          {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- else -%}
+        <div class="deals-carousel-active slick-row-10 slick-arrow-style slick-dot-style slick-dot-style-2" {% if settings.rtl_enable %}dir="rtl"{% endif %} {{ data_slick_activation }}>
+          {%- for product in featured_product.products limit: featured_product_limit -%}
+          {%- render 'product-grid-item-2', product: product, collection: featured_product -%}
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- featured product area end -->
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Hot Deals Collection",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title Here"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Section Sub Title Here"
+      	},
+		{
+			"type": "header",
+            "content": "Product"
+        },
+		{
+			"type": "collection",
+            "id": "featured_product_handle",
+            "label": "Select Collection"
+        },
+		{
+            "type": "range",
+            "id": "product_row",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "label": "Row",
+            "default": 1
+        },
+		{
+            "type": "range",
+            "id": "featured_product_limit_handle",
+            "min": 2,
+            "max": 20,
+            "step": 1,
+            "label": "Limit",
+            "default": 8
+        },
+		{
+			"type": "header",
+            "content": "Product Column"
+        },
+		{
+            "type": "range",
+            "id": "product_column",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Desktop",
+            "default": 3
+        },
+		{
+            "type": "range",
+            "id": "product_column_md",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Tablet",
+            "default": 2
+        },
+		{
+            "type": "range",
+            "id": "product_column_sm",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Mobile",
+            "default": 1
+        },
+		{
+		  "type": "header",
+          "content": "Progress Quantity"
+        },
+		{
+          "type": "text",
+          "id": "sold_title",
+          "label": "Sold Title",
+          "default": "Sold:"
+      	},
+		{
+          "type": "text",
+          "id": "available_title",
+          "label": "Available Title",
+          "default": "Available:"
+      	},
+		{
+          "type": "paragraph",
+          "content": "Recommended app [Metafields Custom Field Master](https://apps.shopify.com/metafields-manager-by-hulkapps)"
+      	},
+        {
+          "type": "paragraph",
+          "content": "First, install this app then create Metafield on the selected product."
+        },
+        {
+          "type": "paragraph",
+          "content": "Follow the below instruction for creating Metafield"
+        },
+        {
+          "type": "html",
+          "id": "sold_count",
+          "label": "Sold Count",
+          "default": "Namespace: sold_count, Key: sold, Value: 40"
+        },
+        {
+          "type": "html",
+          "id": "available_count",
+          "label": "Available Count",
+          "default": "Namespace: available_count, Key: available, Value: 300"
+        },
+        {
+          "type": "paragraph",
+          "content": "Follow the screenshot - [Click here](https://prnt.sc/wyt58z)"
+        }
+    ],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Hot Deals Collection",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}
+

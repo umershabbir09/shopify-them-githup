@@ -1,0 +1,397 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+ 
+    <div class="rts-product-category-section section-gap  {{ bg_image_class }}"   id="section-{{ section.id }}" {{ sections_bg_image }}  data-section="CategoriesProduct_4">
+        <div class="container">
+            <div class="row">
+                        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'category_product' -%}
+                <div class="col-xl-2">
+                    <a href="{{ block.settings.category_url }}" class="product-item product-item-vertical">
+                        <div class="product-thumb">
+                          <img src="{{ block.settings.category_image | img_url: 'large' }}" alt="{{ block.settings.category_image.alt }}">
+                        </div>
+                        <div class="contents">
+                            <span class="item-qnty">{{ block.settings.category_sub_title }}</span>
+                            <h3 class="product-title">{{ block.settings.category_title }}</h3>
+                            <div class="icon"><i class="fal fa-long-arrow-right"></i></div>
+                        </div>
+                    </a>
+                </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                <div class="col-xl-8">
+                    <div class="row">
+                        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'category_product_2' -%}
+                        <div class="col-xl-4 col-md-6 col-sm-6">
+                            <a href="{{ block.settings.category_url }}" class="product-item product-item-horizontal">
+                                <div class="product-thumb">
+                                    <img src="{{ block.settings.category_image | img_url: 'large' }}" alt="{{ block.settings.category_image.alt }}">
+                                </div>
+                                <div class="contents">
+                                    <span class="item-qnty">{{ block.settings.category_sub_title }}</span>
+                                    <h3 class="product-title">{{ block.settings.category_title }}</h3>
+                                </div>
+                            </a>
+                        </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                    </div>
+                </div>
+              
+                        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'category_product_3' -%}
+                <div class="col-lg-2 col-md-12">
+                    <a href="{{ block.settings.category_url }}" class="product-item product-item-vertical product-item-bg">
+                        <div class="product-thumb">
+                            <img src="{{ block.settings.category_image | img_url: 'large' }}" alt="{{ block.settings.category_image.alt }}">
+                        </div>
+                        <div class="contents">
+                            <span class="item-qnty">{{ block.settings.category_sub_title }}</span>
+                            <h3 class="product-title">{{ block.settings.category_title }}</h3>
+                        </div>
+                    </a>
+                </div>
+          {%- endcase -%}
+          {%- endfor -%}
+            </div>
+        </div>
+    </div>
+
+<style>
+    {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'category_product_3' -%}
+  .rts-product-category-section .product-item.product-item-bg {
+  background-image: url("{{ block.settings.banner_bg_image | img_url: 'master' }}");
+}
+          {%- endcase -%}
+          {%- endfor -%}
+</style>
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Categories Product 4",
+    "settings": [
+      
+    ],
+	"blocks":[
+          {
+            "type": "category_product",
+            "name": "Category Product",
+            "settings": [
+              {
+                "type": "text",
+                "id": "category_sub_title",
+                "label": "Category Sub Title",
+                "default": "10 Items"
+              },
+              {
+                "type": "text",
+                "id": "category_title",
+                "label": "Category Title",
+                "default": "Fresh Vegetables"
+              },
+              {
+                "type": "image_picker",
+                "id": "category_image",
+                "label": "Image",
+                "info": "Recommended Size: 123 x 120px"
+              },
+              {
+                "type": "url",
+                "id": "category_url",
+                "label": "URL"
+              }
+            ]
+         },
+          {
+            "type": "category_product_2",
+            "name": "Category Product 2",
+            "settings": [
+              {
+                "type": "text",
+                "id": "category_sub_title",
+                "label": "Category Sub Title",
+                "default": "10 Items"
+              },
+              {
+                "type": "text",
+                "id": "category_title",
+                "label": "Category Title",
+                "default": "Breads & Bakery"
+              },
+              {
+                "type": "image_picker",
+                "id": "category_image",
+                "label": "Image",
+                "info": "Recommended Size: 80 x 60px"
+              },
+              {
+                "type": "url",
+                "id": "category_url",
+                "label": "URL"
+              }
+            ]
+         },
+          {
+            "type": "category_product_3",
+            "name": "Category Product 3",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "banner_bg_image",
+                "label": "BG Image",
+        		"info": "Recommended Size: 190 x 320px"
+              },
+              {
+                "type": "text",
+                "id": "category_sub_title",
+                "label": "Category Sub Title",
+                "default": "-50%"
+              },
+              {
+                "type": "text",
+                "id": "category_title",
+                "label": "Category Title",
+                "default": "Pure Egg"
+              },
+              {
+                "type": "image_picker",
+                "id": "category_image",
+                "label": "Image",
+                "info": "Recommended Size: 126 x 100px"
+              },
+              {
+                "type": "url",
+                "id": "category_url",
+                "label": "URL"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Categories Product 4",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "category_product"
+				},
+				{
+					"type": "category_product_2"
+				},
+				{
+					"type": "category_product_2"
+				},
+				{
+					"type": "category_product_2"
+				},
+				{
+					"type": "category_product_2"
+				},
+				{
+					"type": "category_product_2"
+				},
+				{
+					"type": "category_product_2"
+				},
+				{
+					"type": "category_product_3"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

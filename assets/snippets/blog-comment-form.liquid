@@ -1,0 +1,31 @@
+{%- form 'new_comment', article -%}
+{{ form.errors | default_errors }}
+{%- if blog.moderated? -%}
+<p>{{ 'blogs.comments.moderated' | t }}</p>
+{%- endif -%}
+<div class="blog-comment-wrapper">
+  <h5>{{ 'blogs.comments.title' | t }}</h5>
+  <p>Your email address will not be published. Required fields are marked *</p>
+  <div class="comment-post-box">
+    <div class="row">
+      <div class="col-12">
+        <label>Comment</label>
+        <textarea class="custom-textarea" name="comment[body]" id="commentBody"  placeholder="{{ 'blogs.comments.message' | t }}">{{ form.body }}</textarea>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <label>Name</label>
+        <input type="text" class="coment-field {% if form.errors contains 'author' %}error{% endif %}" name="comment[author]" id="commentAuthor" value="{{ form.author }}" placeholder="{{ 'blogs.comments.name' | t }}">
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <label>Email</label>
+        <input type="text" class="coment-field {% if form.errors contains 'email' %}error{% endif %}" name="comment[email]" id="commentEmail" value="{{ form.email }}" placeholder="{{ 'blogs.comments.email' | t }}">
+      </div>
+      <div class="col-12">
+        <div class="coment-btn">
+          <input class="btn btn-sqr" type="submit" name="submit" value="{{ 'blogs.comments.post' | t }}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endform %}

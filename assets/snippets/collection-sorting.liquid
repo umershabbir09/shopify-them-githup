@@ -1,0 +1,76 @@
+<div class="shop-top-bar">
+  <div class="row align-items-center">
+    <div class="col-lg-7 col-md-6 order-2 order-md-1">
+      <div class="top-bar-left">
+        {% if section.settings.sidebar_handle == 'popup_filter' %}
+        <button type="button" class="collection-filter-btn"><i class="fa fa-sliders" aria-hidden="true"></i> Filter</button>
+        {% endif %}
+        {%- if section.settings.tab_bar_enable -%}
+        <div class="product-view-mode">
+          <a class="active" href="#" data-target="grid-view" data-toggle="tooltip" title="Grid View"><i class="fa fa-th"></i></a>
+          <a href="#" data-target="list-view" data-toggle="tooltip" title="List View"><i class="fa fa-list"></i></a>
+        </div>
+        {%- endif -%}
+        <div class="product-amount">
+          {%- if section.settings.showing_product_counter_enable -%}
+          {%- assign paginate_checker = paginate.current_page | times: products_limit -%}
+          {%- if paginate.items > paginate_checker -%}
+          {%- assign paginate_final = paginate_checker -%}
+          {%- else -%}
+          {%- assign paginate_final = paginate.items -%}
+          {%- endif -%}
+          {%- assign showing_title = section.settings.showing_title_handle | split: "|" -%}
+          <p>{{ showing_title | slice: 0 }} 
+            {{ paginate.current_offset | plus: 1 }} - {{ paginate_final }} 
+            {{ showing_title | slice: 1 }} 
+            {{ paginate.items }} 
+            {{ showing_title | slice: 2 }} 
+          </p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- if section.settings.short_by_enable -%}
+    <div class="col-lg-5 col-md-6 order-1 order-md-2">
+      <div class="top-bar-right">
+        <div class="product-short">
+          <p>{{ 'collections.sorting.title' | t }} : </p>
+          <select id="sort-by">
+            {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+            {% for option in collection.sort_options %}
+            <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
+              {{ option.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+
+
+
+<script>
+
+  Shopify.queryParams = {};
+
+  // Preserve existing query parameters
+  if (location.search.length) {
+    var params = location.search.substr(1).split('&');
+    for (var i = 0; i < params.length; i++) {
+      var keyValue = params[i].split('=');
+      if (keyValue.length) {
+        Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+      }
+    }
+  }
+
+  // Update sort_by query parameter on select change
+  document.querySelector('#sort-by').addEventListener('change', function(e) {
+    var value = e.target.value;
+    Shopify.queryParams.sort_by = value;
+    location.search = new URLSearchParams(Shopify.queryParams).toString();
+  });
+</script>

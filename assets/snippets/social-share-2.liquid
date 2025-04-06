@@ -1,0 +1,8 @@
+{%- if template == 'product' -%}
+  <span>{{ block.settings.social_title }}</span>
+  <a class="platform" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}" data-toggle="tooltip" data-placement="top" title="Share on Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+  <a class="platform" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}" data-toggle="tooltip" data-placement="top" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+  {% if product.featured_image or article.image  %}
+  <a class="platform" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}" data-toggle="tooltip" data-placement="top" title="Share on Pinterest" target="_blank"><i class="fa fa-pinterest"></i></a>
+  {% endif %}
+{%- endif -%}

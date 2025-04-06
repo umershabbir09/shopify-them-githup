@@ -1,0 +1,359 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%} 
+
+ <div class="features-area {{ bg_image_class }}" id="section-{{ section.id }}" data-section="AboutFeatureArea" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="features-1">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="image-section">
+                           <img src="{{ section.settings.about_image| img_url: 'master' }}" alt="{{ section.settings.about_image.alt }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="section-content">
+                            <div class="sub-content">
+                                <img class="line-1" src="{{ section.settings.title_image_1 | img_url: 'large' }}" alt="">
+                                <span class="sub-text">{{ section.settings.section_sub_title }}</span>
+                                <img class="line-2" src="{{ section.settings.title_image_2 | img_url: 'large' }}" alt="">
+                            </div>
+                            <h2 class="title">{{ section.settings.section_title }}</h2>
+                            <p class="description">{{ section.settings.content_1 }}</p>
+                            <div class="section-button">
+                                <a href="{{ section.settings.button_name_url }}">{{ section.settings.button_name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="features-2">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="section-content">
+                            <div class="sub-content">
+                                <img class="line-1" src="{{ section.settings.title_image_3 | img_url: 'large' }}" alt="">
+                                <span class="sub-text">{{ section.settings.section_sub_title_2 }}</span>
+                                <img class="line-2" src="{{ section.settings.title_image_4 | img_url: 'large' }}" alt="">
+                            </div>
+                            <h2 class="title">{{ section.settings.section_title_2 }}</h2>
+                            <p class="description">{{ section.settings.content_2 }}</p>
+                            <div class="section-button">
+                                <a href="{{ section.settings.button_name_2_url }}">{{ section.settings.button_name_2 }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="image-section">
+                            <img src="{{ section.settings.about_image_2| img_url: 'master' }}" alt="{{ section.settings.about_image_2.alt }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "About Feature Area",
+    "settings": [
+        {
+          "type": "header",
+          "content": "Feature Area 1"
+        },
+		{
+          "type": "image_picker",
+          "id": "about_image",
+          "label": "Image",
+          "info": "Recommended Size: 445 x 550px"
+      	},
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Title",
+          "default": "Solutions That Work Together"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Sub Title",
+          "default": "Features #01"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_1",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+        {
+          "type": "image_picker",
+          "id": "title_image_2",
+          "label": "Image 2",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+          "type": "textarea",
+          "id": "content_1",
+          "label": "About Content",
+		  "default": "Publish your eCommerce site quickly with our easy-to-use store builder— no"
+      	},
+		{
+          "type": "text",
+          "id": "button_name",
+          "label": "Button",
+          "default": "Get In Touch"
+      	},
+		{
+          "type": "url",
+          "id": "button_name_url",
+          "label": "URL"
+      	},
+        {
+          "type": "header",
+          "content": "Feature Area 2"
+        },
+		{
+          "type": "image_picker",
+          "id": "about_image_2",
+          "label": "Image 2",
+          "info": "Recommended Size: 445 x 550px"
+      	},
+		{
+          "type": "text",
+          "id": "section_title_2",
+          "label": "Title",
+          "default": "All Kinds of Payments Securely"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title_2",
+          "label": "Sub Title",
+          "default": "Features #01"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_3",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+        {
+          "type": "image_picker",
+          "id": "title_image_4",
+          "label": "Image 2",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+          "type": "textarea",
+          "id": "content_2",
+          "label": "About Content",
+		  "default": "Publish your eCommerce site quickly with our easy-to-use store builder— no"
+      	},
+		{
+          "type": "text",
+          "id": "button_name_2",
+          "label": "Button",
+          "default": "Contact With Us"
+      	},
+		{
+          "type": "url",
+          "id": "button_name_2_url",
+          "label": "URL"
+      	}
+	],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "About Feature Area",
+		  "category": "5. about",
+		  "blocks":[
+            
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

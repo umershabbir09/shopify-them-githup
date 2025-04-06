@@ -1,0 +1,59 @@
+<ul class="nav__menu">
+    {%- assign main_menu = section.settings.main_menu_handle -%}
+    {%- for link in linklists[main_menu].links -%}
+    {%- assign childlink_handle = link.title | handle -%}
+    {%- if settings.m1_megamenu_title == link.title -%}
+    <li class="has-dropdown  {% if link.active %} active1{% endif %}"><a class="menu-item" href="{{ link.url }}">{{ link.title }} <i class="rt-plus"></i></a>
+        <ul class="dropdown-ul mega-dropdown">
+        {%- assign m1_megamenu_column_1 = linklists[settings.m1_megamenu_column_1_handle] -%}
+        {%- if m1_megamenu_column_1 != empty -%}
+            <li class="mega-dropdown-li"> <span>{{ m1_megamenu_column_1.title }}</span>
+                <ul class="mega-dropdown-ul">
+            {%- for link in m1_megamenu_column_1.links -%}
+                    <li class="dropdown-li"><a class="dropdown-link2" href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+                </ul>
+            </li>
+        {%- endif -%}
+        {%- assign m1_megamenu_column_2 = linklists[settings.m1_megamenu_column_2_handle] -%}
+        {%- if m1_megamenu_column_2 != empty -%}
+            <li class="mega-dropdown-li"><span>{{ m1_megamenu_column_2.title }}</span>
+                <ul class="mega-dropdown-ul">
+            {%- for link in m1_megamenu_column_2.links -%}
+                    <li class="dropdown-li"><a class="dropdown-link2"
+                            href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+            {%- endfor -%}
+                </ul>
+            </li>
+        {%- endif -%}
+        {%- assign m1_megamenu_column_3 = linklists[settings.m1_megamenu_column_3_handle] -%}
+        {%- if m1_megamenu_column_3 != empty -%}
+            <li class="mega-dropdown-li last-child"><span>{{ m1_megamenu_column_3.title }}</span>
+                <ul class="mega-dropdown-ul">
+            {%- for link in m1_megamenu_column_3.links -%}
+                    <li class="dropdown-li"><a class="dropdown-link2"
+                            href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+            {%- endfor -%}
+                </ul>
+            </li>
+        {%- endif -%}
+        </ul>
+    </li>
+  
+    {%- elsif linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 -%}
+    <li class="has-dropdown {% if link.active %} active1{% endif %}"><a class="menu-item" href="{{ link.url }}">{{ link.title }} <i class="rt-plus"></i></a>
+        <ul class="dropdown-ul">
+        {%- for childlink in linklists[childlink_handle].links -%}
+            <li class="dropdown-li"><a class="dropdown-link" href="{{ childlink.url }}">{{ childlink.title }}</a>
+            </li>
+        {%- endfor -%}
+        </ul>
+    </li>
+    {%- else -%}
+    <li {% if link.active %} class="active1"{% endif %}><a class="menu-item" href="{{ link.url }}">{{ link.title }}</a></li>
+    {%- endif -%}
+    {%- endfor -%}
+  
+</ul>

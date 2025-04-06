@@ -1,0 +1,26 @@
+<div class="blog-post-item {% if template == 'blog' %}mb-30{% endif %}">
+  {%- if article.image -%}
+  <figure class="blog-thumb">
+    <a href="{{ article.url }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+      {%- render 'responsive-image' with image: article.image, image_class: "lazyload-main-image" -%}
+    </a>
+  </figure>
+  {%- endif -%}
+  <div class="blog-content">
+    {%- if section.settings.blog_date_enable or section.settings.author_name_enable -%}
+    <div class="blog-meta">
+      <p>{% if section.settings.blog_date_enable %}{{ article.published_at | date: '%d/%m/%Y' }}{% endif %} {% if section.settings.author_name_enable %}| <span>{{ article.author }}</span>{% endif %}</p>
+    </div>
+    {%- endif -%}
+    <h5 class="blog-title">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h5>
+    {%- if section.settings.blog_description_enable -%}
+    {%- if article.excerpt.size > 0 -%}
+    {{ article.excerpt }}
+    {%- else -%}
+    <p class="mt-15">{{ article.content | strip_html | truncatewords: 30 }}</p>
+    {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>

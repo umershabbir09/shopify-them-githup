@@ -1,0 +1,299 @@
+    <div class="banner banner-3 banner-5"  id="section-{{ section.id }}" data-section="SlideShow_8" >
+      <div class="swiper bannerSlide2">
+          <div class="swiper-wrapper">
+         {%- for block in section.blocks -%}
+          {%- case block.type -%}
+    {%- when 'slide' -%}  
+              <div class="swiper-slide">
+                  <div class="banner-single bg-image-5 balo">
+                      <div class="container">
+                          <div class="single-inner">
+                              <div class="contents">
+            {%- if block.settings.slide_sub_title != '' -%}
+                                  <span class="banner-pretitle-box">{{ block.settings.slide_sub_title }} </span>
+            {%- endif -%}
+            {%- if block.settings.slide_title != '' -%}
+                                  <h1 class="banner-heading mb--30">{{ block.settings.slide_title }}</h1>
+            {%- endif -%}
+                                  <div class="banner-action">
+                                      <p>{{ block.settings.slide_description}}</p>
+                                      <span class="product-price">{{ block.settings.slide_price}}</span>
+                                  </div>
+                              </div>
+                              <div class="banner-product-thumb">
+                                <img src="{{ block.settings.slide_image | img_url: 'master' }}" alt="{{ block.settings.slide_image.alt }}">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          {%- endcase -%}
+          {%- endfor -%}
+          </div>
+      </div>
+      <div class="banner5 floating-elements">
+          <div class="floating-item item1"><img src="{{ section.settings.gros_image_1 | img_url: 'large' }}" alt="{{ section.settings.gros_image_1.alt }}"></div>
+          <div class="floating-item item2"><img src="{{ section.settings.gros_image_2 | img_url: 'small' }}" alt="{{ section.settings.gros_image_2.alt }}"></div>
+          <div class="floating-item item3"><img src="{{ section.settings.gros_image_3 | img_url: 'small' }}" alt="{{ section.settings.gros_image_3.alt }}"></div>
+      </div>
+  </div>
+
+  <style>
+    .banner .banner-single.bg-image-5 {
+  background-image: url("{{ section.settings.bg_image | img_url: 'master' }}");
+}
+  </style>
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Slideshow 9",
+    "settings": [
+          {
+            "type": "header",
+            "content": "Background Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "bg_image",
+            "label": "BG Image",
+            "info": "Recommended Size: 1920 x 710px"
+          },
+          {
+            "type": "header",
+            "content": "Floating Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "gros_image_1",
+            "label": "Floating Image 1",
+            "info": "Recommended Size: 252 x 274px"
+          },
+          {
+            "type": "image_picker",
+            "id": "gros_image_2",
+            "label": "Floating Image 2",
+            "info": "Recommended Size: 201 x 157px"
+          },
+          {
+            "type": "image_picker",
+            "id": "gros_image_3",
+            "label": "Floating Image 3",
+            "info": "Recommended Size: 145 x 192px"
+          }
+	],
+	"blocks":[
+	   {
+          "type": "slide",
+          "name": "Slide Show",
+		  "limit": 5,
+          "settings": [
+              {
+                "type": "image_picker",
+                "id": "slide_image",
+                "label": "Image",
+                "info": "Recommended Size: 570 x 510px"
+              },
+            {
+              "type": "textarea",
+              "id": "slide_sub_title",
+              "label": "Sub Title",
+              "default": "Don’t Miss! Only For This Week"
+            },
+            {
+              "type": "textarea",
+              "id": "slide_title",
+              "label": "Title",
+              "default": "Todays Best Deal <br> In Our Store",
+              "info": "Use of <br>"
+            },
+            {
+              "type": "text",
+              "id": "slide_description",
+              "label": "Description",
+              "default": "From"
+            },
+            {
+              "type": "text",
+              "id": "slide_price",
+              "label": "Price",
+              "default": "$29.00"
+            }
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Slideshow 9",
+		  "category": "1. slideshow",
+		  "blocks":[
+				{
+					"type": "slide"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

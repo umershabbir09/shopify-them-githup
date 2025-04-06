@@ -1,0 +1,471 @@
+{%- if section.settings.contact_infomation -%}
+ <div class="contact-area">
+        <div class="container">
+            <div class="row">
+      {%- if section.settings.contact_form -%}
+                <div class="{% if section.settings.contact_address %} col-lg-8 {% else %}col-lg-12 {% endif %} col-md-12 ">
+                    <div class="contact-form mb-10">
+                        <div class="section-header section-header5 text-start">
+                            <div class="wrapper">
+                                <div class="sub-content">
+                                    <img class="line-1" src="{{ section.settings.title_image_1 | img_url: 'large' }}" alt="">
+                                    <span class="sub-text">{{ section.settings.section_sub_title }}</span>
+                                </div>
+                                <h2 class="title">{{ section.settings.contact_form_title }}</h2>
+                            </div>
+                        </div>
+                        <div class="info-form">
+                          {%- render 'contact-form-2' -%}
+                        </div>
+                    </div>
+                </div>
+              
+      {%- endif -%}
+      {%- if section.settings.contact_address -%}
+                <div class="{% if section.settings.contact_form %}col-lg-4{% else %}col-lg-12{% endif %} col-md-12 ">
+                    <div class="right-side">
+                        <div class="get-in-touch">
+                            <h3 class="section-title2">
+                                {{ section.settings.contact_address_title }}
+                            </h3>
+                            <div class="contact">
+                                <ul>
+            {%- if section.settings.contact_address != '' -%}
+                                    <li class="one">
+                                        {{ section.settings.contact_address_1 }}
+                                    </li>
+            {%- endif -%}
+            {%- if section.settings.contact_number != '' -%}
+                                    <li class="two">{{ section.settings.contact_number }}</li>
+            {%- endif -%}
+            {%- if section.settings.contact_hours != '' -%}
+                                    <li class="three">{{ section.settings.contact_hours }}</li>
+            {%- endif -%}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="section-button">
+            {%- if section.settings.support_call != '' -%}
+                            <div class="btn-1">
+                                <a href="{{ section.settings.support_call_url }}">{{ section.settings.support_call }} <i class="fa fa-headphones"></i></a>
+                            </div>
+            {%- endif -%}
+            {%- if section.settings.direction_call != '' -%}
+                            <div class="btn-2">
+                                <a href="{{ section.settings.direction_call_url }}">{{ section.settings.direction_call }} <i class="rt-location-dot"></i></a>
+                            </div>
+            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+      {%- endif -%}
+            </div>
+        </div>
+ </div>
+
+  {% comment %}
+<div class="contact-area" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      {%- if section.settings.contact_form -%}
+      <div class="{% if section.settings.contact_address %}col-lg-6{% else %}col-lg-12{% endif %}">
+        <div class="contact-message">
+          <h4 class="contact-title">{{ section.settings.contact_form_title }}</h4>
+          {%- include 'contact-form' -%}
+        </div>
+      </div>
+      {%- endif -%}
+      {%- if section.settings.contact_address -%}
+      <div class="{% if section.settings.contact_form %}col-lg-6{% else %}col-lg-12{% endif %}">
+        <div class="contact-info">
+          <h4 class="contact-title">{{ section.settings.contact_address_title }}</h4>
+          {%- if section.settings.contact_content != '' -%}
+          {{ section.settings.contact_content }}
+          {%- endif -%}
+          {%- if section.settings.contact_address_1 != '' or section.settings.contact_mail != '' or section.settings.contact_number != '' -%}
+          <ul>
+            {%- if section.settings.contact_address != '' -%}
+            <li><i class="fa fa-fax"></i> {{ section.settings.contact_address_1 }}</li>
+            {%- endif -%}
+            {%- if section.settings.contact_mail != '' -%}
+            <li><i class="fa fa-phone"></i> {{ section.settings.contact_mail }}</li>
+            {%- endif -%}
+            {%- if section.settings.contact_number != '' -%}
+            <li><i class="fa fa-envelope-o"></i> {{ section.settings.contact_number }}</li>
+            {%- endif -%}
+          </ul>
+          {%- endif -%}
+          {%- if section.settings.schedule_title != '' or section.settings.schedule_content != '' -%}
+          <div class="working-time">
+            <h6>{{ section.settings.schedule_title }}</h6>
+            {%- if section.settings.schedule_content != '' -%}
+            {{ section.settings.schedule_content }}
+            {%- endif -%}
+          </div>
+          {%- endif -%}
+        </div>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+  {% endcomment %}
+
+  
+{%- render 'section-style' -%}
+
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Contact Information",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "contact_infomation",
+          "label": "Show Contact Information",
+          "default": true
+      	},
+		{
+		  "type": "header",
+          "content": "Contact Form"
+        },
+		{
+          "type": "checkbox",
+          "id": "contact_form",
+          "label": "Show Contact Form",
+          "default": true
+      	},
+		{
+          "type": "text",
+          "id": "contact_form_title",
+          "label": "Title",
+          "default": "MAKE CUSTOM REQUEST"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Contact Us"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_1",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+          "type": "text",
+          "id": "name_placeholder",
+          "label": "Name",
+          "default": "Name *"
+      	},
+		{
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email",
+          "default": "Email *"
+      	},
+		{
+          "type": "text",
+          "id": "phone_placeholder",
+          "label": "Phone",
+          "default": "Phone"
+      	},
+		{
+          "type": "text",
+          "id": "subject_placeholder",
+          "label": "Subject",
+          "default": "Subject"
+      	},
+		{
+          "type": "text",
+          "id": "message_placeholder",
+          "label": "Message",
+          "default": "Message"
+      	},
+		{
+          "type": "text",
+          "id": "form_button_name",
+          "label": "Submit Button",
+          "default": "Get A Quote"
+      	},
+		{
+		  "type": "header",
+          "content": "Contact Address"
+        },
+		{
+          "type": "checkbox",
+          "id": "contact_address",
+          "label": "Show Contact Address",
+          "default": true
+      	},
+		{
+          "type": "text",
+          "id": "contact_address_title",
+          "label": "Title",
+          "default": "GET IN TOUCH"
+      	},
+		{
+          "type": "richtext",
+          "id": "contact_content",
+          "label": "Content",
+		  "default": "<p>Your content here</p>"
+      	},
+		{
+          "type": "text",
+          "id": "contact_address_1",
+          "label": "Address",
+          "default": "Address : No 40 Baria Sreet 133/2 NewYork City"
+      	},
+		{
+          "type": "text",
+          "id": "contact_mail",
+          "label": "Email",
+          "default": "E-mail: info@yourdomain.com"
+      	},
+		{
+          "type": "text",
+          "id": "contact_number",
+          "label": "Number",
+          "default": "+88013245657"
+      	},
+		{
+          "type": "text",
+          "id": "contact_hours",
+          "label": "Hours",
+          "default": "Store Hours: <br> 10 am - 10 pm EST, 7 days a week"
+      	},
+		{
+          "type": "text",
+          "id": "support_call",
+          "label": "Support Call",
+          "default": "Get Support On Call"
+      	},
+		{
+          "type": "url",
+          "id": "support_call_url",
+          "label": "URL"
+      	},
+		{
+          "type": "text",
+          "id": "direction_call",
+          "label": "Get Direction",
+          "default": "Get Direction"
+      	},
+		{
+          "type": "url",
+          "id": "direction_call_url",
+          "label": "URL"
+      	},
+		{
+		  "type": "header",
+          "content": "Schedule"
+        },
+		{
+          "type": "text",
+          "id": "schedule_title",
+          "label": "Title",
+          "default": "Working Hours"
+      	},
+		{
+          "type": "richtext",
+          "id": "schedule_content",
+          "label": "Title",
+		  "default": "<p>Monday – Saturday:08AM – 22PM</p>"
+      	}
+	],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Contact Information",
+		  "category": "5. about",
+		  "blocks":[
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

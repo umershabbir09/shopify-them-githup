@@ -1,0 +1,330 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+<!-- PRODUCT SECTION START -->
+<div class="featured-product {{ bg_image_class }}" id="section-{{ section.id }}" data-section="FeaturedProduct" {{ sections_bg_image }}>
+  {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <!-- section title start -->
+        <div class="section-title text-center">
+          {%- if section.settings.section_title != '' -%}
+          <h2 class="title">{{ section.settings.section_title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_sub_title != '' -%}
+          <p class="sub-title">{{ section.settings.section_sub_title }}</p>
+          {%- endif -%}
+        </div>
+        <!-- section title start -->
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+  <div class="container">
+    {%- assign product = all_products[section.settings.featured_product_handle] -%}
+    {%- if product == empty -%}
+    <div class="row featured-product-align">
+      <div class="col-lg-6 col-md-6">
+        <div class="featured-product-iamge">
+          {{ 'product-1' | placeholder_svg_tag: 'product-svg-image' }}
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="featured-product-content">
+          <h2>Product title here</h2>
+          <div class="featured-product-price">
+            <del>99.99</del>
+            <span>69.99</span>
+          </div>
+          <div class="featured-product-description">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+          </div>
+          {%- if section.settings.button_title != '' -%}
+          <div class="featured-product-button">
+            <button type="button" class="theme-default-button">{{ section.settings.button_title }}</button>
+          </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- else -%}
+    <div class="row featured-product-align">
+      <div class="col-lg-6 col-md-6">
+        <div class="featured-product-iamge">
+          <img class="lazyload" data-sizes="auto" data-src="{{ product | img_url: 'grande' }}" alt="{{ product.alt }}">
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="featured-product-content">
+          <h2>{{ product.title }}</h2>
+          <div class="featured-product-price">
+            {%- if product.variants.first.compare_at_price > product.variants.first.price -%}
+            <del>{{ product.variants.first.compare_at_price | money }}</del>
+            {%- endif -%}
+            <span>{{ product.variants.first.price | money }}</span>
+          </div>
+          <div class="featured-product-description">
+            {%- if product.description contains '[short_description]' -%} 
+            {%- assign short_description_first = product.description | split:'[/short_description]' | first -%}
+            {%- assign short_description_final = short_description_first | split:'[short_description]' | last -%}
+            {{ short_description_final }}
+            {%- else -%}
+            <p>{{ product.description | strip_html | truncatewords: 50 | split: '[short_description]' | first | split: '[product_description]' | first | split: '[new_products]' | first | split: '[product_video]' | first | split: '[affiliate_link]' | first | split: '[countdown]' | first | split: '[unique_description_1]' | first | split: '[unique_description_2]' | first | split: '[unique_description_3]' | first }}</p>
+            {%- endif -%}
+          </div>
+          {%- if product.metafields.countdown != empty -%}
+          <div class="product-countdown" data-countdown="{{ product.metafields.countdown.date }}"></div>
+          {%- elsif product.description contains '[countdown]' -%}
+          {%- assign count_down_first = product.description | split:'[/countdown]' | first -%}
+          {%- assign count_down_final = count_down_first | split:'[countdown]' | last -%}
+          <div data-countdown="{{ count_down_final }}" class="product-countdown"></div> 
+          {%- endif -%}
+          {%- if section.settings.button_title != '' -%}
+          <div class="featured-product-button">
+            <a class="theme-default-button" href="{{ product.url }}">{{ section.settings.button_title }}</a>
+          </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+<!-- PRODUCT SECTION END -->
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Featured Product",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title Here"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Section Sub Title Here"
+      	},
+		{
+			"type": "header",
+            "content": "Product"
+        },
+		{
+			"type": "product",
+            "id": "featured_product_handle",
+            "label": "Select Product"
+        },
+		{
+          "type": "text",
+          "id": "button_title",
+          "label": "Button Title",
+          "default": "Shop Now"
+      	}
+    ],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Featured Product",
+		  "category": "4. product",
+		  "blocks":[
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

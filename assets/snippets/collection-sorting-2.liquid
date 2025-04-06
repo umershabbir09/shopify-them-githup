@@ -1,0 +1,31 @@
+
+          {%- if section.settings.showing_product_counter_enable -%}
+          {%- assign paginate_checker = paginate.current_page | times: products_limit -%}
+          {%- if paginate.items > paginate_checker -%}
+          {%- assign paginate_final = paginate_checker -%}
+          {%- else -%}
+          {%- assign paginate_final = paginate.items -%}
+          {%- endif -%}
+          {%- assign showing_title = section.settings.showing_title_handle | split: "|" -%}
+         <span class="items-onlist">{{ showing_title | slice: 0 }} 
+            {{ paginate.current_offset | plus: 1 }} - {{ paginate_final }} 
+            {{ showing_title | slice: 1 }} 
+            {{ paginate.items }} 
+            {{ showing_title | slice: 2 }} 
+          </span>
+          {%- endif -%}
+          
+    {%- if section.settings.short_by_enable -%}
+                        <div class="filter-area">
+                            <p class="select-area">
+          <select  class="select" id="sort-by">
+            {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+            {% for option in collection.sort_options %}
+            <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
+              {{ option.name }}
+            </option>
+            {% endfor %}
+          </select>
+                            </p>
+                        </div>
+    {%- endif -%}

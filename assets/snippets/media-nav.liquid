@@ -1,0 +1,11 @@
+{% if product.media.size > 1 %}
+<div class="pro-nav pro-nav-media slick-row-10 slick-arrow-style slick-dot-style slick-dot-style-2" id="ProductThumbs" {{ data_slick_activation }}>
+  {% for media in product.media %}
+  {%- assign featured_media = current_variant.featured_media | default: product.featured_media -%} 
+  <a data-thumbnail-id="{{ media.id }}" data-media-id="{{ media.id }}" href="javascript: void(0)" data-image="{{ media | img_url: '600x600' }}"
+     class="{% case media.media_type %}{% when 'external_video' %}video-nav{% when 'video' %}video-nav{% when 'model' %}modal-nav{% endcase %}">
+    <img class="lazyload" data-sizes="auto" data-src="{{ media | img_url: 'x110', scale: 2 }}" alt="{{ media.alt | strip_html }}">
+  </a>
+  {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,457 @@
+{% unless section.settings.full_width_enable %}
+<div class="container">
+  {% endunless %}
+  
+  {%- capture bg_image_class -%}
+  {%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+  {%- endcapture -%}
+  {%- capture sections_bg_image -%}
+  {%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+  {%- endcapture -%}  
+  
+  <section class="testimonial-area {{ bg_image_class }}" id="section-{{ section.id }}" data-section="TestimonialSection" {{ sections_bg_image }}>
+    {%- if section.settings.snow_enable -%}
+    <span class="effect-body ice_effect"></span>
+    {%- endif -%}
+    <div{% if section.settings.full_width_enable %} class="container"{% endif %}>
+      {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+      <div class="row">
+        <div class="col-12">
+          <!-- section title start -->
+          <div class="section-title text-center">
+            {%- if section.settings.section_title != '' -%}
+            <h2 class="title">{{ section.settings.section_title }}</h2>
+            {%- endif -%}
+            {%- if section.settings.section_sub_title != '' -%}
+            <p class="sub-title">{{ section.settings.section_sub_title }}</p>
+            {%- endif -%}
+          </div>
+          <!-- section title start -->
+        </div>
+      </div>
+      {%- endif -%}
+      <div class="row">
+        <div class="col-12">
+          <div class="testimonial-thumb-wrapper">
+            <div class="testimonial-thumb-carousel" {% if settings.rtl_enable %}dir="rtl"{% endif %}>
+              {%- for block in section.blocks -%}
+              {%- case block.type -%}
+              {%- when 'testimonial' -%}
+              {%- if block.settings.testimonial_image -%}
+              {%- assign image = block.settings.testimonial_image -%}
+              <div class="testimonial-thumb" {{ block.shopify_attributes }}>
+                <div class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: block.settings.testimonial_image.aspect_ratio | times: 100}}%;">
+                  {%- render 'responsive-image' with image: block.settings.testimonial_image, image_class: "lazyload-main-image" -%}
+                </div>
+              </div>
+              {%- else -%}
+              <div class="testimonial-thumb" {{ block.shopify_attributes }}>
+                <img class="lazyload" data-src="https://via.placeholder.com/100x100" alt="Testimonial">
+              </div>
+              {%- endif -%}
+              {%- endcase -%}
+              {%- endfor -%}
+            </div>
+          </div>
+          <div class="testimonial-content-wrapper">
+            <div class="testimonial-content-carousel" {% if settings.rtl_enable %}dir="rtl"{% endif %}>
+              {%- for block in section.blocks -%}
+              {%- case block.type -%}
+              {%- when 'testimonial' -%}
+              <div class="testimonial-content" {{ block.shopify_attributes }}>
+                {{ block.settings.testionial_content }}
+                {%- if block.settings.ratting_enable -%}
+                <div class="ratings">
+                  {%- if block.settings.banner_column == 1 -%}
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  {%- elsif block.settings.banner_column == 2 -%}
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  {%- elsif block.settings.banner_column == 3 -%}
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  {%- elsif block.settings.banner_column == 4 -%}
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star-o"></i></span>
+                  {%- elsif block.settings.banner_column == 5 -%}
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  {%- endif -%}
+                </div>
+                {%- endif -%}
+                <h5 class="testimonial-author">{{ block.settings.testionial_author }}</h5>   
+              </div>
+              {%- endcase -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% unless section.settings.full_width_enable %}
+</div>
+{% endunless %}
+{%- render 'section-style' -%}
+{%- if section.settings.section_color_enable -%}
+<style>
+  #section-{{ section.id }} .section-title .title {
+    color: {{ section.settings.title_color }};
+  }
+  #section-{{ section.id }} .section-title .sub-title {
+    color: {{ section.settings.sub_title_color }};
+  }
+  #section-{{ section.id }} .testimonial-content p {
+    color: {{ section.settings.content_color }};
+  }
+  #section-{{ section.id }} .testimonial-author {
+    color: {{ section.settings.name_color }};
+  }
+  #section-{{ section.id }} .ratings {
+    color: {{ section.settings.rating_color }};
+  }
+</style>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Testimonial",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "full_width_enable",
+          "label": "Testimonial Full Width Enable",
+          "default": true
+      	},
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title Here"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Section Sub Title Here"
+      	},
+        {
+          "type": "header",
+          "content": "Color"
+        },
+        {
+          "type": "checkbox",
+          "id": "section_color_enable",
+          "label": "Color Enable",
+          "default": false,
+          "info": "Enable the field for color customization"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#222"
+        },
+        {
+          "type": "color",
+          "id": "sub_title_color",
+          "label": "Sub Title Color",
+          "default": "#555555"
+        },
+        {
+          "type": "color",
+          "id": "name_color",
+          "label": "Name Color",
+          "default": "#222"
+        },
+        {
+          "type": "color",
+          "id": "content_color",
+          "label": "Content Color",
+          "default": "#555555"
+        },
+        {
+          "type": "color",
+          "id": "rating_color",
+          "label": "Rating Color",
+          "default": "#c29958"
+        },
+        {
+          "type": "header",
+          "content": "Snow Fall"
+        },
+        {
+            "type": "checkbox",
+            "id": "snow_enable",
+            "label": "Snow Fall Enable",
+            "default": false,
+            "info": "It's basically for the Christmas version"		
+        }
+	],
+	"blocks":[
+          {
+            "type": "testimonial",
+            "name": "Testimonial",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "testimonial_image",
+                "label": "Image"
+              },
+              {
+                "type": "text",
+                "id": "testionial_author",
+                "label": "Name",
+                "default": "Lindsy niloms"
+              },
+              {
+                "type": "richtext",
+                "id": "testionial_content",
+                "label": "Content",
+                "default": "<p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>"
+              },
+              {
+                "type": "checkbox",
+                "id": "ratting_enable",
+                "label": "Show Ratting",
+                "default": true
+              },
+              {
+                "type": "range",
+                "id": "banner_column",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "Ratting",
+                "unit": "/5",
+                "default": 5
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 60
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#F5F5F5"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Testimonial",
+		  "category": "5. about",
+		  "blocks":[
+				{
+					"type": "testimonial"
+				},
+				{
+					"type": "testimonial"
+				},
+				{
+					"type": "testimonial"
+				},
+				{
+					"type": "testimonial"
+				},
+				{
+					"type": "section_padding"
+				},
+				{
+					"type": "section_background"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

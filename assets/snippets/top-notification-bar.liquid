@@ -1,0 +1,20 @@
+<div class="top-notification-bar">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="notification-entry text-center">
+          <div class="notification-entry-inner">
+            {{ settings.notification_text }}
+            {% if settings.countdown_timer_enable %}
+            <div class="product-countdown grid-countdown topbar-countdown" data-countdown="{{ settings.countdown_date }}"></div> 
+            {% endif %}
+            {% if settings.notification_button_name != '' %}
+            <p><a class="notification-button" href="{{ settings.notification_button_url }}">{{ settings.notification_button_name }}</a></p>
+            {% endif %}
+          </div>
+          <button class="notification-close-btn"><i class="pe-7s-close"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

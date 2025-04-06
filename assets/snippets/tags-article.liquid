@@ -1,0 +1,7 @@
+<div class="tag-line">
+  <h6>{{ 'blogs.article.tags' | t }} :</h6>
+  {%- for tag in article.tags -%}
+  <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}{% unless forloop.last %},{% endunless %} </a>
+  {%- endfor -%}
+</div>
+

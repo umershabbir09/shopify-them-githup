@@ -1,0 +1,44 @@
+<div class="group-slide-item">
+  <div class="group-item">
+    <div class="group-item-thumb">
+      <a href="{{ product.url | within: collection }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100}}%;">
+        {%- if settings.universal_image_size_enable -%}
+        {%- render 'product-responsive-image-2' with image: product.featured_image, image_class: "similar-size-image lazyload-main-image" -%}
+        {%- else -%}
+        {%- render 'product-responsive-image-2' with image: product.featured_image, image_class: "lazyload-main-image" -%}
+        {%- endif -%}
+      </a>
+    </div>
+    {%- assign truncate_count = settings.truncate_count_handle -%}
+    <div class="group-item-desc">
+      <h5 class="group-product-name">
+        <a href="{{ product.url | within: collection }}">
+          {%- if settings.truncate_count_enable -%}
+          {{ product.title | truncate: truncate_count }}
+          {%- else -%}
+          {{ product.title }}
+          {%- endif -%}
+        </a>
+      </h5>
+      {%- if settings.price_range_enable -%}
+      <div class="price-box">
+        {%- if product.price_varies -%}
+        <span>{{ settings.price_from_title }} </span>
+        <span class="price-regular">{{ product.price_min | money }}</span> 
+        <span>{{ settings.price_to_title }} </span>
+        <span class="price-regular">{{ product.price_max | money }}</span>
+        {%- else -%}
+        <span class="price-regular">{{ product.price | money }}</span>
+        {% endif %}
+      </div>
+      {%- else -%}
+      <div class="price-box">
+        {%- if product.variants.first.compare_at_price > product.variants.first.price -%}
+        <span class="price-old"><del>{{ product.variants.first.compare_at_price | money }}</del></span>
+        {%- endif -%}
+        <span class="price-regular">{{ product.variants.first.price | money }}</span>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

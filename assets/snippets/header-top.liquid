@@ -1,0 +1,105 @@
+<!-- header top start -->
+<div {{ block.shopify_attributes }} class="header-top bdr-bottom">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="welcome-message">
+          {{ block.settings.welcome_note }}
+        </div>
+      </div>
+      <div class="col-lg-6 {% if settings.rtl_enable %}text-left{% else %}text-right{% endif %}">
+        <div class="header-top-settings">
+          <ul class="nav align-items-center justify-content-end">
+            
+            {%- if settings.currency_enable -%} 
+            {%- if settings.currency_handle == 'shopify_currency' -%}
+            {%- if localization.available_countries.size > 1 -%}
+            <li class="curreny-wrap currency">
+              <localization-form>
+                {% form 'localization' %}
+                <div class="disclosure">
+                  <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="CountryList">
+                    {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+                    <i class="fa fa-angle-down"></i>
+                  </button>
+
+                  <ul id="CountryList" role="list" class="dropdown-list curreny-list disclosure__list">
+                    {% for country in localization.available_countries %}
+                    <li class="disclosure__item" tabindex="-1">
+                      <a href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                        {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+
+                  <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                </div>
+                {% endform %}
+              </localization-form>
+            </li>
+            {%- endif -%}
+            {%- elsif settings.currency_handle == 'ajax_currency' -%}
+            {%- render 'currency-picker' -%}
+            {%- endif -%}
+            {%- endif -%}
+            
+            
+            {%- if settings.google_translate_enable -%}
+            
+            {%- if settings.language_handle == 'shopify_language' -%}
+            {% if localization.available_languages.size > 1 %}
+            <li class="language">
+              <localization-form>
+                {% form 'localization' %}
+                <div class="disclosure">
+                  <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="LanguageList">
+                    {{ localization.language.endonym_name | capitalize }}
+                    <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul id="LanguageList" role="list" class="disclosure__list dropdown-list">
+                    {% for language in localization.available_languages %}
+                    <li class="disclosure__item" tabindex="-1">
+                      <a href="#"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}" data-value="{{ language.iso_code }}">
+                        {{ language.endonym_name | capitalize }}
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+                </div>
+                {% endform %}
+              </localization-form>
+            </li>
+            {% endif %}
+            
+            {%- elsif settings.language_handle == 'google_translate' -%}
+            <li class="language">
+              {%- render 'google-translate' -%}
+            </li>
+            {%- elsif settings.language_handle == 'gtranslate' -%}
+            {%- render 'gtranslate_menu' -%}
+            {%- endif -%}            
+            {%- endif -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- header top end -->
+
+{%- if block.settings.header_top_color_enable -%}
+<style>
+  .header-top{
+    background-color: {{ block.settings.bg_color }};
+  }
+  .welcome-message p, .header-top-settings ul li, .header-top-settings ul li:before, .goog-te-gadget-simple .goog-te-menu-value, .goog-te-gadget-simple > span::after, 
+  .header-top-settings ul li, .header-top-settings ul li a {
+    color: {{ block.settings.color }};
+  }
+  .header-top {
+    border-bottom: 1px solid {{ block.settings.border_bottom_color }};
+  }
+</style>
+{%- endif -%}

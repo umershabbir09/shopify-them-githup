@@ -1,0 +1,179 @@
+    <div class="{% if section.settings.header_style == 'header_style_3' %} footer footer-2 {% elsif section.settings.header_style == 'header_style_7' or section.settings.header_style == 'header_style_8' %}  footer footer-2  footer-7 {% endif %} ">
+        <div class="container">
+            <div class="footer-features">
+                <div class="row">
+        {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when 'service' -%}
+                    <div class="col-xl-3 col-md-6 feature-icon">
+                        <div class="feature-item" id="block-{{ block.id }}">
+                            <div class="icon"><img src="{{ block.settings.service_image | img_url: 'thumb' }}" alt="{{ block.settings.service_image.alt }}"></div>
+                            <div class="content">
+              {%- if block.settings.service_title != '' -%}
+                                <h3 class="title">{{ block.settings.service_title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.service_content != '' -%}
+                                <p>{{ block.settings.service_content }}</p>
+              {%- endif -%}
+                            </div>
+                        </div>
+                    </div>
+        {%- endcase -%}
+        {%- endfor -%}
+                </div>
+            </div>
+            <div class="footer-inner">
+                <div class="row">
+                  
+        {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when 'about' -%}
+                    <div class="col-xl-{{ block.settings.widget_column }} col-md-{{ block.settings.widget_column_md }} col-sm-{{ block.settings.widget_column_sm }}">
+                        <div class="footer-widget">
+                           {%- if block.settings.logo -%}
+                            <div class="footer-logo">
+                {% capture logo_size %}{{ block.settings.logo_width | escape }}x{% endcapture %}
+                <a href="{{ routes.root_url }}" class="theme-logo">
+                  <img  class="lazyload" data-sizes="auto" data-src="{{ block.settings.logo | img_url: logo_size }}" alt="{{ block.settings.logo.alt | default: shop.name }}"
+                       {%- if block.settings.ratina_logo_enable -%}
+                       srcset="{{ block.settings.logo | img_url: logo_size }} 1x, {{ block.settings.logo | img_url: logo_size, scale: 2 }} 2x"
+                       {%- endif -%}>
+                </a>
+                            </div>
+            {%- endif -%}
+                            <p class="widget-text">{{ block.settings.about_content }}</p>
+                            <div class="quick-contact">
+                                <div class="phone contact-item">
+                                    <div class="icon">
+                                      {% if section.settings.header_style == 'header_style_3' or section.settings.header_style == 'header_style_8' %}
+                                      <img src="{{ block.settings.about_image | img_url: 'thumb' }}" alt="{{ block.settings.about_image.alt }}">
+                                        {% elsif section.settings.header_style == 'header_style_7' %} 
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M23.7025 4.79633C21.2185 3.2643 18.275 2.42188 15.2344 2.42188C6.95734 2.42188 0 8.58852 0 16.4844C0 19.2527 0.86 21.9066 2.49359 24.1985L0.211562 31.363C-0.0295313 32.1198 0.537344 32.8906 1.32836 32.8906C1.50922 32.8906 1.69125 32.8488 1.85922 32.7634L8.79922 29.2347C9.08023 29.3557 9.36477 29.4683 9.65219 29.5728C8.04539 27.0648 7.1875 24.1859 7.1875 21.1719C7.1875 12.1955 14.7405 5.29469 23.7025 4.79633Z" fill="white" fill-opacity="0.1"></path><path d="M37.5064 28.886C39.14 26.5941 40 23.9402 40 21.1719C40 13.2731 33.0397 7.10938 24.7656 7.10938C16.4886 7.10938 9.53125 13.276 9.53125 21.1719C9.53125 29.0706 16.4916 35.2344 24.7656 35.2344C26.9857 35.2344 29.1978 34.782 31.2004 33.922L38.1408 37.4509C38.562 37.665 39.0707 37.6052 39.4308 37.2992C39.7909 36.9932 39.932 36.5009 39.7885 36.0506L37.5064 28.886ZM20 22.3438C19.3528 22.3438 18.8281 21.8191 18.8281 21.1719C18.8281 20.5247 19.3528 20 20 20C20.6472 20 21.1719 20.5247 21.1719 21.1719C21.1719 21.8191 20.6472 22.3438 20 22.3438ZM24.6875 22.3438C24.0403 22.3438 23.5156 21.8191 23.5156 21.1719C23.5156 20.5247 24.0403 20 24.6875 20C25.3347 20 25.8594 20.5247 25.8594 21.1719C25.8594 21.8191 25.3347 22.3438 24.6875 22.3438ZM29.375 22.3438C28.7278 22.3438 28.2031 21.8191 28.2031 21.1719C28.2031 20.5247 28.7278 20 29.375 20C30.0222 20 30.5469 20.5247 30.5469 21.1719C30.5469 21.8191 30.0222 22.3438 29.375 22.3438Z" fill="#BC5B1F"></path></svg>
+                                        {% endif %}
+                                    </div>
+                                    <div class="contact-info">
+                                        <span class="title">{{ block.settings.time_title }}</span>
+                                        <a href="mailto:{{ block.settings.time_contact }}"
+                                            class="email-address info info2">{{ block.settings.time_contact }}</a>
+                                    </div>
+                                </div>
+                                <div class="email contact-item">
+                                    <div class="icon">
+                                      {% if section.settings.header_style == 'header_style_3' or section.settings.header_style == 'header_style_8' %}
+                                      <img src="{{ block.settings.about_image_2 | img_url: 'thumb' }}" alt="{{ block.settings.about_image_2.alt }}">
+                                        {% elsif section.settings.header_style == 'header_style_7' %} 
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M36.7412 29.2C35.6487 28.2838 29.2413 24.2263 28.1763 24.4125C27.6763 24.5013 27.2938 24.9275 26.27 26.1488C25.7966 26.7499 25.2766 27.3128 24.715 27.8325C23.686 27.5839 22.6899 27.2147 21.7475 26.7325C18.0516 24.9331 15.0658 21.9464 13.2675 18.25C12.7853 17.3076 12.4161 16.3115 12.1675 15.2825C12.6872 14.7209 13.2501 14.2009 13.8513 13.7275C15.0713 12.7038 15.4988 12.3237 15.5875 11.8212C15.7738 10.7537 11.7125 4.34875 10.8 3.25625C10.4175 2.80375 10.07 2.5 9.625 2.5C8.335 2.5 2.5 9.715 2.5 10.65C2.5 10.7263 2.625 18.2375 12.1113 27.8888C21.7625 37.375 29.2737 37.5 29.35 37.5C30.285 37.5 37.5 31.665 37.5 30.375C37.5 29.93 37.1962 29.5825 36.7412 29.2V29.2Z" fill="#BC5B1F"></path><path d="M28.75 18.75H31.25C31.247 16.0987 30.1925 13.5569 28.3178 11.6822C26.4431 9.8075 23.9013 8.75298 21.25 8.75V11.25C23.2385 11.252 25.145 12.0428 26.5511 13.4489C27.9572 14.855 28.748 16.7615 28.75 18.75Z" fill="#1D1D1D"></path><path d="M35 18.75H37.5C37.495 14.4418 35.7814 10.3114 32.735 7.265C29.6886 4.2186 25.5582 2.50496 21.25 2.5V5C24.8954 5.0043 28.3903 6.45434 30.968 9.03203C33.5457 11.6097 34.9957 15.1046 35 18.75Z" fill="#1D1D1D"></path></svg>
+                                        {% endif %}
+                                    </div>
+                                    <div class="contact-info"><span class="title">{{ block.settings.support_title }}</span>
+                                        <a href="tel:{{ block.settings.support_emain }}" class="phone-number info info2">{{ block.settings.support_emain }}</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+        <style>
+          #block-{{ block.id }} .theme-logo img{
+            max-width: {{ section.settings.logo_width }}px;
+          }
+        </style>   
+          
+        {%- when 'menu' -%}
+                    <div class="col-xl-{{ block.settings.widget_column }} col-md-{{ block.settings.widget_column_md }} col-sm-{{ block.settings.widget_column_sm }}">
+                        <div class="footer-widget">
+                            {%- if block.settings.widget_title != '' -%}
+                            <h3 class="footer-widget-title">{{ block.settings.widget_title }}</h3>
+            {%- endif -%}
+                            <ul class="widget-items cata-widget">
+                {%- assign menu = block.settings.menu_handle -%}
+                {%- for link in linklists[menu].links -%}
+                <li class="widget-list-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+                            </ul>
+                        </div>
+                    </div>
+                  
+        {%- when 'footer_social' -%}
+                    <div class="col-xl-{{ block.settings.widget_column }} col-md-{{ block.settings.widget_column_md }} col-sm-{{ block.settings.widget_column_sm }}">
+                            {%- if block.settings.widget_title != '' -%}
+                        <h3 class="footer-widget-title">{{ block.settings.widget_title }}</h3>
+            {%- endif -%}
+                        <ul class="footer-widget social-links-footer">
+                              {%- if block.settings.social_icon_1_name != blank or block.settings.social_title_1 != blank   -%}
+                            <li><a class="platform" href="{{ block.settings.social_icon_1_link }}" target="_blank"><i
+                                        class="fab fa-{{ block.settings.social_icon_1_name }}"></i>
+                                    {{ block.settings.social_title_1 }}</a></li>
+                              {%- endif -%}
+                              {%- if block.settings.social_icon_2_name != blank or block.settings.social_title_2 != blank    -%}
+                            <li><a class="platform" href="{{ block.settings.social_icon_2_link }}" target="_blank"><i
+                                        class="fab fa-{{ block.settings.social_icon_2_name }}"></i>
+                                    {{ block.settings.social_title_2 }}</a></li>
+                              {%- endif -%}
+                              {%- if block.settings.social_icon_3_name != blank or block.settings.social_title_3 != blank    -%}
+                            <li><a class="platform" href="{{ block.settings.social_icon_3_link }}" target="_blank"><i
+                                        class="fab fa-{{ block.settings.social_icon_3_name }}"></i> {{ block.settings.social_title_3 }}</a>
+                            </li>
+                              {%- endif -%}
+                              {%- if block.settings.social_icon_4_name != blank or block.settings.social_title_4 != blank    -%}
+                            <li><a class="platform" href="{{ block.settings.social_icon_4_link }}" target="_blank"><i
+                                        class="fab fa-{{ block.settings.social_icon_4_name }}"></i> {{ block.settings.social_title_4 }}</a>
+                            </li>
+                              {%- endif -%}
+                              {%- if block.settings.social_icon_5_name != blank or block.settings.social_title_5 != blank    -%}
+                            <li><a class="platform" href="{{ block.settings.social_icon_5_link }}" target="_blank"><i
+                                        class="fab fa-{{ block.settings.social_icon_5_name }}"></i> {{ block.settings.social_title_5 }}</a>
+                            </li>
+                              {%- endif -%}
+                        </ul>
+                    </div>
+                  
+        {%- when 'footer_instagram' -%}
+                    <div class="col-xl-{{ block.settings.widget_column }} col-md-{{ block.settings.widget_column_md }} col-sm-{{ block.settings.widget_column_sm }}">
+                        <div class="footer-widget">
+                            {%- if block.settings.widget_title != '' -%}
+                            <h3 class="footer-widget-title">{{ block.settings.widget_title }}</h3>
+            {%- endif -%}
+                            <div class="ig-feed">
+                                <div class="row">
+                                    <div class="col-xl-4 col-md-4 col-sm-4 col-6"><a href="{{ block.settings.instagram_image_1_url }}" class="feed-item"><img
+                                                src="{{ block.settings.instagram_image_1 | img_url: 'thumb' }}" alt="{{ block.settings.instagram_image_1.alt }}"><i
+                                                class="fab fa-instagram"></i></a></div>
+                                    <div class="col-xl-4 col-xl-4 col-md-4 col-sm-4 col-6"><a href="{{ block.settings.instagram_image_2_url }}"
+                                            class="feed-item"><img src="{{ block.settings.instagram_image_2 | img_url: 'thumb' }}"
+                                                alt="{{ block.settings.instagram_image_2.alt }}"><i class="fab fa-instagram"></i></a></div>
+                                    <div class="col-xl-4 col-xl-4 col-md-4 col-sm-4 col-6"><a href="{{ block.settings.instagram_image_3_url }}"
+                                            class="feed-item"><img src="{{ block.settings.instagram_image_3 | img_url: 'thumb' }}"
+                                                alt="{{ block.settings.instagram_image_3.alt }}"><i class="fab fa-instagram"></i></a></div>
+                                    <div class="col-xl-4 col-xl-4 col-md-4 col-sm-4 col-6"><a href="{{ block.settings.instagram_image_4_url }}"
+                                            class="feed-item"><img src="{{ block.settings.instagram_image_4 | img_url: 'thumb' }}"
+                                                alt="{{ block.settings.instagram_image_4.alt }}"><i class="fab fa-instagram"></i></a></div>
+                                    <div class="col-xl-4 col-xl-4 col-md-4 col-sm-4 col-6"><a href="{{ block.settings.instagram_image_5_url }}"
+                                            class="feed-item"><img src="{{ block.settings.instagram_image_5 | img_url: 'thumb' }}"
+                                                alt="{{ block.settings.instagram_image_5.alt }}"><i class="fab fa-instagram"></i></a></div>
+                                    <div class="col-xl-4 col-xl-4 col-md-4 col-sm-4 col-6"><a href="{{ block.settings.instagram_image_6_url }}"
+                                            class="feed-item"><img src="{{ block.settings.instagram_image_6 | img_url: 'thumb' }}"
+                                                alt="{{ block.settings.instagram_image_6.alt }}"><i class="fab fa-instagram"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+        {%- endcase -%}
+        {%- endfor -%} 
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="footer-bottom-inner">
+                    {%- if section.settings.copy_ritht_text_enable -%}  
+                    <span class="copyright">{{ section.settings.copy_ritht_text }}</span>
+  {%- endif -%}   
+                    {%- if section.settings.payment_image_enable -%}  
+                    <div class="payment-methods"><img src="{{ section.settings.payment_image | img_url: 'large' }}" alt="{{ block.settings.payment_image.alt }}">
+  {%- endif -%}   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

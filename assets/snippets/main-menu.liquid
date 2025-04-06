@@ -1,0 +1,329 @@
+<nav class="desktop-menu">
+  <ul {% if section.settings.header_style == 'header_style_2' %}class="justify-content-center header-style-4"{% endif %}>
+    {%- assign main_menu = section.settings.main_menu_handle -%}
+    {%- for link in linklists[main_menu].links -%}
+    {%- assign childlink_handle = link.title | handle -%}
+
+    {%- if settings.m1_megamenu_title == link.title -%}
+    <li class="position-static"><a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+      <ul class="megamenu dropdown">        
+        {%- assign m1_megamenu_column_1 = linklists[settings.m1_megamenu_column_1_handle] -%}
+        {%- if m1_megamenu_column_1 != empty -%}
+        <li class="mega-title"><span>{{ m1_megamenu_column_1.title }}</span>
+          <ul>
+            {%- for link in m1_megamenu_column_1.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m1_megamenu_column_2 = linklists[settings.m1_megamenu_column_2_handle] -%}
+        {%- if m1_megamenu_column_2 != empty -%}
+        <li class="mega-title"><span>{{ m1_megamenu_column_2.title }}</span>
+          <ul>
+            {%- for link in m1_megamenu_column_2.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m1_megamenu_column_3 = linklists[settings.m1_megamenu_column_3_handle] -%}
+        {%- if m1_megamenu_column_3 != empty -%}
+        <li class="mega-title"><span>{{ m1_megamenu_column_3.title }}</span>
+          <ul>
+            {%- for link in m1_megamenu_column_3.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m1_megamenu_column_4 = linklists[settings.m1_megamenu_column_4_handle] -%}
+        {%- if m1_megamenu_column_4 != empty -%}
+        <li class="mega-title"><span>{{ m1_megamenu_column_4.title }}</span>
+          <ul>
+            {%- for link in m1_megamenu_column_4.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- if settings.m1_megamenu_image_1 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m1_megamenu_image_url_1 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m1_megamenu_image_1.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m1_megamenu_image_1, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+        {%- if settings.m1_megamenu_image_2 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m1_megamenu_image_url_2 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m1_megamenu_image_2.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m1_megamenu_image_2, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+      </ul>
+    </li>
+    {%- elsif settings.m2_megamenu_title == link.title -%}
+    <li class="position-static"><a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+      <ul class="megamenu dropdown">        
+        {%- assign m2_megamenu_column_1 = linklists[settings.m2_megamenu_column_1_handle] -%}
+        {%- if m2_megamenu_column_1 != empty -%}
+        <li class="mega-title"><span>{{ m2_megamenu_column_1.title }}</span>
+          <ul>
+            {%- for link in m2_megamenu_column_1.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m2_megamenu_column_2 = linklists[settings.m2_megamenu_column_2_handle] -%}
+        {%- if m2_megamenu_column_2 != empty -%}
+        <li class="mega-title"><span>{{ m2_megamenu_column_2.title }}</span>
+          <ul>
+            {%- for link in m2_megamenu_column_2.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m2_megamenu_column_3 = linklists[settings.m2_megamenu_column_3_handle] -%}
+        {%- if m2_megamenu_column_3 != empty -%}
+        <li class="mega-title"><span>{{ m2_megamenu_column_3.title }}</span>
+          <ul>
+            {%- for link in m2_megamenu_column_3.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m2_megamenu_column_4 = linklists[settings.m2_megamenu_column_4_handle] -%}
+        {%- if m2_megamenu_column_4 != empty -%}
+        <li class="mega-title"><span>{{ m2_megamenu_column_4.title }}</span>
+          <ul>
+            {%- for link in m2_megamenu_column_4.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- if settings.m2_megamenu_image_1 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m2_megamenu_image_url_1 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m2_megamenu_image_1.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m2_megamenu_image_1, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+        {%- if settings.m2_megamenu_image_2 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m2_megamenu_image_url_2 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m2_megamenu_image_2.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m2_megamenu_image_2, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+      </ul>
+    </li>
+    {%- elsif settings.m3_megamenu_title == link.title -%}
+    <li class="position-static"><a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+      <ul class="megamenu dropdown">        
+        {%- assign m3_megamenu_column_1 = linklists[settings.m3_megamenu_column_1_handle] -%}
+        {%- if m3_megamenu_column_1 != empty -%}
+        <li class="mega-title"><span>{{ m3_megamenu_column_1.title }}</span>
+          <ul>
+            {%- for link in m3_megamenu_column_1.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m3_megamenu_column_2 = linklists[settings.m3_megamenu_column_2_handle] -%}
+        {%- if m3_megamenu_column_2 != empty -%}
+        <li class="mega-title"><span>{{ m3_megamenu_column_2.title }}</span>
+          <ul>
+            {%- for link in m3_megamenu_column_2.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m3_megamenu_column_3 = linklists[settings.m3_megamenu_column_3_handle] -%}
+        {%- if m3_megamenu_column_3 != empty -%}
+        <li class="mega-title"><span>{{ m3_megamenu_column_3.title }}</span>
+          <ul>
+            {%- for link in m3_megamenu_column_3.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m3_megamenu_column_4 = linklists[settings.m3_megamenu_column_4_handle] -%}
+        {%- if m3_megamenu_column_4 != empty -%}
+        <li class="mega-title"><span>{{ m3_megamenu_column_4.title }}</span>
+          <ul>
+            {%- for link in m3_megamenu_column_4.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- if settings.m3_megamenu_image_1 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m3_megamenu_image_url_1 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m2_megamenu_image_1.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m2_megamenu_image_1, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+        {%- if settings.m3_megamenu_image_2 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m3_megamenu_image_url_2 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m3_megamenu_image_2.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m3_megamenu_image_2, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+      </ul>
+    </li>
+    {%- elsif settings.m4_megamenu_title == link.title -%}
+    <li class="position-static"><a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+      <ul class="megamenu dropdown">        
+        {%- assign m4_megamenu_column_1 = linklists[settings.m4_megamenu_column_1_handle] -%}
+        {%- if m4_megamenu_column_1 != empty -%}
+        <li class="mega-title"><span>{{ m4_megamenu_column_1.title }}</span>
+          <ul>
+            {%- for link in m4_megamenu_column_1.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m4_megamenu_column_2 = linklists[settings.m4_megamenu_column_2_handle] -%}
+        {%- if m4_megamenu_column_2 != empty -%}
+        <li class="mega-title"><span>{{ m4_megamenu_column_2.title }}</span>
+          <ul>
+            {%- for link in m4_megamenu_column_2.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m4_megamenu_column_3 = linklists[settings.m4_megamenu_column_3_handle] -%}
+        {%- if m4_megamenu_column_3 != empty -%}
+        <li class="mega-title"><span>{{ m4_megamenu_column_3.title }}</span>
+          <ul>
+            {%- for link in m4_megamenu_column_3.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m4_megamenu_column_4 = linklists[settings.m4_megamenu_column_4_handle] -%}
+        {%- if m4_megamenu_column_4 != empty -%}
+        <li class="mega-title"><span>{{ m4_megamenu_column_4.title }}</span>
+          <ul>
+            {%- for link in m4_megamenu_column_4.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- if settings.m4_megamenu_image_1 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m4_megamenu_image_url_1 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m4_megamenu_image_1.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m4_megamenu_image_1, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+        {%- if settings.m4_megamenu_image_2 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m4_megamenu_image_url_2 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m4_megamenu_image_2.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m4_megamenu_image_2, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+      </ul>
+    </li>
+    {%- elsif settings.m5_megamenu_title == link.title -%}
+    <li class="position-static"><a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+      <ul class="megamenu dropdown">        
+        {%- assign m5_megamenu_column_1 = linklists[settings.m5_megamenu_column_1_handle] -%}
+        {%- if m5_megamenu_column_1 != empty -%}
+        <li class="mega-title"><span>{{ m5_megamenu_column_1.title }}</span>
+          <ul>
+            {%- for link in m5_megamenu_column_1.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m5_megamenu_column_2 = linklists[settings.m5_megamenu_column_2_handle] -%}
+        {%- if m5_megamenu_column_2 != empty -%}
+        <li class="mega-title"><span>{{ m5_megamenu_column_2.title }}</span>
+          <ul>
+            {%- for link in m5_megamenu_column_2.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m5_megamenu_column_3 = linklists[settings.m5_megamenu_column_3_handle] -%}
+        {%- if m5_megamenu_column_3 != empty -%}
+        <li class="mega-title"><span>{{ m5_megamenu_column_3.title }}</span>
+          <ul>
+            {%- for link in m5_megamenu_column_3.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- assign m5_megamenu_column_4 = linklists[settings.m5_megamenu_column_4_handle] -%}
+        {%- if m5_megamenu_column_4 != empty -%}
+        <li class="mega-title"><span>{{ m5_megamenu_column_4.title }}</span>
+          <ul>
+            {%- for link in m5_megamenu_column_4.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- endif -%}
+        {%- if settings.m5_megamenu_image_1 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m5_megamenu_image_url_1 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m5_megamenu_image_1.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m5_megamenu_image_1, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+        {%- if settings.m5_megamenu_image_2 -%}
+        <li class="megamenu-banners d-none d-lg-block">
+          <a href="{{ settings.m5_megamenu_image_url_2 }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: settings.m5_megamenu_image_2.aspect_ratio | times: 100}}%;"> 
+            {%- render 'responsive-image' with image: settings.m5_megamenu_image_2, image_class: "lazyload-main-image" -%}
+          </a>
+        </li>
+        {%- endif -%}
+      </ul>
+    </li>
+    {%- elsif linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 -%}
+    <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+      <ul class="dropdown">
+        {%- for childlink in linklists[childlink_handle].links -%}
+        {%- assign grand_childlink_handle = childlink.title | handle -%}
+        {%- if linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 -%}
+        <li><a href="{{ childlink.url }}">{{ childlink.title }} <i class="fa fa-angle-{% if settings.rtl_enable %}left{% else %}right{% endif %}"></i></a>
+          <ul class="dropdown">
+            {%- for grand_childlink in linklists[grand_childlink_handle].links -%}
+            <li><a href="{{ grand_childlink.url }}">{{ grand_childlink.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+        {%- else -%}
+        <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+        {%- endif -%}  
+        {%- endfor -%}
+      </ul>
+    </li>
+    {%- else -%}
+    <li{% if link.active %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</nav>
+<!-- main menu navbar end -->
+
+

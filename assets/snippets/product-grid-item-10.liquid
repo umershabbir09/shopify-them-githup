@@ -1,0 +1,99 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- if product.available -%}
+{%- assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" -%}
+{%- endif -%} 
+
+                            <div class="product-item product-item4  {{ variant.id }}"> 
+                              <a href="{{ product.url | within: collection }}" class="product-image">
+                                   <img class="popup_cart_image" src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+                              </a>
+                                <div class="bottom-content">
+                                  {%- if settings.grid_product_type_enable -%}
+                                      <span class="product-catagory">{{ product.type }}</span>
+                                  {%- endif -%}
+                                        {%- assign truncate_count = settings.truncate_count_handle -%}
+                                          <a class="product-name popup_cart_title" href="{{ product.url | within: collection }}">
+                                            {%- if settings.truncate_count_enable -%}
+                                            {{ product.title | truncate: truncate_count }}
+                                            {%- else -%}
+                                            {{ product.title }}
+                                            {%- endif -%}
+                                          </a>
+                                    <div class="flex-wrap">
+                                        <div class="action-wrap">
+                                            <span class="product-price">{{ product.variants.first.price | money }}</span>
+                                          
+                                              {%- if product.available -%}
+                                              {%- if product.variants.size > 1 -%}
+                                              <a href="{{ product.url | within: collection }}" class="addto-cart">
+                                                <span>
+                                                  <span><i class="fal fa-shopping-cart"></i>{{ settings.select_option_title }}</span>
+                                                </span>
+                                              </a>
+                                              {%- else -%}
+                                              {%- if settings.product_cart_type == 'ajax_cart_drawer' -%}
+                                              <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart ajax-spin-cart-drawer addto-cart">
+                                                <span>
+                                                  <span class="cart-title"><i class="fal fa-shopping-cart"></i>{{ settings.cart_button_title }}</span>
+                                                  <span class="cart-loading"><i class="fal fa-shopping-cart"></i>{{ settings.wait_title }}</span>
+                                                  <span class="cart-added"><i class="fal fa-shopping-cart"></i>{{ settings.added_title }}</span>
+                                                  <span class="cart-unavailable"><i class="fal fa-shopping-cart"></i>{{ settings.unavailable_title }}</span>
+                                                </span>
+                                              </a>
+                                              {%- elsif settings.product_cart_type == 'ajax_spin_cart' -%}
+                                              <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart  addto-cart">
+                                                <span>
+                                                  <span class="cart-title"><i class="fal fa-shopping-cart"></i>{{ settings.cart_button_title }}</span>
+                                                  <span class="cart-loading"><i class="fal fa-shopping-cart"></i>{{ settings.wait_title }}</span>
+                                                  <span class="cart-added"><i class="fal fa-shopping-cart"></i>{{ settings.added_title }}</span>
+                                                  <span class="cart-unavailable"><i class="fal fa-shopping-cart"></i>{{ settings.unavailable_title }}</span>
+                                                </span>
+                                              </a>
+                                              {%- elsif settings.product_cart_type == 'ajax_popup_cart' -%}
+                                              <a href="javascript:void(0);" onclick="{{ func }}; return false;" class=" addto-cart">
+                                                <span>
+                                                  <span class="cart-title"><i class="fal fa-shopping-cart"></i>{{ settings.cart_button_title }}</span>
+                                                </span>
+                                              </a>
+                                              {%- elsif settings.product_cart_type == 'without_ajax_cart' -%}
+                                              <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                                <select name="id" style="display:none;">
+                                                  {% for variant in product.variants %}
+                                                  <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+                                                  {% endfor %}
+                                                </select>
+                                                <button type="submit" class=" addto-cart">
+                                                  <span>
+                                                    <span class="cart-title"><i class="fal fa-shopping-cart"></i>{{ settings.cart_button_title }}</span>
+                                                  </span>
+                                                </button>
+                                              </form>
+                                              {%- endif -%}
+                                              {%- endif -%}
+                                              {%- else -%}
+                                              <button class="cart-disable addto-cart">
+                                                <span class="cart-text"><i class="fal fa-shopping-cart"></i>{{ settings.soldout_button_title }}</span>
+                                              </button>
+                                              {%- endif -%}
+                                        </div>
+                                            
+                                                    {%- if settings.wishlist_enable -%}
+                                            {%- if product.handle != blank -%}
+                                      <a class="action-wishlist tile-actions--btn flex wishlist-btn wishlist product-action" href="javascript: void(0)" button-wishlist data-product-handle="{{ product.handle }}" data-toggle="tooltip" data-placement="left" title="{{ settings.wishlist_title }}">
+                                        <span class="add-wishlist"><i class="rt-heart"></i></span>
+                                        <span class="loading-wishlist"><i class="pe-7s-settings"></i></span>
+                                        <span class="remove-wishlist"><i class="pe-7s-close"></i></span>
+                                      </a>
+                                      {%- endif -%}
+                                            {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>

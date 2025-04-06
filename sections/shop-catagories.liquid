@@ -1,0 +1,365 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+<div class="rts-shop-catagories-section  {{ bg_image_class }}"  id="section-{{ section.id }}" {{ sections_bg_image }}  data-section="ShopCategories" >
+    <div class="container">
+        <div class="shop-catagories-section-inner">
+            <div class="section-header section-header3 text-center">
+                <div class="wrapper">
+                    <div class="sub-content">
+                        <img class="line-1" src="{{ section.settings.title_image_1 | img_url: 'large' }}" alt="">
+                        <span class="sub-text">{{ section.settings.section_sub_title }}</span>
+                        <img class="line-2" src="{{ section.settings.title_image_2 | img_url: 'large' }}" alt="">
+                    </div>
+                    <h2 class="title">{{ section.settings.section_title }}</h2>
+                </div>
+            </div>
+            <div class="swiper rts-cmmnSlider-over3" data-swiper="navigation">
+                <div class="swiper-wrapper">
+                                    {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'catagories' -%}
+                    <div class="swiper-slide">
+                        <div class="collection-item">
+                            <div class="image">
+                                <img src="{{ block.settings.catagories_image | img_url: 'large' }}" alt="{{ block.settings.catagories_image.alt }}">
+                            </div>
+                            <div class="content">
+          {%- if block.settings.catagories_title != '' -%}
+                                <h3 class="title">{{ block.settings.catagories_title }}</h3>          
+            {%- endif -%}
+                                <ul>
+          {%- if block.settings.catagories_list_1 != '' -%}
+                                    <li><a href="{{ block.settings.catagories_list_1_url }}">{{ block.settings.catagories_list_1 }}</a></li>      
+            {%- endif -%}      
+          {%- if block.settings.catagories_title != '' -%}
+                                    <li><a href="{{ block.settings.catagories_list_2_url }}">{{ block.settings.catagories_list_2 }}</a></li>      
+            {%- endif -%}     
+          {%- if block.settings.catagories_title != '' -%}
+                                    <li><a href="{{ block.settings.catagories_list_3_url }}">{{ block.settings.catagories_list_3 }}</a></li>      
+            {%- endif -%}
+                                </ul>
+                                <a href="{{ block.settings.button_url }}" class="view-button">{{ block.settings.button_title }} <i class="rt-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                </div>
+            </div>
+            <div class="slider-buttons">
+                <div class="swiper-button-prev slider-btn"><i class="rt-arrow-left-long"></i>PREV</div>
+                <div class="swiper-button-next slider-btn">NEXT<i class="rt-arrow-right-long"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+   
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Shop Categories",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "SHOP BY CATAGORIES"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Featured"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_1",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+        {
+          "type": "image_picker",
+          "id": "title_image_2",
+          "label": "Image 2",
+          "info": "Recommended Size: 22 x 6px"
+        }
+    ],
+	"blocks":[
+        {
+            "type": "catagories",
+            "name": "Catagories",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "catagories_image",
+                "label": "Image",
+        		"info": "Recommended Size: 160 x 160px"
+              },
+              {
+                "type": "text",
+                "id": "catagories_title",
+                "label": "Catagories Title",
+                "default": "Mens Wear"
+              },
+              {
+                "type": "textarea",
+                "id": "catagories_list_1",
+                  "label": "Collection Name and Number",
+                "default": "Tshirt <span>(185)</span>",
+                "info": "Use of <span>"
+              },
+              {
+                "type": "url",
+                "id": "catagories_list_1_url",
+                "label": "URL"
+              },
+              {
+                "type": "textarea",
+                "id": "catagories_list_2",
+                  "label": "Collection Name and Number",
+                "default": "Geans <span>(325)</span>",
+                "info": "Use of <span>"
+              },
+              {
+                "type": "url",
+                "id": "catagories_list_2_url",
+                "label": "URL"
+              },
+              {
+                "type": "textarea",
+                "id": "catagories_list_3",
+                  "label": "Collection Name and Number",
+                "default": "Shoes <span>(690)</span>",
+                "info": "Use of <span>"
+              },
+              {
+                "type": "url",
+                "id": "catagories_list_3_url",
+                "label": "URL"
+              },
+              {
+                "type": "textarea",
+                "id": "button_title",
+                  "label": "Button Title",
+                "default": "View All"
+              },
+              {
+                "type": "url",
+                "id": "button_url",
+                "label": "URL"
+              }
+            ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Shop Categories",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "catagories"
+				},
+				{
+					"type": "catagories"
+				},
+				{
+					"type": "catagories"
+				},
+				{
+					"type": "catagories"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

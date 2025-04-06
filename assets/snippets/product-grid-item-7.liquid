@@ -1,0 +1,39 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- if product.available -%}
+{%- assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" -%}
+{%- endif -%} 
+
+
+                                <div class="wraper  {{ variant.id }}">
+                                    <div class="image-section">
+                                      <a href="{{ product.url | within: collection }}" >
+                                               <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+                                      </a>
+                                    </div>
+                                    <div class="content">
+                                      <div class="star-rating">
+               <!-- Start of Judge.me code -->
+            <div class='jdgm-widget jdgm-preview-badge'>
+              {{ product.metafields.judgeme.badge }}
+            </div>
+          <!-- End of Judge.me code -->
+                                        </div>
+         {%- assign truncate_count = settings.truncate_count_handle -%}
+      <a class="product-title" href="{{ product.url | within: collection }}">
+        {%- if settings.truncate_count_enable -%}
+        {{ product.title | truncate: truncate_count }}
+        {%- else -%}
+        {{ product.title }}
+        {%- endif -%}
+      </a>
+                                        <p class="product-price">{{ product.variants.first.price | money }}</p>
+                                    </div>
+                                </div>

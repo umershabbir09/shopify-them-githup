@@ -1,0 +1,87 @@
+{{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+<script src="{{ 'recent-view.js' | asset_url }}"></script>
+
+   <div class="rts-featured-product-section1 related-product"  id="section-{{ section.id }}" data-section="RecentlyViewedProduct">
+        <div class="container">
+            <div class="rts-featured-product-section-inner">
+    {%- if section.settings.section_title != '' -%}
+    <div class="row" id="recently-viewed-products" style="display: none;">
+                <div class="section-header section-header3 section-header6">
+                    <div class="wrapper">
+                        <h2 class="title">{{ section.settings.section_title }}</h2>
+                    </div>
+                </div>
+    </div>
+    {%- endif -%}
+          {% raw %}
+          <script id="recently-viewed-product-template" type="text/x-jquery-tmpl">
+                   <div class="col-xl-3 col-md-4 col-sm-6 col-12">
+                    <div class="product-item element-item1">
+                        <a href="${url}" class="product-image image-hover-variations">
+            <div class="image-vari">
+                          <img src="${Shopify.Products.resizeImage(featured_image, "large")}" />
+                                </div>
+                        </a>
+                      <div class="bottom-content">
+                          <a class="product-name popup_cart_title" href="${url}">${title}</a>
+                                <div class="action-wrap">
+                        {{if compare_at_price > price}}
+                              <span class="price">{{html Shopify.formatMoney(price, window.money_format)}}</span>
+                              <span class="price-old"><del>{{html Shopify.formatMoney(compare_at_price, window.money_format)}}</del></span>
+                              {{else}}
+                              <span class="price">{{html Shopify.formatMoney(price, window.money_format)}}</span>
+                              {{/if}}
+                                </div>
+                      </div>
+                    </div>
+            </div>
+          </script>
+          {% endraw %}
+            </div>
+        </div>
+    </div>
+
+<script>
+  /* this code for currency support */
+  window.show_multiple_currencies = {{ settings.currency_enable }};
+  window.shop_currency = "{{ shop.currency }}";
+  window.money_format = "{{shop.money_with_currency_format}}";
+  
+  /* recently viewed plugin api start */
+  Shopify.Products.showRecentlyViewed({
+    howManyToShow:4,
+    howManyToStoreInMemory:10,
+    wrapperId: 'recently-viewed-products', 
+    templateId: 'recently-viewed-product-template', 
+    onComplete: function() {
+
+    if (window.currency_enable) {
+    /* this section ID to be your currency picker (Select) ID */
+      Currency.convertAll(window.shop_currency, jQuery('#currencies').val(), 'span.money', 'money_format');
+  }
+                                      }
+
+                                      });
+  /* recently viewed plugin api end */
+  
+  Shopify.Products.recordRecentlyViewed();
+</script>
+
+
+{% schema %}
+  {
+    "name": "Recently Viewed Product 2",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Recently Viewed"
+      	}
+	]
+  }
+{% endschema %}

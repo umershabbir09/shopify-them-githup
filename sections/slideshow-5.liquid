@@ -1,0 +1,328 @@
+ <div class="banner banner-1 banner-9 bg-image"  id="section-{{ section.id }}" data-section="SlideShow_4">
+    <div class="container">
+        <div class="banner-inner">
+            <div class="row">
+              
+                <div class="col-xl-2 col-lg-3 gutter-1">
+                    <div class="catagory-sidebar">
+                        <div class="widget-bg">
+            {%- if section.settings.catagory_title != '' -%}
+                            <h2 class="widget-title">{{ section.settings.catagory_title }} <i class="rt-angle-down"></i></h2>
+            {%- endif -%}
+                            <nav>
+                                <ul>
+                                  
+                                  {%- assign user_menu = section.settings.user_menu_handle -%}
+                                  {%- for link in linklists[user_menu].links -%}
+                                    <li><a href="{{ link.url }}">{{ link.title }} <i class="rt rt-arrow-right-long"></i></a></li>
+                                  {%- endfor -%}
+                                  
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="col-xl-10 col-lg-9 col-md-12 col-sm-12 gutter-2">
+                    <div class="slider-inner">
+                        <div class="swiper rts-topSlide2">
+                            <div class="swiper-wrapper">
+                                    {%- for block in section.blocks -%}
+          {%- case block.type -%}
+    {%- when 'slide' -%}  
+                                <div class="swiper-slide">
+                                    <div class="banner-single">
+                                        <div class="container header-container">
+                                            <div class="single-inner">
+                                                <div class="contents">
+            {%- if block.settings.slide_sub_title != '' -%}
+                                                    <p class="slider-subtitle">{{ block.settings.slide_sub_title }} </p>
+            {%- endif -%}
+            {%- if block.settings.slide_title != '' -%}
+                                                    <h1 class="banner-heading">{{ block.settings.slide_title }}</h1>
+            {%- endif -%}
+            {%- if block.settings.slide_content != '' -%}
+                                                    <p>{{ block.settings.slide_content }}</p>
+            {%- endif -%}
+            {%- if block.settings.slide_button_title != '' -%}
+                                                    <a class="banner-btn" href="{{ block.settings.slide_button_url }}">{{ block.settings.slide_button_title }}</a>
+            {%- endif -%}
+                                                </div>
+                                                <div class="slider-image"><img src="{{ block.settings.slide_image | img_url: 'master' }}" alt="{{ block.settings.slide_image.alt }}"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                            </div>
+                        </div>
+                      
+                        <div class="swiper-pag-2"> </div>
+                      
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+  .banner.banner-1.banner-9 {
+  background: url({{ section.settings.bg_image | img_url: 'master' }});
+}
+</style>
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Slideshow 5",
+    "settings": [
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "BG Image",
+          "info": "Recommended Size: 1920 x 602px"
+        },
+		{
+          "type": "header",
+          "content": "catagory Menu"
+        },
+            {
+              "type": "text",
+              "id": "catagory_title",
+              "label": "catagory Title",
+              "default": "All Categories"
+            },
+		{
+          "type": "link_list",
+          "id": "user_menu_handle",
+          "label": "Menu"
+        }
+	],
+	"blocks":[
+	   {
+          "type": "slide",
+          "name": "Slide Show",
+		  "limit": 5,
+          "settings": [
+              {
+                "type": "image_picker",
+                "id": "slide_image",
+                "label": "Image",
+                "info": "Recommended Size: 620 x 750px"
+              },
+            {
+              "type": "textarea",
+              "id": "slide_sub_title",
+              "label": "Sub Title",
+              "default": "Women’s Collection"
+            },
+            {
+              "type": "textarea",
+              "id": "slide_title",
+              "label": "Title",
+              "default": "New Floral Dress"
+            },
+            {
+              "type": "textarea",
+              "id": "slide_content",
+              "label": "Content",
+              "default": "Free shipping with our Special Service & not redeemable"
+            },
+            {
+              "type": "text",
+              "id": "slide_button_title",
+              "label": "Button Title",
+              "default": "View Collection"
+            },
+            {
+              "type": "url",
+              "id": "slide_button_url",
+              "label": "URL"
+            }
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Slideshow 5",
+		  "category": "1. slideshow",
+		  "blocks":[
+				{
+					"type": "slide"
+				},
+				{
+					"type": "slide"
+				},
+				{
+					"type": "slide"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

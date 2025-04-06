@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-12 col-12">
+	<div class="culculate-shipping" id="shipping-calculator">
+	  <h3 class="">{{ section.settings.shipping_calculator_heading | default: 'Get shipping estimates' }}</h3>
+	  <div>
+		<p class="field">
+		  {% comment %}<label for="address_country">Country</label>{% endcomment %}
+		  <select id="address_country" name="address[country]" data-default="{% if shop.customer_accounts_enabled and customer %}{{ customer.default_address.country }}{% elsif settings.shipping_calculator_default_country != '' %}{{ settings.shipping_calculator_default_country }}{% endif %}">{{ country_option_tags }}</select>
+		</p>
+		<p class="field" id="address_province_container" style="display:none;">
+		  <label for="address_province" id="address_province_label">Province</label>
+		  <select id="address_province" name="address[province]" data-default="{% if shop.customer_accounts_enabled and customer and customer.default_address.province != '' %}{{ customer.default_address.province }}{% endif %}"></select>
+		</p>  
+		<p class="field cpn-code">
+		  {% comment %}<label for="address_zip"></label>{% endcomment %}
+		  <input type="text" placeholder="Zip/Postal Code" id="address_zip" name="address[zip]"{% if shop.customer_accounts_enabled and customer %} value="{{ customer.default_address.zip }}"{% endif %} />
+		</p>
+		<p class="shipping-info">
+		  <button type="button" class="theme-default-button get-rates">{{ section.settings.shipping_calculator_button_title | default: 'Calculate shipping' }}</button>
+		</p>
+	  </div>
+	  <div id="wrapper-response"></div>
+	</div>
+  </div>
+</div>

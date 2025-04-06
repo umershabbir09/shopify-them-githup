@@ -1,0 +1,16 @@
+{{ 'timber.css' | asset_url | stylesheet_tag }}
+<!-- google fonts -->
+<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900&display=swap" rel="stylesheet">
+<!-- Put all third-party CSS files in the vendor.css file and minify the files -->
+{{ 'vendor.css' | asset_url | stylesheet_tag }}
+{{ 'slick.min.css' | asset_url | stylesheet_tag }}
+<!-- Link your style.css and responsive.css files below -->
+{{ 'style.css' | asset_url | stylesheet_tag }}
+{%- if settings.dark_enable -%}
+{{ 'dark.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+<!-- Make all your dynamic CSS and Color calls here -->
+{{ 'skin-and-color.css' | asset_url | stylesheet_tag }}
+{%- if settings.theme_custom_css_style != '' -%}
+{{ settings.theme_custom_css_style }}
+{%- endif -%}

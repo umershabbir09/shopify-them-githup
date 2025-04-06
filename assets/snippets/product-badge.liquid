@@ -1,0 +1,59 @@
+{%- assign today_date = "now" | date: '%s' -%}
+{%- assign end_date = product.metafields.new_badge.date | date: '%s' -%}
+
+{%- if product.tags contains 'comingsoon' or sold_out or on_sale or product.description contains '[new_products]' or end_date > today_date -%}
+<div class="product-badge product-features">
+  
+  {%- if product.tags contains 'comingsoon' and settings.coming_soon_title != '' -%}
+    <div class="product-label new new-tag product-tag">
+      <span class="soldout-title">{{ settings.coming_soon_title }}</span>
+    </div>
+  {%- else -%}
+  
+    {%- if sold_out and settings.soldout_title != '' -%}
+      <div class="product-label new new-tag product-tag">
+        <span class="soldout-title">{{ settings.soldout_title }}</span>
+      </div>
+    {%- else -%} 
+      {%- if product.description contains '[new_products]' and settings.new_title != '' -%}      
+        {%- assign new_products_first = product.description | split:'[/new_products]' | first -%}
+        {%- assign new_products_final = new_products_first | split:'[new_products]' | last -%} 
+        {%- comment -%}Date calculate{%- endcomment -%}
+        {%- assign date_pub_y = product.published_at | date:'%Y' -%}
+        {%- assign date_pub_d = product.published_at | date:'%j' -%}
+        {%- assign date_now_y = 'now' | date:'%Y' -%}
+        {%- assign date_now_d = 'now' | date:'%j' -%}
+        {%- assign dates_diff_y = date_now_y | minus: date_pub_y | times: 365 -%}
+        {%- assign dates_diff_d = date_now_d | minus: date_pub_d -%}
+        {%- assign dates_diff = dates_diff_y | plus: dates_diff_d -%}
+        {%- assign new_products_period = new_products_final | plus: 0 -%} 
+        {%- if dates_diff <= new_products_period -%}
+        <div class="product-label new new-tag product-tag">
+          <span class="new-title">{{ settings.new_title }}</span>
+        </div>
+        {%- endif -%}
+  
+      {%- elsif end_date > today_date -%}
+        <div class="product-label new new-tag product-tag">
+          <span class="new-title">{{ settings.new_title }}</span>
+        </div>
+      {%- endif -%}
+  
+      {%- if on_sale -%}
+        {%- if settings.sale_title != '' -%}
+        <div class="product-label discount discount-tag product-tag">
+          <span class="sale-title">{{ settings.sale_title }}</span>
+        </div>
+        {%- endif -%}
+        {%- if settings.sale_percent_enable -%}
+        <div class="product-label discount discount-tag product-tag">
+          <span class="percent-count">-{{- product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100.0 | divided_by: product.selected_or_first_available_variant.compare_at_price | money_without_currency | replace: ',', '.' | times: 100 | remove: '.0' -}}%</span>
+        </div>
+        {%- endif -%}
+      {%- endif -%}
+  
+    {%- endif -%}
+  {%- endif -%}
+  
+</div>
+{%- endif -%}

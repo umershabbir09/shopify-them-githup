@@ -1,0 +1,218 @@
+<script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
+{%- if content_for_layout contains 'slick' or content_for_layout contains 'TestimonialSection' -%}
+<script src="{{ 'slick.min.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{%- if settings.wishlist_enable -%}
+<script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+<!-- Ajax Cart js -->
+{%- if settings.currency_enable and settings.currency_handle == 'ajax_currency' -%}
+<script async="async">
+  window.money_format = "{{ shop.money_with_currency_format }}"; 
+</script>
+{%- endif -%}
+<script src="{{ 'option_selection.js' | shopify_asset_url }}" defer="defer"></script>
+<script src="{{ 'api.jquery.js' | shopify_asset_url }}" defer="defer"></script>
+<script src="{{ 'cart.api.js' | asset_url }}" defer="defer"></script>
+<!-- Your main.js file upload this file --> 
+<script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+<!-- Timber JS -->
+<script src="{{ 'fastclick.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'timber.js' | asset_url }}" defer="defer"></script>
+
+{% comment %}
+Template-specific js
+{% endcomment %}
+<script>
+  {% if resetPassword %}
+  $(function() {
+    timber.resetPasswordSuccess();
+  });
+  {% endif %}
+</script>
+
+{%- if settings.enable_preloader -%}
+<script>
+  $(window).on('load', function() {
+    $('#preloader_active').fadeOut('');
+  }); 
+</script>
+{%- endif -%}
+
+{%- if settings.topbar_notification_enable -%}
+{%- if settings.topbar_notification == 'topbar_in_index' and template == 'index' -%}
+<script defer="defer">
+  var nToggle = $('.notification-close-btn');
+  nToggle.on('click', function(){
+    $('.top-notification-bar').slideToggle();
+  })
+</script>
+{%- elsif settings.topbar_notification == 'topbar_in_template' -%}
+<script defer="defer">
+  var nToggle = $('.notification-close-btn');
+  nToggle.on('click', function(){
+    $('.top-notification-bar').slideToggle();
+  })
+</script>
+{%- endif -%}
+{%- endif -%}
+
+{%- if template == 'index' and settings.newsletter_popup_enable -%}
+{%- if settings.one_day_popup_enable -%}
+<script src="{{ 'newsletter-js.js' | asset_url }}" defer="defer"></script>
+<script defer="defer">
+  $(function () {
+    $('#one-time-newsletter').firstVisitPopup({
+      cookieName : 'index'
+    });
+  });
+</script>
+{%- else -%}
+<script defer="defer">
+  setTimeout(function() {
+    $('.popup_wrapper').css({"opacity": "1", "visibility": "visible"});
+    $('.popup_off').click(function(){
+      $(".popup_wrapper").fadeOut(200);
+    })
+  }, 5000);	 
+</script>
+{%- endif -%}
+{%- if settings.dont_show_again_enable -%}
+<script defer="defer">
+  if(localStorage.getItem("DontShow")) {
+    $("#one-time-newsletter").hide();
+  }
+  $("#forgetMe").on("click", function() {
+    localStorage.setItem("DontShow", "true");
+  });
+</script>
+{%- endif -%}
+{%- if settings.privacy_policy_checbox_enable -%}
+<script defer="defer">
+  $('#privacyoption').click(function () {
+    //check if checkbox is checked
+    if ($(this).is(':checked')) {
+      $('#subscribe').removeAttr('disabled'); //enable input
+    } else {
+      $('#subscribe').attr('disabled', true); //disable input
+    }
+  });
+</script>
+{%- endif -%}
+{%- endif -%}
+
+{%- unless settings.product_cart_type == 'without_ajax_cart' -%}
+{%- render 'popup_cart' -%}
+{%- endunless -%}
+
+{%- if settings.ajax_search_enable -%}
+{%- render 'ajax-search-bar' -%}
+{%- endif -%}
+
+{%- unless template == 'product' -%}
+{%- if settings.product_quickview_enalbe and content_for_layout contains 'quickViewModal' -%}
+{%- render 'product-quickview' -%}
+<script defer="defer">
+  $(".cart-plus-minus").prepend('<div class="dec qtybutton">-</div>');
+  $(".cart-plus-minus").append('<div class="inc qtybutton">+</div>');
+  $(".qtybutton").on("click", function() {
+    var $button = $(this);
+    var oldValue = $button.parent().find("input").val();
+    if ($button.text() == "+") {
+      var newVal = parseFloat(oldValue) + 1;
+    } else {
+      // Don't allow decrementing below zero
+      if (oldValue > 0) {
+        var newVal = parseFloat(oldValue) - 1;
+      } else {
+        newVal = 1;
+      }
+    }
+    $button.parent().find("input").val(newVal);
+  });
+</script>
+{%- endif -%}
+{%- endunless -%}
+
+{%- if settings.product_cart_type == 'ajax_spin_cart' or settings.product_cart_type == 'ajax_cart_drawer' -%}
+<script defer="defer">
+  $('.ajax-spin-cart').on('click', function() {
+    $(this).addClass('loading add-item');
+    setTimeout(function () {
+      $('.ajax-spin-cart').removeClass('loading');
+    },500);
+    setTimeout(function () {
+      $('.ajax-spin-cart').removeClass("add-item");
+    },1000);
+
+  });
+</script>
+{%- endif -%}
+
+{%- if settings.currency_enable or settings.compare_product_enalbe -%}
+{%- render 'currency' -%}
+{%- endif -%}
+
+{%- if content_for_layout contains 'data-countdown' -%}
+<script defer="defer">
+  $('[data-countdown].grid-countdown').each(function() {
+    var $this = $(this), finalDate = $(this).data('countdown');
+    $this.countdown(finalDate, function(event) {
+      $this.html(event.strftime('<div class="single-countdown"><span class="single-countdown__time">%D</span><span class="single-countdown__text">{{ settings.day_title }}</span></div><div class="single-countdown"><span class="single-countdown__time">%H</span><span class="single-countdown__text">{{ settings.hour_title }}</span></div><div class="single-countdown"><span class="single-countdown__time">%M</span><span class="single-countdown__text">{{ settings.minute_title }}</span></div><div class="single-countdown"><span class="single-countdown__time">%S</span><span class="single-countdown__text">{{ settings.second_title }}</span></div>'));
+    });
+  });
+</script>
+{%- endif -%}
+
+{%- if settings.scroll_top_enable -%}
+<div class="scroll-top not-visible">
+  <i class="fa fa-angle-up"></i>
+</div>
+<script defer="defer">
+  // Scroll to top active js
+  $(window).on('scroll', function () {
+    if ($(this).scrollTop() > 600) {
+      $('.scroll-top').removeClass('not-visible');
+    } else {
+      $('.scroll-top').addClass('not-visible');
+    }
+  });
+  $('.scroll-top').on('click', function (event) {
+    $('html,body').animate({
+      scrollTop: 0
+    }, 1000);
+  });
+</script>
+{%- endif -%}
+
+{%- if settings.disable_selection_text -%}
+<script>
+  (function($){
+    $.fn.disableSelection = function() {
+      return this
+      .attr('unselectable', 'on')
+      .css('user-select', 'none')
+      .on('selectstart', false);
+    };
+  })(jQuery);
+
+  $('body').disableSelection();
+</script>
+{%- endif -%}
+
+{%- if settings.disable_right_click -%}
+<script>
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+</script>
+{%- endif -%}
+
+{%- if content_for_layout contains 'class="compare"' or content_for_layout contains 'compare-page' -%}
+<script src="{{ 'compare-product.js' | asset_url }}"></script>
+{%- endif -%}
+
+{%- if settings.theme_custom_script != '' -%}
+{{ settings.theme_custom_script }}
+{%- endif -%}

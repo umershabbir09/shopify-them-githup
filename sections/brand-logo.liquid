@@ -1,0 +1,334 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+<div class="brand-logo {{ bg_image_class }}" id="section-{{ section.id }}" data-section="BrandLogo" {{ sections_bg_image }}>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        {%- capture data_slick_activation -%}
+        data-slick='{
+            {%- if section.settings.autoplay_true -%}
+            "autoplay": true,
+            "autoplaySpeed": {{ section.settings.autoplay_speed }},
+            {%- endif -%}
+             "slidesToShow": {{ section.settings.brand_column }},
+              "responsive":[
+                  {"breakpoint":1200, "settings": {"slidesToShow": {{ section.settings.brand_column_md }}} },
+                  {"breakpoint":992, "settings": {"slidesToShow": {{ section.settings.brand_column_md }}} },
+                  {"breakpoint":768, "settings": {"slidesToShow": {{ section.settings.brand_column_md }}, "slidesToScroll": {{ section.settings.brand_column_md }}, "arrows": false, "dots": true} },
+                  {"breakpoint":480, "settings": {"slidesToShow": {{ section.settings.brand_column_sm }}, "slidesToScroll": {{ section.settings.brand_column_sm }}, "arrows": false, "dots": true} }
+                ] 
+
+        }'
+        {%- endcapture -%}
+        <div class="brand-logo-carousel slick-row-10 slick-arrow-style slick-dot-style slick-dot-style-2" {% if settings.rtl_enable %}dir="rtl"{% endif %} {{ data_slick_activation }}>
+          {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'brand' -%}
+          <div {{ block.shopify_attributes }} class="brand-item">
+            {%- if block.settings.brand_image -%}
+            <a href="{{ block.settings.brand_url }}" class="lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: block.settings.brand_image.aspect_ratio | times: 100}}%;">
+              {%- render 'responsive-image' with image: block.settings.brand_image, image_class: "lazyload-main-image" -%}
+            </a>
+            {%- else -%}
+            <a href="{{ block.settings.brand_url }}">
+              <img  class="lazyload" data-src="https://via.placeholder.com/234x48" alt="{{ block.settings.brand_image.alt }}">
+            </a>
+            {%- endif -%}
+          </div>
+          {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%- render 'section-style' -%}
+{% schema %}
+  {
+    "name": "Brand Logo",
+    "settings": [
+		{
+			"type": "header",
+            "content": "Brand Items"
+        },
+		{
+            "type": "range",
+            "id": "brand_column",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Desktop",
+            "default": 5
+        },
+		{
+            "type": "range",
+            "id": "brand_column_md",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Tablet",
+            "default": 4
+        },
+		{
+            "type": "range",
+            "id": "brand_column_sm",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Large Mobile",
+            "default": 2
+        },
+		{
+			"type": "header",
+            "content": "Options"
+        },
+		{
+          "type": "checkbox",
+          "id": "autoplay_true",
+          "label": "Autoplay Enable",
+          "default": false
+      	},
+		{
+            "type": "range",
+            "id": "autoplay_speed",
+            "min": 1000,
+            "max": 9000,
+            "step": 1000,
+            "label": "Autoplay Speed",
+            "unit": "ms",
+            "default": 7000
+        }
+    ],
+	"blocks":[
+        {
+            "type": "brand",
+            "name": "Brand Logo",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "brand_image",
+                "label": "Image",
+        		"info": "Recommended Size: 234 x 48px"
+              },
+              {
+                "type": "url",
+                "id": "brand_url",
+                "label": "URL"
+              }
+            ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Brand",
+		  "category": "5. about",
+		  "blocks":[
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header"]
+    }
+  }
+{% endschema %}

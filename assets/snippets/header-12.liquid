@@ -1,0 +1,405 @@
+    <header id="rtsHeader">
+        <div class=" {% if section.settings.header_style == 'header_style_11' %} header-topbar header-topbar1 header-topbar7 {% elsif section.settings.header_style == 'header_style_12' %} header-topbar header-topbar1 header-topbar7 header-topbar10  {% endif %} ">
+            <div class="container">
+                <div class="header-top-area">
+                    <div class="header-top-left">
+                        <a href="newsletter.html" class="newsletter-link"><i class="rt rt-location-dot"></i> {{ section.settings.location_text }} </a>
+                        <h3 class="welcome-text"><i class="far fa-envelope"></i>{{ section.settings.call_number }}</h3>
+                    </div>
+                    <div class="slider-div">
+                        <div class="swiper rts-topSlide1">
+                            <div class="swiper-wrapper">
+                                    {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when 'welcome_text' -%}
+                                <div class="swiper-slide">
+                                    <h3 class="welcome-text"> {{ block.settings.welcome_title }}<a href="{{ block.settings.welcome_button_url }}">{{ block.settings.welcome_button }}</a></h3>
+                                </div>
+          {%- endcase -%}
+          {%- endfor -%}
+                            </div>
+                            <div class="slider-navigation2">
+                                <div class="swiper-button-prev slider-btn prev"><i
+                                        class="rt rt-arrow-left-long"></i></div>
+                                <div class="swiper-button-next slider-btn next"><i
+                                        class="rt rt-arrow-right-long"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topbar-select-area">
+                           <ul>
+            
+            {%- if settings.currency_enable -%} 
+            {%- if settings.currency_handle == 'shopify_currency' -%}
+            {%- if localization.available_countries.size > 1 -%}
+            <li class="curreny-wrap currency">
+              <localization-form>
+                {% form 'localization' %}
+                <div class="disclosure">
+                  <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="CountryList">
+                    {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+                    <i class="fa fa-angle-down"></i>
+                  </button>
+
+                  <ul id="CountryList" role="list" class="dropdown-list curreny-list disclosure__list">
+                    {% for country in localization.available_countries %}
+                    <li class="disclosure__item" tabindex="-1">
+                      <a href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                        {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+
+                  <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                </div>
+                {% endform %}
+              </localization-form>
+            </li>
+            {%- endif -%}
+            {%- elsif settings.currency_handle == 'ajax_currency' -%}
+            {%- render 'currency-picker' -%}
+            {%- endif -%}
+            {%- endif -%}
+            
+            
+            {%- if settings.google_translate_enable -%}
+            
+            {%- if settings.language_handle == 'shopify_language' -%}
+            {% if localization.available_languages.size > 1 %}
+            <li class="language">
+              <localization-form>
+                {% form 'localization' %}
+                <div class="disclosure">
+                  <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="LanguageList">
+                    {{ localization.language.endonym_name | capitalize }}
+                    <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul id="LanguageList" role="list" class="disclosure__list dropdown-list">
+                    {% for language in localization.available_languages %}
+                    <li class="disclosure__item" tabindex="-1">
+                      <a href="#"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}" data-value="{{ language.iso_code }}">
+                        {{ language.endonym_name | capitalize }}
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+                </div>
+                {% endform %}
+              </localization-form>
+            </li>
+            {% endif %}
+            
+            {%- elsif settings.language_handle == 'google_translate' -%}
+            <li class="language">
+              {%- render 'google-translate' -%}
+            </li>
+            {%- elsif settings.language_handle == 'gtranslate' -%}
+            {%- render 'gtranslate_menu' -%}
+            {%- endif -%}            
+            {%- endif -%}
+          </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-sticky navbar-sticky7">
+            <div class="container">
+                <div class="navbar-part navbar-part1 navbar-part5">
+                    <div class="navbar-inner">
+                        <div class="left-side">
+                          {%- render 'header-logo' -%}
+                        </div>
+                        <div class="rts-menu">
+                            <nav class="menus menu-toggle">
+                                  {%- render 'main-menu-2' -%}
+                            </nav>
+                        </div>
+                        <div class="header-action-items header-action-items1">
+                            <div class="responsive-hamburger">
+                                <div class="hamburger-1">
+                                    <a href="#" class="nav-menu-link">
+                                        <span class="dot1"></span>
+                                        <span class="dot2"></span>
+                                        <span class="dot3"></span>
+                                        <span class="dot4"></span>
+                                        <span class="dot5"></span>
+                                        <span class="dot6"></span>
+                                        <span class="dot7"></span>
+                                        <span class="dot8"></span>
+                                        <span class="dot9"></span>
+                                    </a>
+                                </div>
+                            </div>
+                          
+                            <div class="search-part">
+                                <div class="search-icon action-item icon"><i class="rt-search"></i></div>
+                                <div class="search-input-area">
+                                    <div class="container">
+
+                                      
+                                          <predictive-search id="predictive-search-toggle" search-open="false">
+                                            <form action="{{ routes.search_url }}" method="get" role="search">
+                                              
+                                        <div class="search-input-inner">
+                                              <div class="input-div">
+                                                  <input
+                                                         id="Search"
+                                                         type="search"
+                                                         name="q"
+                                                         value="{{ search.terms | escape }}"
+                                                         {%- if settings.predictive_search_enabled -%}
+                                                         role="combobox"
+                                                         aria-expanded="false"
+                                                         aria-owns="predictive-search-results-list"
+                                                         aria-controls="predictive-search-results-list"
+                                                         aria-haspopup="listbox"
+                                                         aria-autocomplete="list"
+                                                         autocorrect="off"
+                                                         autocomplete="off"
+                                                         autocapitalize="off"
+                                                         spellcheck="false"
+                                                         {%- endif -%}
+                                                         class="search-input"
+                                                         placeholder="{{ 'general.search.placeholder' | t }}"
+                                                         >
+                                              </div>
+                                              <button type="submit" class="search-close-icon"><i class="rt-xmark"></i></button>
+                                                  <input name="options[prefix]" type="hidden" value="last">
+                                              
+                                        </div>
+
+    {%- if settings.predictive_search_enabled -%}
+    <div id="predictive-search" tabindex="-1"></div>
+    {%- endif -%}
+                                            </form>
+                                          </predictive-search>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+                       {%- if section.settings.login_icon_enable  -%}
+                          <a href="{{ section.settings.login_page_handle }}" class="account"><i class="rt-user-2"></i></a>
+                        {%- endif -%}
+
+                             <div class="cart action-item">
+                            <div class="cart-nav">
+                                <div class="cart-icon icon"><i class="fas fa-shopping-basket"></i><span
+                                        class="wishlist-dot icon-dot  bigcounter">{{ cart.item_count }}</span></div>
+                            </div>
+                        </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-bar">
+            <div class="cart-empty-title" {{ itemEmpty }}>
+                <div class="cart-header">
+                    <h3 class="cart-heading">{{ 'cart.general.empty' | t }}</h3>
+                    <div class="close-cart"><i class="fal fa-times"></i></div>
+                </div>
+             </div>
+            <div class="minicart-content-box" {{ itemStyle  }}>
+                <div class="cart-header">
+                    <h3 class="cart-heading">MY CART</h3>
+                    <div class="close-cart"><i class="fal fa-times"></i></div>
+                </div>
+                <div class="product-area single-cart-item-loop">
+                  {%- for item in cart.items -%}
+                    <div class="product-item">
+                        <div class="product-detail">
+                            <div class="product-thumb"><a href="{{ item.url }}"><img src="{{ item | img_url: 'small' }}" alt="product-thumb"></a></div>
+                            <div class="item-wrapper">
+                                <a  class="product-name" href="{{ item.url }}">{{ item.title }}</a>
+                                <div class="item-wrapper">
+                                    <span class="product-qnty">{{ item.quantity }} ×</span>
+                                    <span class="product-price">{{ item.original_price | money }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-edit">
+                            <div class="item-wrapper d-flex mr--5 align-items-center">
+                                <a href="javascript:void(0);" class="delete-cart" onclick="Shopify.removeItem({{ item.variant.id }})"><i class="fal fa-times"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+                <div class="cart-bottom-area">
+                    <span class="total-price">{{ 'cart.label.total' | t }}<span class="price shopping-cart__total">{{ cart.total_price | money }}</span></span>
+              {%- if section.settings.checkout_title != '' -%}
+                    <a href="checkout.html" class="checkout-btn cart-btn"> {{ section.settings.checkout_title }}</a>
+              {%- endif -%}
+              {%- if section.settings.view_cart_title != '' -%}
+                    <a href="{{ routes.cart_url }}" class="view-btn cart-btn">{{ section.settings.view_cart_title }}</a>
+              {%- endif -%}
+                </div>
+            </div>
+        </div>
+        <!-- slide-bar start -->
+        <aside class="slide-bar">
+            <div class="offset-sidebar">
+                <a class="hamburger-1 mobile-hamburger-1 mobile-hamburger-2 ml--30" href="#"><span><i class="rt-xmark"></i></span></a>
+            </div>
+            <!-- offset-sidebar start -->
+            <div class="offset-sidebar-main">
+                <div class="offset-widget mb-40">
+                    <div class="info-widget">
+                     {%- render 'header-logo' -%}
+                        <p class="mb-30">
+                            {{ section.settings.sidebar_description }}
+                        </p>
+                    </div>
+                    <div class="info-widget info-widget2">
+                        <h4 class="offset-title mb-20">{{ section.settings.contact_title }} </h4>
+                        <ul>
+                          <li class="info phone"><a href="{{ section.settings.contact_number }}">{{ section.settings.contact_number }}</a></li>
+                          <li class="info email"><a href="{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a></li>
+                          <li class="info web"><a href="{{ section.settings.contact_webside }}">{{ section.settings.contact_webside }}</a></li>
+                          <li class="info location">{{ section.settings.contact_location }}</li>
+                        </ul>
+                        <div class="offset-social-link">
+                            <h4 class="offset-title mb-20">{{ section.settings.social_title }} </h4>
+                            <ul class="social-icon">
+                              {%- if section.settings.social_icon_1_name != blank -%}
+                            <li><a href="{{ section.settings.social_icon_1_link }}"><i class="fab fa-{{ section.settings.social_icon_1_name }}"></i></a></li>
+                              {%- endif -%}
+                              {%- if section.settings.social_icon_2_name != blank -%}
+                            <li><a href="{{ section.settings.social_icon_2_link }}"><i class="fab fa-{{ section.settings.social_icon_2_name }}"></i></a></li>
+                              {%- endif -%}
+                              {%- if section.settings.social_icon_3_name != blank -%}
+                            <li><a href="{{ section.settings.social_icon_3_link }}"><i class="fab fa-{{ section.settings.social_icon_3_name }}"></i></a></li>
+                              {%- endif -%}
+                              {%- if section.settings.social_icon_4_name != blank -%}
+                            <li><a href="{{ section.settings.social_icon_4_link }}"><i class="fab fa-{{ section.settings.social_icon_4_name }}"></i></a></li>
+                              {%- endif -%}
+                              {%- if section.settings.social_icon_5_name != blank -%}
+                            <li><a href="{{ section.settings.social_icon_5_link }}"><i class="fab fa-{{ section.settings.social_icon_5_name }}"></i></a></li>
+                              {%- endif -%}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		    <!-- offset-sidebar end -->
+            <!-- side-mobile-menu start -->
+            <nav class="side-mobile-menu side-mobile-menu1 side-mobile-menu2">
+                <ul id="mobile-menu-active">
+                  
+    {%- assign main_menu = section.settings.main_menu_handle -%}
+    {%- for link in linklists[main_menu].links -%}
+    {%- assign childlink_handle = link.title | handle -%}
+    {%- if settings.m1_megamenu_title == link.title -%}
+                    <li class="has-dropdown firstlvl">
+                        <a class="mm-link" href="{{ link.url }}">{{ link.title }} <i class="rt-angle-down"></i></a>
+                        <ul class="sub-menu mega-dropdown-mobile">
+        {%- assign m1_megamenu_column_1 = linklists[settings.m1_megamenu_column_1_handle] -%}
+        {%- if m1_megamenu_column_1 != empty -%}
+                            <li class="mega-dropdown-li"> <span>{{ m1_megamenu_column_1.title }}</span>
+                                <ul class="mega-dropdown-ul mm-show">
+            {%- for link in m1_megamenu_column_1.links -%}
+                                    <li class="dropdown-li"><a class="dropdown-link" href="{{ link.url }}">{{ link.title }}</a>
+                                    </li>
+            {%- endfor -%}
+                                </ul>
+                            </li>
+        {%- endif -%}
+        {%- assign m1_megamenu_column_2 = linklists[settings.m1_megamenu_column_2_handle] -%}
+        {%- if m1_megamenu_column_2 != empty -%}
+                            <li class="mega-dropdown-li"><span>{{ m1_megamenu_column_2.title }}</span>
+                                <ul class="mega-dropdown-ul mm-show">
+            {%- for link in m1_megamenu_column_2.links -%}
+                                    <li class="dropdown-li"><a class="dropdown-link" href="{{ link.url }}">{{ link.title }}</a>
+                                    </li>
+            {%- endfor -%}
+                                </ul>
+                            </li>
+        {%- endif -%}
+        {%- assign m1_megamenu_column_3 = linklists[settings.m1_megamenu_column_3_handle] -%}
+        {%- if m1_megamenu_column_3 != empty -%}
+                            <li class="mega-dropdown-li"><span>{{ m1_megamenu_column_3.title }}</span>
+                                <ul class="mega-dropdown-ul mm-show">
+            {%- for link in m1_megamenu_column_3.links -%}
+                                    <li class="dropdown-li"><a class="dropdown-link" href="{{ link.url }}">{{ link.title }} </a>
+                                    </li>
+            {%- endfor -%}
+                                </ul>
+                            </li>
+        {%- endif -%}
+                        </ul>
+                    </li>
+                  {%- elsif linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 -%}
+                    <li class="has-dropdown firstlvl">
+                        <a class="mm-link" href="{{ link.url }}">{{ link.title }} <i class="rt-angle-down"></i></a>
+                        <ul class="sub-menu">
+        {%- for childlink in linklists[childlink_handle].links -%}
+                            <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+        {%- endfor -%}
+                        </ul>
+                    </li>
+                    {%- else -%}
+                    <li><a class="mm-link" href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endif -%}
+                    {%- endfor -%}
+                  
+                </ul>
+            </nav>
+            <div class="header-action-items header-action-items1 header-action-items-side">
+              
+                  {% comment %}
+                <div class="search-part">
+                    <div class="search-icon action-item icon"><i class="rt-search"></i></div>
+                    <div class="search-input-area">
+                        <div class="container">
+                            <div class="search-input-inner">
+                                <select id="custom-select">
+                                    <option value="hide">All Catagory</option>
+                                    <option value="all">All</option>
+                                    <option value="men">Men</option>
+                                    <option value="women">Women</option>
+                                    <option value="shoes">Shoes</option>
+                                    <option value="shoes">Glasses</option>
+                                    <option value="shoes">Bags</option>
+                                    <option value="shoes">Assesories</option>
+                                </select>
+                                <div class="input-div">
+                                    <div class="search-input-icon"><i class="rt-search mr--10"></i></div>
+                                    <input class="search-input" type="text" placeholder="Search by keyword or #">
+                                </div>
+                                <div class="search-close-icon"><i class="rt-xmark"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 {% endcomment %}
+              
+             <div class="cart action-item">
+                <div class="cart-nav">
+                    <div class="cart-icon icon">
+                      <a href="/cart" class="account"><i class="rt-cart"></i><span class="wishlist-dot icon-dot bigcounter">{{ cart.item_count }}</span></a>  
+                    </div>
+                </div>
+            </div>
+            
+                      {%- if section.settings.wishlit_icon_enable -%}
+            <div class="wishlist action-item">
+                <div class="favourite-icon icon">
+                <a href="{{ pages[section.settings.wishlist_page_handle].url }}" class="account"><i class="rt-heart"></i></a>      
+                </div>
+            </div>
+                  {%- endif -%}
+    
+                {%- if section.settings.login_icon_enable  -%}
+                  <a href="{{ section.settings.login_page_handle }}" class="account"><i class="rt-user-2"></i></a>
+                {%- endif -%}
+              
+            </div>
+            <!-- side-mobile-menu end -->
+        </aside>
+    </header>

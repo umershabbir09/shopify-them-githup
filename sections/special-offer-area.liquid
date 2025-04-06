@@ -1,0 +1,429 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+ 
+ <div class="rts-special_offer-section {{ bg_image_class }}" id="section-{{ section.id }}" data-section="SpecialOffer" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+              {%- for block in section.blocks -%}
+              {%- case block.type -%}
+              {%- when 'special_content' -%}
+                <div class="col-xl-5 col-md-12 col-12">
+                    <div class="special-offers-contents">
+                        <div class="special-contents-inner">
+                            <div class="title-inner">
+                                <div class="sub-content">
+                                    <img class="line-1-img" src="{{ block.settings.title_image_1 | img_url: 'large' }}" alt="">
+                                    <span class="sub-text">{{ block.settings.section_sub_title }}</span>
+                                </div>
+                                <h2 class="title">
+                                    <span class="watermark">
+                                        {{ block.settings.section_title }}
+                                    </span>
+                                </h2>
+                                <p class="description">{{ block.settings.section_description }}</p>
+                            </div>
+
+            {%- if settings.newsletter_system == 'by_shopify_form' -%}
+            {%- assign formId = 'Contact_' | append: section.id -%}
+            {%- form 'customer', id: formId -%}
+            {%- if form.posted_successfully? -%}
+            <p class="form-message form-message--success form-success">{{ 'general.newsletter_form.confirmation'| t }}</p>
+            {%- endif -%}
+            <div class="popup-subscribe-form newsletter-form validate subscribe-input">
+              <i class="fal fa-envelope"></i>
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input class="email" type="email" name="contact[email]" id="Email" value="{% if customer %}{{ customer.email }}{% endif %}"
+                     placeholder="{{ block.settings.email_placeholder }}" aria-label="{{ block.settings.email_placeholder }}" {% if form.errors %}aria-invalid="true"{% endif %} autocorrect="off" autocapitalize="off">
+                <button class="subscribe-btn" type="submit">{{ block.settings.button_title }} <i class="fal fa-long-arrow-right"></i></button>
+            </div>
+            {%- endform -%}
+        {%- elsif settings.newsletter_system == 'by_mailchimp' -%}
+        <div class="subscribe-input">
+          <div id="mc_embed_signup" class="subscribe-form">
+            <form action="{{ settings.newsletter_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="popup-subscribe-form newsletter-form  validate" target="_blank" novalidate>
+               <i class="fal fa-envelope"></i>
+              <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="{{ block.settings.email_placeholder }}" required>
+                <button class="default-btn" type="submit">{{ block.settings.button_title }} <i class="fal fa-long-arrow-right"></i></button>
+            </form>
+          </div>
+        </div>
+        {%- endif -%}
+                          
+                        </div>
+                    </div>
+                </div>
+                
+                      {%- when 'product' -%}
+                <div class="col-xl-4 col-md-6 col-sm-6 col-12">
+        {%- assign featured_product = collections[block.settings.featured_product_handle] -%}
+        {%- assign featured_product_limit = block.settings.featured_product_limit_handle -%}
+        {%- if featured_product == empty -%}
+                        {%- assign a = 1 -%}
+          {%- for i in (1..featured_product_limit) -%}
+          {%- assign product_item = "product-" | append: a  -%}
+          {%- assign a = a | plus: 1 -%}
+                    <div class="special-offers-product">
+                        {{ product_item | placeholder_svg_tag: 'product-svg-image' }}
+                        <div class="product-content">
+                            <a href="#" class="detail">Mans Casual Shirt</a>
+                            <div class="product-btn">
+                                <p class="product-price">$180.00 <span class="old-price">$290.00</span></p>
+                                <a href="#" class="cart-btn">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+          {%- if a == 7 -%}
+          {%- assign a = 1 -%}
+          {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+                      {%- for product in featured_product.products limit: featured_product_limit -%}
+                      {%- render 'product-grid-item-5', product: product, collection: featured_product -%}
+          {%- endfor -%}
+        {%- endif -%}
+                </div>
+              
+      {%- when 'banner' -%}
+                <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+                    <div class="shop-now-box">
+                        <a href="{{ block.settings.banner_url }}" class="picture">
+                          <img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="{{ block.settings.banner_image.alt }}">
+                        </a>
+                        <div class="contents">
+              {%- if block.settings.banner_sub_title != '' -%}
+                            <span class="collection-text">{{ block.settings.banner_sub_title }}</span>
+              {%- endif -%}
+              {%- if block.settings.banner_title != '' -%}
+                            <h2 class="title">{{ block.settings.banner_title }}</h2>
+              {%- endif -%}
+              {%- if block.settings.banner_button_title != '' -%}
+                            <a href="{{ block.settings.banner_button_url }}" class="shop-now-btn shop-now-btn1">
+                              {{ block.settings.banner_button_title }} <i class="fal fa-long-arrow-right"></i>
+                            </a>
+              {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+              
+              {%- endcase -%}
+              {%- endfor -%}
+            </div>
+        </div>
+    </div>
+
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Special Offer",
+    "settings": [
+	],
+	"blocks":[
+          {
+            "type": "special_content",
+            "name": "Special Content",
+            "settings": [
+      		{
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title",
+                "default": "Get Weekly Update <br> From Us",
+              "info": "Use of <br>"
+            	},
+      		{
+                "type": "textarea",
+                "id": "section_sub_title",
+                "label": "Section Sub Title",
+                "default": "Weekly Update"
+            	},
+              {
+                "type": "image_picker",
+                "id": "title_image_1",
+                "label": "Image 1",
+                "info": "Recommended Size: 22 x 6px"
+              },
+      		{
+                "type": "textarea",
+                "id": "section_description",
+                "label": "Section Description",
+                "default": "Our intent and our actions have always been informed by progress. We look at an impact report as a way to measure. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum sus pendisse ultrices gravida."
+            	},
+          {
+            "type": "text",
+            "id": "email_placeholder",
+            "label": "Email Placeholder",
+            "default": "Email address"
+          },
+          {
+            "type": "text",
+            "id": "button_title",
+            "label": "Button Title",
+            "default": "Subscribe"
+          }
+            ]
+         },
+          {
+            "type": "product",
+            "name": "Product",
+            "settings": [
+      		 {
+      			"type": "collection",
+                  "id": "featured_product_handle",
+                  "label": "Select Collection"
+              },
+      		  {
+                  "type": "range",
+                  "id": "featured_product_limit_handle",
+                  "min": 1,
+                  "max": 20,
+                  "step": 1,
+                  "label": "Limit",
+                  "default": 1
+              }
+            ]
+         },
+          {
+            "type": "banner",
+            "name": "Banner",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Image",
+        		"info": "Recommended Size: 540 x 426px"
+              },
+              {
+                "type": "url",
+                "id": "banner_url",
+                "label": "URL"
+              },
+              {
+                "type": "text",
+                "id": "banner_sub_title",
+                "label": "Sub Title",
+                "default": "Collection AW 2022"
+              },
+              {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "Shoes & Bags"
+              },
+              {
+                "type": "text",
+                "id": "banner_button_title",
+                "label": "Button Title",
+                "default": "Shop now"
+              },
+              {
+                "type": "url",
+                "id": "banner_button_url",
+                "label": "URL"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 60
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#F5F5F5"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Special Offer",
+		  "category": "5. about",
+		  "blocks":[
+				{
+					"type": "special_content"
+				},
+				{
+					"type": "product"
+				},
+				{
+					"type": "banner"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,23 @@
+<!-- Section-style-2 -->
+{%- comment -%}Section responsive BG image class{%- endcomment -%}
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}
+{%- case block.type -%}
+{%- when 'section_background' -%}
+{%- if block.settings.section_bg_image -%}
+bg-img lazyload
+{%- endif -%}
+{%- endcase -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- comment -%}Section responsive BG image{%- endcomment -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}
+{%- case block.type -%}
+{%- when 'section_background' -%}
+{%- if block.settings.section_bg_image -%}
+data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"
+{%- endif -%}
+{%- endcase -%}
+{%- endfor -%}
+{%- endcapture -%}

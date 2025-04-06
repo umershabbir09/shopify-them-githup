@@ -1,0 +1,52 @@
+<header class="header-area {% if section.settings.menu_center_enable %}header-wide center-menu{% endif %} header-3" id="section-{{ section.id }}" data-section="HeaderSection">
+  <div class="main-header d-none d-lg-block">
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'header_top' -%}
+    {%- render 'header-top', block: block -%}
+    {%- endcase -%}
+    {%- endfor -%}
+    <!-- header middle area start -->
+    <div class="header-main-area{% if section.settings.sticky_header_enable %} sticky{% endif %}">
+      <div class="container">
+        <div class="row align-items-center position-relative">
+          <!-- start logo area -->
+          <div class="col-lg-2 col-xl-2">
+            <div class="logo">
+              {%- render 'header-logo' -%}
+            </div>
+          </div>
+          <!-- start logo area -->
+          
+          <!-- main menu area start -->
+          <div class="{% if section.settings.menu_center_enable %}col-lg-8 col-xl-8{% else %}col-lg-7 col-xl-6{% endif %} position-static">
+            <div class="main-menu-area">
+              <div class="main-menu">
+                {%- render 'main-menu' -%}
+              </div>
+            </div>
+          </div>
+          <!-- main menu area end -->
+          
+          <!-- mini cart area start -->
+          <div class="{% if section.settings.menu_center_enable %}col-lg-2 col-xl-2{% else %}col-lg-3 col-xl-4{% endif %}">
+            <div class="header-right d-flex align-items-center justify-content-end">
+              <div class="header-configure-area">
+                <ul class="nav justify-content-end">
+                  <li class="header-search-container mr-0">
+                    <button class="search-trigger d-block"><i class="pe-7s-search"></i></button>
+                    {%- render 'main-search' -%}
+                  </li>
+                  {%- render 'header-action-button' -%}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- mini cart area end -->
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- render 'mobile-header' -%}
+</header>

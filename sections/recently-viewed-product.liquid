@@ -1,0 +1,186 @@
+{{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+<script src="{{ 'recent-view.js' | asset_url }}"></script>
+
+<section class="related-products pb-80" id="section-{{ section.id }}" data-section="RecentlyViewedProduct">
+  <div class="container">
+    {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+    <div class="row" id="recently-viewed-products" style="display: none;">
+      <div class="col-12">
+        <!-- section title start -->
+        <div class="section-title text-center">
+          {%- if section.settings.section_title != '' -%}
+          <h2 class="title">{{ section.settings.section_title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_sub_title != '' -%}
+          <p class="sub-title">{{ section.settings.section_sub_title }}</p>
+          {%- endif -%}
+        </div>
+        <!-- section title start -->
+      </div>
+    </div>
+    {%- endif -%}
+    <div class="row">
+      <div class="col-12">
+        {%- capture data_slick_activation -%}
+        data-slick='{
+              {%- if section.settings.autoplay_true -%}
+              "autoplay": true,
+              "autoplaySpeed": {{ section.settings.autoplay_speed }},
+              {%- endif -%}
+             "slidesToShow": {{ section.settings.product_column }},
+              "responsive":[
+                  {"breakpoint":992, "settings": {"slidesToShow": {{ section.settings.product_column_md }}} },
+                  {"breakpoint":768, "settings": {"slidesToShow": {{ section.settings.product_column_sm }}, "slidesToScroll": {{ section.settings.product_column_sm }}, "arrows": false, "dots": true} },
+                  {"breakpoint":480, "settings": {"slidesToShow": {{ section.settings.product_column_sm }}, "slidesToScroll": {{ section.settings.product_column_sm }}, "arrows": false, "dots": true} }
+                ] 
+
+        }'
+        {%- endcapture -%}
+        <div class="product-carousel-5" {% if settings.rtl_enable %}dir="rtl"{% endif %}>
+          {% raw %}
+          <script id="recently-viewed-product-template" type="text/x-jquery-tmpl">
+            <div class="product-item product-wrapper col-6 col-sm-6 col-md-6 col-lg-3 mb-30">
+              <figure class="product-thumb">
+                <div class="product-thumb-inner">
+                  <a href="${url}">
+                    <img src="${Shopify.Products.resizeImage(featured_image, "large")}" />
+                  </a>
+                </div>
+
+              </figure>
+              <div class="product-caption text-center product-color">
+                <h6 class="product-name popup_cart_title">
+                  <a href="${url}">${title}</a>
+                </h6>
+                <div class="price-box">
+                {{if compare_at_price > price}}
+                      <span class="price-old"><del>{{html Shopify.formatMoney(compare_at_price, window.money_format)}}</del></span>
+                      <span class="price-regular">{{html Shopify.formatMoney(price, window.money_format)}}</span>
+                      {{else}}
+                      <span class="price-regular">{{html Shopify.formatMoney(price, window.money_format)}}</span>
+                      {{/if}}
+                </div>
+              </div>
+            </div>
+          </script>
+          {% endraw %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* this code for currency support */
+  window.show_multiple_currencies = {{ settings.currency_enable }};
+  window.shop_currency = "{{ shop.currency }}";
+  window.money_format = "{{shop.money_with_currency_format}}";
+  
+  /* recently viewed plugin api start */
+  Shopify.Products.showRecentlyViewed({
+    howManyToShow:4,
+    howManyToStoreInMemory:10,
+    wrapperId: 'recently-viewed-products', 
+    templateId: 'recently-viewed-product-template', 
+    onComplete: function() {
+
+    if (window.currency_enable) {
+    /* this section ID to be your currency picker (Select) ID */
+      Currency.convertAll(window.shop_currency, jQuery('#currencies').val(), 'span.money', 'money_format');
+  }
+                                      }
+
+                                      });
+  /* recently viewed plugin api end */
+  
+  Shopify.Products.recordRecentlyViewed();
+</script>
+
+
+{% schema %}
+  {
+    "name": "Recently Viewed Product",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title Here"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_sub_title",
+          "label": "Section Sub Title",
+          "default": "Section Sub Title Here"
+      	},
+		{
+            "type": "header",
+            "content": "Product Options"
+        },
+		{
+            "type": "range",
+            "id": "related_product_limit_handle",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Product Limit",
+            "default": 4
+        },
+		{
+			"type": "header",
+            "content": "Product Column"
+        },
+		{
+            "type": "range",
+            "id": "product_column",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Desktop",
+            "default": 4
+        },
+		{
+            "type": "range",
+            "id": "product_column_md",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Tablet",
+            "default": 3
+        },
+		{
+            "type": "range",
+            "id": "product_column_sm",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Mobile",
+            "default": 2
+        },
+		{
+			"type": "header",
+            "content": "Options"
+        },
+		{
+          "type": "checkbox",
+          "id": "autoplay_true",
+          "label": "Autoplay Enable",
+          "default": false
+      	},
+		{
+            "type": "range",
+            "id": "autoplay_speed",
+            "min": 1000,
+            "max": 9000,
+            "step": 1000,
+            "label": "Autoplay Speed",
+            "unit": "ms",
+            "default": 7000
+        }
+	]
+  }
+{% endschema %}

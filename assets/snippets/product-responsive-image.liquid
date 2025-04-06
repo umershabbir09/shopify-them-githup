@@ -1,0 +1,88 @@
+{%- if settings.universal_image_size_enable -%}
+{%- assign similar_image_size = settings.similar_image_size_handle -%}
+{%- if product.images.size > 1 and settings.hover_image_change_enable -%}
+<a href="{{ product.url | within: collection }}">
+  <img id="Image-{{ image.id }}-{{ responsive_image_counter }}"
+       class="pri-img popup_cart_image similar-size-image responsive-image__image lazyload {{ image_class }}"
+       src="{{ image | img_url: similar_image_size, crop: 'center' }}"
+       data-src="{{ img_url }}"
+       data-widths="[{{ image_widths }}]"
+       data-aspectratio="{{ image.aspect_ratio }}"
+       data-sizes="auto"
+       tabindex="-1"
+       alt="{{ image.alt | escape }}"
+       {{ image_attributes }}
+       >
+  {%- for image in product.images limit: 1 offset: 1 -%}
+  <img id="Image-{{ image.id }}-{{ responsive_image_counter }}"
+       class="sec-img popup_cart_image similar-size-image responsive-image__image lazyload {{ image_class }}"
+       src="{{ image | img_url: similar_image_size, crop: 'center' }}"
+       data-src="{{ img_url }}"
+       data-widths="[{{ image_widths }}]"
+       data-aspectratio="{{ image.aspect_ratio }}"
+       data-sizes="auto"
+       tabindex="-1"
+       alt="{{ image.alt | escape }}"
+       {{ image_attributes }}
+       >
+  {%- endfor -%}
+</a>
+{%- else -%}
+<a href="{{ product.url | within: collection }}">
+  <img id="Image-{{ image.id }}-{{ responsive_image_counter }}"
+       class="popup_cart_image similar-size-image responsive-image__image lazyload {{ image_class }}"
+       src="{{ image | img_url: similar_image_size, crop: 'center' }}"
+       data-src="{{ img_url }}"
+       data-widths="[{{ image_widths }}]"
+       data-aspectratio="{{ image.aspect_ratio }}"
+       data-sizes="auto"
+       tabindex="-1"
+       alt="{{ image.alt | escape }}"
+       {{ image_attributes }}
+       >
+</a>
+{%- endif -%}
+{%- else -%}
+{%- if product.images.size > 1 and settings.hover_image_change_enable -%}
+<a href="{{ product.url | within: collection }}">
+  <img id="Image-{{ image.id }}-{{ responsive_image_counter }}"
+       class="pri-img popup_cart_image similar-size-image responsive-image__image lazyload {{ image_class }}"
+       src="{{ image | img_url: '355x' }}"
+       data-src="{{ img_url }}"
+       data-widths="[{{ image_widths }}]"
+       data-aspectratio="{{ image.aspect_ratio }}"
+       data-sizes="auto"
+       tabindex="-1"
+       alt="{{ image.alt | escape }}"
+       {{ image_attributes }}
+       >
+  {%- for image in product.images limit: 1 offset: 1 -%}
+  <img id="Image-{{ image.id }}-{{ responsive_image_counter }}"
+       class="sec-img popup_cart_image similar-size-image responsive-image__image lazyload {{ image_class }}"
+       src="{{ image | img_url: '355x' }}"
+       data-src="{{ img_url }}"
+       data-widths="[{{ image_widths }}]"
+       data-aspectratio="{{ image.aspect_ratio }}"
+       data-sizes="auto"
+       tabindex="-1"
+       alt="{{ image.alt | escape }}"
+       {{ image_attributes }}
+       >
+  {%- endfor -%}
+</a>
+{%- else -%}
+<a href="{{ product.url | within: collection }}">
+  <img id="Image-{{ image.id }}-{{ responsive_image_counter }}"
+       class="pri-img popup_cart_image similar-size-image responsive-image__image lazyload {{ image_class }}"
+       src="{{ image | img_url: '355x' }}"
+       data-src="{{ img_url }}"
+       data-widths="[{{ image_widths }}]"
+       data-aspectratio="{{ image.aspect_ratio }}"
+       data-sizes="auto"
+       tabindex="-1"
+       alt="{{ image.alt | escape }}"
+       {{ image_attributes }}
+       >
+</a>
+{%- endif -%}
+{%- endif -%}

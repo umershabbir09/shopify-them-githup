@@ -1,0 +1,311 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+
+<!--faq-area start-->
+<section class="faq-area pt-120 pb-90 pt-md-55 pb-md-30 pt-xs-55 pb-xs-30 {{ bg_image_class }}" id="section-{{ section.id }}" {{ sections_bg_image }}>>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="faq-que-list mb-30">
+                    <div class="accordion" id="accordionExample">
+                      
+      {%- assign i = 1 -%}
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'faq' -%}
+                        <div class="accordion-item mb-20">
+                            <h2 class="accordion-header" id="heading-{{ i }}">
+                                <button class="accordion-button {% unless forloop.first %}collapsed{% endunless %}" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ i }}" aria-expanded="true" aria-controls="collapse-{{ i }}">
+                                    {{ block.settings.accordion_title }}
+                                </button>
+                            </h2>
+                            <div id="collapse-{{ i }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                aria-labelledby="heading-{{ i }}" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{ block.settings.accordion_content }}
+                                </div>
+                            </div>
+                        </div>
+      {%- assign i = i | plus: 1 -%}
+      {%- endcase -%}
+      {%- endfor -%}
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--faq-area end-->
+
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "FAQ's",
+    "settings": [
+      
+	],
+	"blocks":[
+		{
+			"type":"faq",
+			"name": "Faq",
+			"settings": [
+				{
+                  "type": "text",
+                  "id": "accordion_title",
+                  "label": "Title",
+				  "default": "Title"
+                },
+				{
+                  "type": "richtext",
+                  "id": "accordion_content",
+                  "label": "Content",
+				  "default": "<p>Content</p>"
+                }
+			]	
+		},
+		{
+			"type":"faq_2",
+			"name": "Faq 2",
+			"settings": [
+				{
+                  "type": "text",
+                  "id": "accordion_title",
+                  "label": "Title",
+				  "default": "Title"
+                },
+				{
+                  "type": "richtext",
+                  "id": "accordion_content",
+                  "label": "Content",
+				  "default": "<p>Content</p>"
+                }
+			]	
+		},
+		{
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "FAQ's",
+		  "category": "others",
+		  "blocks":[
+				{
+					"type": "faq"
+				},
+				{
+					"type": "faq"
+				},
+				{
+					"type": "faq"
+				},
+				{
+					"type": "faq"
+				},
+				{
+					"type": "faq"
+				},
+				{
+					"type": "faq_2"
+				},
+				{
+					"type": "faq_2"
+				},
+				{
+					"type": "faq_2"
+				},
+				{
+					"type": "faq_2"
+				},
+				{
+					"type": "faq_2"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

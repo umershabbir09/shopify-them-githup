@@ -1,0 +1,80 @@
+<div class="product-cart-action action_link">
+  {%- if product.available -%}
+  {%- if settings.product_cart_type == 'ajax_cart_drawer' -%}
+  <button type="submit" class="ajax-spin-cart ajax-spin-cart-drawer btn btn-cart2" id="AddToCart">
+    <span>
+      <span class="cart-title" id="AddToCartText">{{ settings.cart_button_title }}</span>
+      <span class="cart-loading">{{ settings.wait_title }}</span>
+      <span class="cart-added">{{ settings.added_title }}</span>
+      <span class="cart-unavailable">{{ settings.unavailable_title }}</span>
+    </span>
+  </button>
+  {%- elsif settings.product_cart_type == 'ajax_spin_cart' -%}
+  <button type="submit" class="ajax-spin-cart btn btn-cart2" id="AddToCart">
+    <span>
+      <span class="cart-title" id="AddToCartText">{{ settings.cart_button_title }}</span>
+      <span class="cart-loading">{{ settings.wait_title }}</span>
+      <span class="cart-added">{{ settings.added_title }}</span>
+      <span class="cart-unavailable">{{ settings.unavailable_title }}</span>
+    </span>
+  </button>
+  {%- elsif settings.product_cart_type == 'ajax_popup_cart' or settings.product_cart_type == 'without_ajax_cart' -%}
+  <button type="submit" class="btn btn-cart2" id="AddToCart">
+    <span>
+      {% if current_variant.inventory_policy == "continue" and current_variant.inventory_quantity <= 0 %}
+      <span class="cart-title" id="AddToCartText">{{ settings.preorder_button_title }}</span>
+      {%- else -%}
+      <span class="cart-title" id="AddToCartText">{{ settings.cart_button_title }}</span>
+      {%- endif -%}
+    </span>
+  </button>
+  {%- endif -%}
+  {%- unless settings.product_cart_type == 'without_ajax_cart' -%}
+  <script>
+    jQuery('#AddToCart').click(function(e) {
+      e.preventDefault();
+      Shopify.addItemFromFormStart('AddToCartForm', {{ product.id }});
+                                   }); 
+  </script>
+  {%- endunless -%}
+  {%- else -%}
+  <button class="cart-disable btn btn-cart2" type="button">
+    <span class="cart-text">{{ settings.soldout_button_title }}</span>
+  </button>
+  {%- if block.settings.soldout_product_notification_enable -%}
+  {% unless product.available %}
+  <div id="sold-out" class="soldout-notify">
+    {% form 'contact' %}
+    {% if form.posted_successfully? %}
+    <p class="accent-text form-success note">{{ block.settings.notification_success_message }}</p>
+    {% else %}
+    <p class="notification-text"><i class="pe-7s-bell"></i>{{ block.settings.notification_text }}</p>
+    {% endif %}
+    {% if form.errors %}
+    <div class="error note feedback accent-text">
+      <p>{{ block.settings.error_text }}</p>
+    </div>
+    {% endif %}
+    {% unless form.posted_successfully? %}
+    <div id="notify-me-wrapper" class="clearfix" style="display:none">
+      {% if customer %}
+      <input type="email" name="contact[email]" value="{{ customer.email }}" />
+      {% else %}
+      <input required="required" type="email" name="contact[email]" placeholder="your@email.com" class="styled-input{% if form.errors contains 'email' %} error{% endif %}" value="{{ contact.fields.email }}" />
+      {% endif %}
+      <input type="hidden" name="contact[body]" value="Please notify me when '{{ product.title | escape }}' becomes available." />
+      <input class="btn styled-submit theme-default-button" type="submit" value="{{ block.settings.send_button_title }}" />
+    </div>
+    {% endunless %}
+    {% endform %}
+  </div>
+  <script>
+    jQuery('#notify-me').click(function() {
+      jQuery('#notify-me-wrapper').fadeIn();
+      return false;
+    } );
+  </script>
+  {% endunless %}
+  {%- endif -%}
+  {%- endif -%}
+</div>

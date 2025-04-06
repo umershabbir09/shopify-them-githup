@@ -1,0 +1,384 @@
+   {%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+ 
+ <div class="rts-deal-section2  {{ bg_image_class }}"   id="section-{{ section.id }}" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="section-inner">
+                <div class="row">
+              {%- for block in section.blocks -%}
+              {%- case block.type -%}
+              {%- when 'video_area' -%}
+                    <div class="col-xl-6 col-lg-6 col-md-12">
+                        <div class="video-section">
+                            <div class="overly-border">
+                                <a href="{{ block.settings.video_url }}" class="popup-videos"><i
+                                        class="rt-play"></i></a>
+                            </div>
+                        </div>
+                        <div class="img-box-wrapper">
+                            <div class="image-box-image"><img src="{{ block.settings.box_image | img_url: 'master' }}" alt="{{ block.settings.box_image.alt }}"></div>
+                            <p class="image-box-content">{{ block.settings.video_description }}</p>
+                        </div>
+                    </div>
+
+                {%- when 'banner_content' -%}
+                    <div class="col-xl-6 col-lg-6 col-md-12">
+                        <div class="rts-heading">
+                            <div class="title-inner">
+                                <div class="sub-content">
+                                    <img class="line-1-img" src="{{ block.settings.title_image_1 | img_url: 'large' }}" alt="">
+                                    <span class="sub-text">{{ block.settings.section_sub_title }}</span>
+                                </div>
+                                <h2 class="title">
+                                    <span class="watermark">{{ block.settings.section_title }}
+                                    </span>
+                                </h2>
+                            </div>
+                            <p class="description">{{ block.settings.section_description }}</p>
+                            <a href="{{ block.settings.banner_button_url }}" class="section-btn2">{{ block.settings.banner_button_title }}</a>
+                        </div>
+                        <div class="section-bottom">
+                            <a href="{{ block.settings.banner_url }}" class="section-card">
+                                <div class="content">
+                                    <span class="pretitle">{{ block.settings.banner_sub_title }}</span>
+                                    <h1 class="product-title">{{ block.settings.banner_title }}</h1>
+                                    <div class="view-collections">{{ block.settings.banner_description}}</div>
+                                </div>
+                                <div class="product-thumb">
+                                    <img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="{{ block.settings.banner_image.alt }}">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                  
+              {%- endcase -%}
+              {%- endfor -%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+  
+              {%- for block in section.blocks -%}
+              {%- case block.type -%}
+              {%- when 'video_area' -%}
+  .rts-deal-section2 .container .section-inner .video-section {
+  background: url({{ block.settings.video_bg_image | img_url: 'master' }});
+}
+              {%- endcase -%}
+              {%- endfor -%}
+</style>
+
+{%- render 'section-style' -%}
+
+
+{% schema %}
+  {
+    "name": "Deal Product 2",
+    "settings": [
+      
+    ],
+	"blocks":[
+          {
+            "type": "video_area",
+            "name": "Video Area",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "video_bg_image",
+                "label": "BG Image"
+              },
+      		{
+                "type": "url",
+                "id": "video_url",
+                "label": "URL"
+            	},
+              {
+                "type": "image_picker",
+                "id": "box_image",
+                "label": "Image",
+                "info": "Recommended Size: 50 x 50px"
+              },
+      		{
+                "type": "textarea",
+                "id": "video_description",
+                "label": "Description",
+                "default": "Limited time offer. The deal will expires <br> on November 12, 2022 HURRY UP!",
+               "info": "Use of <br>"
+            	}
+            ]
+         },
+          {
+            "type": "banner_content",
+            "name": "Banner Content",
+            "settings": [
+        		{
+                  "type": "textarea",
+                  "id": "section_sub_title",
+                  "label": "Section Sub Title",
+                  "default": "Deal Of Week"
+              	},
+                {
+                  "type": "image_picker",
+                  "id": "title_image_1",
+                  "label": "Image 1",
+                  "info": "Recommended Size: 22 x 6px"
+                },
+        		{
+                  "type": "text",
+                  "id": "section_title",
+                  "label": "Section Title",
+                  "default": "ROLAND GRAND WHITE <br> SHORT T-SHIRT",
+                  "info": "Use of <br>"
+              	},
+        		{
+                  "type": "textarea",
+                  "id": "section_description",
+                  "label": "Section Description",
+                  "default": "Our intent and our actions have always been informed by progress. We <br> look at an impact report as a way to measure.",
+                  "info": "Use of <br>"
+              	},
+              {
+                "type": "text",
+                "id": "banner_button_title",
+                "label": "Button Title",
+                "default": "View Collections"
+              },
+              {
+                "type": "url",
+                "id": "banner_button_url",
+                "label": "URL"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Banner Image",
+        		"info": "Recommended Size: 450 x 442px"
+              },
+              {
+                "type": "url",
+                "id": "banner_url",
+                "label": "URL"
+              },
+              {
+                "type": "text",
+                "id": "banner_sub_title",
+                "label": "Banner Sub Title",
+                "default": "-45% Offer"
+              },
+              {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Banner Title",
+                "default": "Summer Collection"
+              },
+              {
+                "type": "text",
+                "id": "banner_description",
+                "label": "Banner Description",
+                "default": "Don't miss the last opportunity"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Deal Product 2",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "video_area"
+				},
+				{
+					"type": "banner_content"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

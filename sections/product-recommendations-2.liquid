@@ -1,0 +1,109 @@
+  {% liquid
+  assign theme_rtl = false
+  if settings.rtl_enable and settings.langauges_rtl == blank
+    assign theme_rtl = true
+  endif
+
+  if settings.rtl_enable and settings.langauges_rtl != blank
+    assign rtl_languages = settings.langauges_rtl | split: ','
+    for language in rtl_languages
+      if language == request.locale.iso_code
+        assign theme_rtl = true
+      endif
+    endfor
+  endif
+%}
+
+   <div class="rts-featured-product-section1 related-product product-recommendations" id="section-{{ section.id }}" data-section="RelatedProduct" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.related_product_limit_handle }}&intent=related">
+          {%- if recommendations.performed and recommendations.products_count > 0 -%}
+ <div class="container">
+            <div class="rts-featured-product-section-inner">
+    {%- if section.settings.section_title != '' -%}
+                <div class="section-header section-header3 section-header6">
+                    <div class="wrapper">
+                        <h2 class="title">{{ section.settings.section_title }}</h2>
+                    </div>
+                </div>
+    {%- endif -%}
+                <div class="row">   
+                  {%- for product in recommendations.products -%}
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-12">
+         {%- render 'product-grid-item-3', product: product, collection: featured_product -%}
+                    </div>
+          {%- endfor -%}
+                </div>
+            </div>
+        </div>
+  {%- endif -%}
+    </div>
+
+{% javascript %}
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+
+          // product carousel active
+          $('.product-carousel-6').slick({
+              adaptiveHeight: true,
+              prevArrow: '<button type="button" class="slick-prev"><i class="pe-7s-angle-left"></i></button>',
+              nextArrow: '<button type="button" class="slick-next"><i class="pe-7s-angle-right"></i></button>'
+          });  
+                
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+  observer.observe(productRecommendationsSection);
+{% endjavascript %}
+
+
+
+{% schema %}
+  {
+    "name": "Product recommendations 2",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "RELATED PRODUCT"
+      	},
+		{
+            "type": "header",
+            "content": "Product Options"
+        },
+		{
+            "type": "range",
+            "id": "related_product_limit_handle",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Product Limit",
+            "default": 4
+        }
+	]
+  }
+{% endschema %}

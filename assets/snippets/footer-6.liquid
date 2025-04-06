@@ -1,0 +1,196 @@
+<div class="footer footer-2 footer-3 footer-5">
+        <div class="container">
+            <div class="footer-features">
+                <div class="row">
+        {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when 'service' -%}
+                    <div class="col-xl-3 col-md-6">
+                        <div class="feature-item {% if forloop.last == true %}last-child{% endif %}">
+                            <div class="icon"><img src="{{ block.settings.service_image | img_url: 'thumb' }}" alt="{{ block.settings.service_image.alt }}"></div>
+                            <div class="content">
+              {%- if block.settings.service_title != '' -%}
+                                <h3 class="title">{{ block.settings.service_title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.service_content != '' -%}
+                                <p>{{ block.settings.service_content }}</p>
+              {%- endif -%}
+                            </div>
+                        </div>
+                    </div>
+        {%- endcase -%}
+        {%- endfor -%}
+                </div>
+            </div>
+            <div class="footer-inner">
+                <div class="row">
+        {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when 'about' -%}
+                    <div class="col-xl-{{ block.settings.widget_column }} col-md-{{ block.settings.widget_column_md }} col-sm-{{ block.settings.widget_column_sm }} box-widget-col">
+                        <div class="footer-widget footer-box-widget">
+            {%- if block.settings.logo -%}
+                            <div class="footer-logo">
+                {% capture logo_size %}{{ block.settings.logo_width | escape }}x{% endcapture %}
+                <a href="{{ routes.root_url }}" class="theme-logo">
+                  <img  class="lazyload" data-sizes="auto" data-src="{{ block.settings.logo | img_url: logo_size }}" alt="{{ block.settings.logo.alt | default: shop.name }}"
+                       {%- if block.settings.ratina_logo_enable -%}
+                       srcset="{{ block.settings.logo | img_url: logo_size }} 1x, {{ block.settings.logo | img_url: logo_size, scale: 2 }} 2x"
+                       {%- endif -%}>
+                </a>
+                            </div>
+            {%- endif -%}
+                            <p>{{ block.settings.about_content }}</p>
+                            <div class="quick-contact">
+                                <div class="phone contact-item">
+                                    <div class="icon"><img src="{{ block.settings.about_image | img_url: 'thumb' }}" alt="{{ block.settings.about_image.alt }}">
+                                    </div>
+                                    <div class="contact-info">
+                                        <a href="tel:{{ block.settings.time_contact }}" class="service-time info">{{ block.settings.time_contact }}</a>
+                                        <span class="title">{{ block.settings.time_title }}</span>
+                                    </div>
+                                </div>
+                                <div class="email contact-item">
+                                    <div class="icon"><img src="{{ block.settings.about_image_2 | img_url: 'thumb' }}" alt="{{ block.settings.about_image_2.alt }}">
+                                    </div>
+                                    <div class="contact-info">
+                                        <a href="{{ block.settings.support_emain }}"
+                                            class="email-address info">{{ block.settings.support_emain }}</a>
+                                        <span class="title">{{ block.settings.support_title }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="social-links-footer2 social-links-footer3">
+                              {%- if block.settings.social_icon_1_name != blank -%}
+                                <li><a class="platform fb" target="_blank" href="{{ block.settings.social_icon_1_link }}"><i
+                                            class="fab fa-{{ block.settings.social_icon_1_name }}"></i></a>
+                                </li>
+                              {%- endif -%}
+                              {%- if block.settings.social_icon_2_name != blank -%}
+                                <li><a class="platform yt" target="_blank" href="{{ block.settings.social_icon_2_link }}"><i
+                                            class="fab fa-{{ block.settings.social_icon_2_name }}"></i></a>
+                                </li>
+                              {%- endif -%}
+                              {%- if block.settings.social_icon_3_name != blank -%}
+                                <li><a class="platform ttr" target="_blank" href="{{ block.settings.social_icon_3_link }}"><i
+                                            class="fab fa-{{ block.settings.social_icon_3_name }}"></i></a>
+                                </li>
+                              {%- endif -%}
+                              {%- if block.settings.social_icon_4_name != blank -%}
+                                <li><a class="platform lkd" target="_blank" href="{{ block.settings.social_icon_4_link }}"><i
+                                            class="fab fa-{{ block.settings.social_icon_4_name }}"></i></a>
+                                </li>
+                              {%- endif -%}
+                            </ul>
+                        </div>
+                    </div>
+                  
+                      <style>
+          #block-{{ block.id }} .theme-logo img{
+            max-width: {{ section.settings.logo_width }}px;
+          }
+        </style>  
+       {%- when 'contact' -%}
+                    <div class="col-xl-{{ block.settings.widget_column }} col-md-{{ block.settings.widget_column_md }} col-sm-{{ block.settings.widget_column_sm }}">
+                        <div class="footer-widget">
+            {%- if block.settings.widget_title != '' -%}
+                            <h3 class="footer-widget-title title-2">{{ block.settings.widget_title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.content != '' -%}
+                            <p class="widget-text">{{ block.settings.content }}</p>
+            {%- endif -%}
+            {%- if block.settings.buttont_title != '' -%}
+                            <a href="{{ block.settings.buttont_url }}" class="getin-touch">{{ block.settings.buttont_title }} <i class="fal fa-long-arrow-right"></i></a>
+            {%- endif -%}
+                        </div>
+                    </div>
+                  
+           {%- when 'menu' -%}
+                    <div class="col-lg-{{ block.settings.widget_column }} col-md-{{ block.settings.widget_column_md }} col-sm-{{ block.settings.widget_column_sm }}">
+                        <div class="footer-widget">
+            {%- if block.settings.widget_title != '' -%}
+                            <h3 class="footer-widget-title title-2">{{ block.settings.widget_title }}</h3>
+            {%- endif -%}
+                            <ul class="widget-items cata-widget">
+                              {%- assign menu = block.settings.menu_handle -%}
+                              {%- for link in linklists[menu].links -%}
+                              <li class="widget-list-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
+                              {%- endfor -%}
+                            </ul>
+                        </div>
+                    </div>
+                  
+          {%- when 'newsletter' -%}
+                    <div class="col-lg-{{ block.settings.widget_column }} col-md-{{ block.settings.widget_column_md }} col-sm-{{ block.settings.widget_column_sm }}">
+            {%- if block.settings.widget_title != '' -%}
+                        <h3 class="footer-widget-title title-2">{{ block.settings.widget_title }}</h3>
+            {%- endif -%}
+                        <div class="footer-widget newsletter-widget">
+              {%- if block.settings.newsletter_content != '' -%}
+                            <p class="widget-text">{{ block.settings.newsletter_content }}</p>
+              {%- endif -%}
+                          
+                          {%- if settings.newsletter_system == 'by_shopify_form' -%}
+                          {%- assign formId = 'Contact_' | append: section.id -%}
+                          {%- form 'customer', id: formId, class: 'newsletter-inner' -%}
+                            <div class="input-div">
+                          <input type="hidden" name="contact[tags]" value="newsletter">
+                          <input class="news-field" type="email" name="contact[email]" id="{{ formId }}-email" value="{% if customer %}{{ customer.email }}{% endif %}"
+                                 placeholder="{{ 'general.newsletter_form.newsletter_email'| t }}" aria-label="{{ 'general.newsletter_form.newsletter_email'| t }}" {% if form.errors %}aria-invalid="true"{% endif %} autocorrect="off" autocapitalize="off">
+                            </div>
+                            <button type="submit" class="news-btn subscribe-btn" name="commit" id="subscribe2" {% if settings.privacy_policy_checbox_enable %}disabled{% endif %}>{{ settings.newsletter_button_name }} <i class="fal fa-long-arrow-right"></i></button>
+                          {%- if form.posted_successfully? -%}
+                          <p class="form-message form-message--success form-success">{{ 'general.newsletter_form.confirmation'| t }}</p>
+                          {%- endif -%}
+                          {%- if form.errors -%}
+                          <div class="form-message form-message--error">
+                            {{ form.errors | default_errors }}
+                          </div>
+                          {%- endif -%}
+                          {%- endform -%}
+                          {%- elsif settings.newsletter_system == 'by_mailchimp' -%}         
+                          <form class="newsletter-inner" {% if settings.newsletter_action != '' %}action="{{ settings.newsletter_action }}"{% else %}action="#"{% endif %} method="post" id="mc-form" name="mc-embedded-subscribe-form" target="_blank">
+                            <div class="input-div">
+                            <input type="email" class="news-field" id="mail" value="{% if customer %}{{ customer.email }}{% endif %}" name="EMAIL" placeholder="{{ 'general.newsletter_form.newsletter_email'| t }}">
+                            
+                            </div>
+                            <button type="submit" class="news-btn subscribe-btn" id="subscribe2" {% if settings.privacy_policy_checbox_enable %}disabled{% endif %}>{{ settings.newsletter_button_name }} <i class="fal fa-long-arrow-right"></i></button>
+                          </form>
+                          {%- endif -%} 
+                          
+                        </div>
+                    </div>
+                  
+        {%- endcase -%}
+        {%- endfor -%} 
+                </div>
+              
+        {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when 'payment_image' -%} 
+                <div class="footer-bottombar">
+                    <div class="app-download">
+            {%- if block.settings.widget_title != '' -%}
+                        <span class="download-text">{{ block.settings.widget_title }}</span>
+            {%- endif -%}
+                        <a href="{{ block.settings.app_image_1_url }}" target="_blank" class="download-store"><img
+                                src="{{ block.settings.app_image_1 | img_url: 'large' }}" alt="{{ block.settings.app_image_1.alt }}"></a>
+                        <a href="{{ block.settings.app_image_2_url }}" target="_blank" class="download-store"><img
+                                src="{{ block.settings.app_image_2 | img_url: 'large' }}" alt="{{ block.settings.app_image_2.alt }}"></a>
+                    </div>
+                    <div class="payment-methods"><img src="{{ block.settings.payment_image | img_url: 'large' }}" alt="{{ block.settings.payment_image.alt }}"></div>
+                </div>
+                        {%- endcase -%}
+        {%- endfor -%}  
+            </div>
+        </div>
+                    {%- if section.settings.copy_ritht_text_enable -%}  
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="footer-bottom-inner">
+                    <span class="copyright">{{ section.settings.copy_ritht_text }}</span>
+                </div>
+            </div>
+        </div>
+  {%- endif -%}   
+    </div>

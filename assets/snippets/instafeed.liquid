@@ -1,0 +1,33 @@
+<section class="instagram-area" id="section-{{ section.id }}" data-section="InstagramSlider">
+  <div class="container">
+    {%- if section.settings.section_title != '' or section.settings.section_sub_title != '' -%}
+    <div class="row">
+      <div class="col-12">
+        <!-- section title start -->
+        <div class="section-title text-center">
+          {%- if section.settings.section_title != '' -%}
+          <h2 class="title">{{ section.settings.section_title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_sub_title != '' -%}
+          <p class="sub-title">{{ section.settings.section_sub_title }}</p>
+          {%- endif -%}
+        </div>
+        <!-- section title start -->
+      </div>
+    </div>
+    {%- endif -%}
+    {%- capture 'instagram_slider_column' -%}
+    data-slidetoshow="{{ section.settings.instagram_column }}" data-slideshowtablet="{{ section.settings.instagram_column_md }}" data-slideshowsmmobile="{{ section.settings.instagram_column_sm }}"
+    {%- endcapture -%}
+    <div class="row">
+      <div class="col-12">
+        <div class="instagram-feed-thumb">
+          <div id="instafeed-section-{{ section.id }}" class="instagram-carousel" data-username="{{ section.settings.username }}" data-limit="{{ section.settings.feed_limit }}" data-hashtag="{{ section.settings.instgram_hastag }}" data-size="{{ section.settings.image_size }}" {{ instagram_slider_column }}>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'jquery.instagramFeed.min.js' | asset_url }}"></script>

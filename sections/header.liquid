@@ -1,0 +1,695 @@
+{%- if settings.predictive_search_enabled -%}
+<script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+<script>
+  $('body').on('click', function() {
+    $('#predictive-search').attr('style',$('#predictive-search').attr('style')==='display: block;'?'display: none':'display: none;'); 
+    $('#Search').click(function(){return false;});
+    $('.predictive-search__list-item a').click(function(){return false;});
+  });
+</script>
+{%- endif -%}
+
+{%- if section.settings.header_style == 'header_style_1' -%}
+{%- render 'header-1' -%}
+{%- elsif section.settings.header_style == 'header_style_2' -%}
+{%- render 'header-2' -%}
+{%- elsif section.settings.header_style == 'header_style_3' -%}
+{%- render 'header-3' -%}
+{%- elsif section.settings.header_style == 'header_style_4' -%}
+{%- render 'header-5' -%}
+{%- elsif section.settings.header_style == 'header_style_5' -%}
+{%- render 'header-6' -%}
+{%- elsif section.settings.header_style == 'header_style_6' -%}
+{%- render 'header-7' -%}
+{%- elsif section.settings.header_style == 'header_style_7' -%}
+{%- render 'header-8' -%}
+{%- elsif section.settings.header_style == 'header_style_8' -%}
+{%- render 'header-9' -%}
+{%- elsif section.settings.header_style == 'header_style_9' -%}
+{%- render 'header-10' -%}
+{%- elsif section.settings.header_style == 'header_style_10' -%}
+{%- render 'header-11' -%}
+{%- elsif section.settings.header_style == 'header_style_11' or section.settings.header_style == 'header_style_12' -%}
+{%- render 'header-12' -%}
+    {%- else -%}
+{%- render 'header-4' -%}
+{%- endif -%}
+
+{%- if section.settings.header_style == 'header_style_4' -%}
+{%- elsif section.settings.header_style == 'header_style_5' -%}
+{%- elsif section.settings.header_style == 'header_style_6' -%}
+{%- elsif section.settings.header_style == 'header_style_7' -%}
+{%- elsif section.settings.header_style == 'header_style_8' -%}
+{%- elsif section.settings.header_style == 'header_style_9' -%}
+{%- elsif section.settings.header_style == 'header_style_10' -%}
+{%- elsif section.settings.header_style == 'header_style_11' -%}
+{%- elsif section.settings.header_style == 'header_style_12' -%}
+  
+  {%- else -%}
+{%- render 'mini-cart' -%}
+  {%- endif -%}
+
+<style>
+  #section-{{ section.id }} .theme-logo img{
+    max-width: {{ section.settings.logo_width }}px;
+  }
+  {%- for block in section.blocks -%}
+  {%- case block.type -%}
+  {%- when 'header_color' -%}
+  .header-area, .header-main-area, .sticky.is-sticky{
+    background: {{ block.settings.header_bg_color }};
+  }
+  .main-menu ul li a, .search-trigger, .header-configure-area ul li a{
+    color: {{ block.settings.header_color }};
+  }
+  .header-social-link a{
+    color: {{ block.settings.social_icon_color }};
+  }
+  {%- endcase -%}
+  {%- endfor -%}
+  {%- if section.settings.mobile_menu_right -%}
+  /* Right side menu */
+  .off-canvas-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+    z-index: 9999;
+  }
+  .off-canvas-wrapper.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .off-canvas-wrapper.open .off-canvas-inner-content {
+    transform: none;
+  }
+  .off-canvas-wrapper .off-canvas-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .off-canvas-wrapper .off-canvas-inner-content {
+    background-color: #fff;
+    max-width: 300px;
+    width: 100%;
+    padding: 20px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    position: absolute;
+    transform: translateX(calc(100% + 50px));
+    transition: 0.4s;
+  }
+  @media only screen and (max-width: 479.98px) {
+    .off-canvas-wrapper .off-canvas-inner-content {
+      width: 260px;
+      padding: 15px;
+    }
+  }
+  .off-canvas-wrapper .btn-close-off-canvas {
+    top: 0;
+    left: -40px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    color: #fff;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+    background-color: #c29958;
+  }
+  /* End Right side menu */
+  {%- endif -%}
+</style>
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+        {
+          "type": "text",
+          "id": "help_title",
+          "label": "Help Title",
+          "default": "Need help?"
+        },
+        {
+          "type": "text",
+          "id": "call_title",
+          "label": "Call Title",
+          "default": "Call us:"
+        },
+        {
+          "type": "text",
+          "id": "call_number",
+          "label": "Call Number",
+          "default": "+ 0020 500"
+        },
+        {
+          "type": "text",
+          "id": "location_text",
+          "label": "Location Title",
+          "default": "Store Location"
+        },
+        {
+          "type": "url",
+          "id": "location_url",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_text",
+          "label": "Newsletter Title",
+          "default": "Newsletter"
+        },
+        {
+          "type": "url",
+          "id": "newsletter_url",
+          "label": "URL"
+        },
+        {
+          "type": "textarea",
+          "id": "welcome_text",
+          "label": "Welcome Title",
+          "default": "Free shipping for all orders of 150$"
+        },
+        {
+          "type": "textarea",
+          "id": "search_text",
+          "label": "Search Title",
+          "default": "Search"
+        },
+        {
+          "type": "textarea",
+          "id": "close_text",
+          "label": "CLose Title",
+          "default": "CLose"
+        },
+		{
+          "type": "header",
+          "content": "COUPON"
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon_image",
+          "label": "Image",
+          "info": "Recommended Size: 18 x 18px"
+        },
+        {
+          "type": "textarea",
+          "id": "coupon_title",
+          "label": "Coupon Title",
+          "default": "COUPON CODE"
+        },
+        {
+          "type": "textarea",
+          "id": "coupon_code",
+          "label": "Coupon Code",
+          "default": "WEIBOO45%"
+        },
+        {
+          "type": "link_list",
+          "id": "main_menu_handle",
+          "label": "Menu",
+          "default": "main-menu"
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "label": "Header Style",
+          "options": [
+            {
+              "label": "Style One",
+              "value": "header_style_1"
+            },
+            {
+              "label": "Style Two",
+              "value": "header_style_2"
+            },
+            {
+              "label": "Style Three",
+              "value": "header_style_3"
+            },
+            {
+              "label": "Style Four",
+              "value": "header_style_4"
+            },
+            {
+              "label": "Style Five",
+              "value": "header_style_5"
+            },
+            {
+              "label": "Style Six",
+              "value": "header_style_6"
+            },
+            {
+              "label": "Style Saven",
+              "value": "header_style_7"
+            },
+            {
+              "label": "Style Eight",
+              "value": "header_style_8"
+            },
+            {
+              "label": "Style Nine",
+              "value": "header_style_9"
+            },
+            {
+              "label": "Style Ten",
+              "value": "header_style_10"
+            },
+            {
+              "label": "Style Eleven",
+              "value": "header_style_11"
+            },
+            {
+              "label": "Style Twelve",
+              "value": "header_style_12"
+            }
+          ],
+          "default": "header_style_1"
+        },
+		{
+          "type": "checkbox",
+          "id": "sticky_header_enable",
+          "label": "Header Sticky Enable",
+		  "default": false
+        },
+		{
+          "type": "checkbox",
+          "id": "menu_center_enable",
+          "label": "Menu Center Enable",
+		  "default": false,
+          "info": "Only applicable for header style 'Style Three'"
+        },
+		{
+          "type": "header",
+          "content": "Logo"
+        },
+		{
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+		{
+          "type": "range",
+          "id": "logo_width",
+          "label": "Custom logo width",
+          "min": 50,
+          "max": 300,
+          "step": 5,
+          "unit": "px",
+          "default": 150
+        },
+		{
+          "type": "checkbox",
+          "id": "ratina_logo_enable",
+          "label": "Retina Logo Enable",
+		  "default": false
+        },
+		{
+          "type": "header",
+          "content": "User Menu"
+        },
+		{
+          "type": "checkbox",
+          "id": "user_menu_enable",
+          "label": "Show User Menu",
+		  "default": true
+        },
+        {
+          "type": "text",
+          "id": "catagory_title",
+          "label": "Catagory Title",
+          "default": "All Catagory"
+        },
+		{
+          "type": "link_list",
+          "id": "user_menu_handle",
+          "label": "User Menu"
+        },
+		{
+          "type": "link_list",
+          "id": "user_menu_2_handle",
+          "label": "User Menu 2"
+        },
+		{
+          "type": "text",
+          "id": "login_title",
+          "label": "Login Title",
+		  "default": "Login"
+        },
+		{
+          "type": "text",
+          "id": "logout_title",
+          "label": "Logout Title",
+		  "default": "Logout"
+        },
+		{
+          "type": "header",
+          "content": "Wishlist"
+        },
+		{
+          "type": "checkbox",
+          "id": "wishlit_icon_enable",
+          "label": "Show Wishlist",
+		  "default": true
+        },
+		{
+          "type": "page",
+          "id": "wishlist_page_handle",
+          "label": "Wishlist Page"
+        },
+		{
+          "type": "header",
+          "content": "Login"
+        },
+		{
+          "type": "checkbox",
+          "id": "login_icon_enable",
+          "label": "Show Login",
+		  "default": true
+        },
+		{
+          "type": "url",
+          "id": "login_page_handle",
+          "label": "URL"
+        },
+		{
+          "type": "header",
+          "content": "Mini Cart"
+        },
+		{
+          "type": "checkbox",
+          "id": "cart_icon_enable",
+          "label": "Show Mini Cart",
+		  "default": true
+        },
+        {
+          "type": "select",
+          "id": "cart_icon_select",
+          "label": "Cart Icon",
+          "options": [
+            {
+              "label": "Shopbag",
+              "value": "shopbag"
+            },
+            {
+              "label": "Cart",
+              "value": "cart"
+            }
+          ],
+          "default": "shopbag"
+        },
+		{
+          "type": "text",
+          "id": "view_cart_title",
+          "label": "View Cart Title",
+		  "default": "View Cart"
+        },
+		{
+          "type": "text",
+          "id": "checkout_title",
+          "label": "Checkout Title",
+		  "default": "Checkout"
+        },
+		{
+          "type": "header",
+          "content": "Sidebar Content"
+        },
+		{
+          "type": "textarea",
+          "id": "sidebar_description",
+          "label": "Description",
+		  "default": "We must explain to you how all seds this mistakens idea denouncing pleasures and praising account."
+        },
+		{
+          "type": "text",
+          "id": "contact_title",
+          "label": "Contact Title",
+		  "default": "Get In Touch"
+        },
+		{
+          "type": "textarea",
+          "id": "contact_number",
+          "label": "Number",
+		  "default": "780 907 908 90, 208 806 803"
+        },
+		{
+          "type": "textarea",
+          "id": "contact_email",
+          "label": "Email",
+		  "default": "info@webmail.com"
+        },
+		{
+          "type": "textarea",
+          "id": "contact_webside",
+          "label": "Web side",
+		  "default": "www.webexample.com"
+        },
+		{
+          "type": "textarea",
+          "id": "contact_location",
+          "label": "Location",
+		  "default": "13/A, New Pro State, NYC"
+        },
+		{
+          "type": "text",
+          "id": "social_title",
+          "label": "Social Title",
+		  "default": "Follow Us"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_1_name",
+          "label": "Social Icon Name",
+          "default": "facebook",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_1_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_2_name",
+          "label": "Social Icon Name",
+          "default": "twitter",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_2_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_3_name",
+          "label": "Social Icon Name",
+          "default": "youtube",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_3_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_4_name",
+          "label": "Social Icon Name",
+          "default": "linkedin",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_4_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_5_name",
+          "label": "Social Icon Name",
+          "default": "behance",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_5_link",
+          "label": "Link"
+        },
+		{
+          "type": "header",
+          "content": "Mobile Header"
+        },
+		{
+          "type": "checkbox",
+          "id": "mobile_search_field_enable",
+          "label": "Search Bar Enable",
+		  "default": true
+        },
+		{
+          "type": "text",
+          "id": "user_menu_title",
+          "label": "User Menu Title",
+		  "default": "My Account"
+        },
+		{
+          "type": "text",
+          "id": "currency_title",
+          "label": "Currency Title",
+		  "default": "Currency:"
+        },
+		{
+          "type": "text",
+          "id": "mobile_tel_number",
+          "label": "Telephone Number",
+		  "default": "(1245) 2456 012"
+        },
+		{
+          "type": "text",
+          "id": "mobile_email_address",
+          "label": "Email Address",
+		  "default": "info@yourdomain.com"
+        },
+		{
+          "type": "checkbox",
+          "id": "mobile_social_midea_enable",
+          "label": "Social Midea Enable",
+		  "default": true
+        },
+		{
+          "type": "checkbox",
+          "id": "mobile_menu_right",
+          "label": "Menu in Right Side",
+		  "default": true
+        }
+	],
+	"blocks":[
+        {
+            "type": "welcome_text",
+            "name": "Welcome Text",
+            "settings": [
+              {
+                "type": "text",
+                "id": "welcome_title",
+                "label": "Welcome Title",
+                "default": "Open Door To A worlds Of Fashion"
+              },
+              {
+                "type": "text",
+                "id": "welcome_button",
+                "label": "Welcome Button",
+                "default": "Discover Now"
+              },
+              {
+                "type": "url",
+                "id": "welcome_button_url",
+                "label": "URL"
+              }
+            ]
+       },
+		{
+          "type": "header_top",
+          "name": "Header Top",
+		  "limit": 1,
+          "settings": [
+			{
+			  "type": "richtext",
+			  "id": "welcome_note",
+			  "label": "Welcome Note",
+			  "default": "<p>Welcome to Corano Jewellery online store</p>"
+			},
+            {
+              "type": "header",
+              "content": "Color"
+            },
+            {
+              "type": "checkbox",
+              "id": "header_top_color_enable",
+              "label": "Color Enable",
+              "default": false,
+          	  "info": "Enable the field for color customization"
+            },
+			{
+			  "type": "color",
+			  "id": "bg_color",
+			  "label": "BG Color",
+			  "default": "#fff"
+			},
+			{
+			  "type": "color",
+			  "id": "color",
+			  "label": "Color",
+			  "default": "#555"
+			},
+			{
+			  "type": "color",
+			  "id": "border_bottom_color",
+			  "label": "Border Bottom Color",
+			  "default": "#efefef"
+			}
+          ]
+       },
+	   {
+          "type": "header_color",
+          "name": "Header Color",
+		  "limit": 1,
+          "settings": [
+			{
+			  "type": "color",
+			  "id": "header_bg_color",
+			  "label": "BG Color",
+			  "default": "#fff"
+			},
+			{
+			  "type": "color",
+			  "id": "header_color",
+			  "label": "Color",
+			  "default": "#222"
+			},
+			{
+			  "type": "color",
+			  "id": "social_icon_color",
+			  "label": "Social Icon Color",
+			  "default": "#777777"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}

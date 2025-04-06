@@ -1,0 +1,361 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+
+   <div class="rts-posters-section1 section-9 {{ bg_image_class }}" id="section-{{ section.id }}" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="row">
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'banner' -%}
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <a href="{{ block.settings.banner_url }}" class="product-box product-box-medium product-box-medium5">
+                        <div class="contents">
+              {%- if block.settings.banner_sub_title != '' -%}
+                        <span class="pretitle">{{ block.settings.banner_sub_title }}</span>
+              {%- endif -%}
+              {%- if block.settings.banner_title != '' -%}
+                        <h1 class="product-title">{{ block.settings.banner_title }}</h1>
+              {%- endif -%}
+              {%- if block.settings.banner_description != '' -%}
+                        <div class="view-collections go-btn">{{ block.settings.banner_description }}</div>
+              {%- endif -%}
+                          </div>
+                        <div class="product-thumb"><img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="{{ block.settings.banner_image.alt }}">
+                        </div>
+                    </a>
+                </div>
+              
+      {%- when 'banner_2' -%}
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <a href="{{ block.settings.banner_url }}" class="product-box product-box-medium product-box-medium3">
+                        <div class="contents">
+              {%- if block.settings.banner_sub_title != '' -%}
+                        <span class="pretitle">{{ block.settings.banner_sub_title }}</span>
+              {%- endif -%}
+              {%- if block.settings.banner_title != '' -%}
+                        <h1 class="product-title">{{ block.settings.banner_title }}</h1>
+              {%- endif -%}
+              {%- if block.settings.banner_button_title != '' -%}
+                        <div class="view-collections go-btn">{{ block.settings.banner_button_title }}</div>
+              {%- endif -%}
+                        </div>
+                        <div class="product-thumb"><img src="{{ block.settings.banner_image | img_url: 'master' }}" alt="{{ block.settings.banner_image.alt }}">
+                        </div>
+                    </a>
+                </div>
+              
+      {%- endcase -%}
+      {%- endfor -%}
+            </div>
+        </div>
+    </div>
+
+<style>
+  
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'banner' -%}
+  .rts-posters-section1.section-9 .container .product-box-medium5 {
+  background: url({{ block.settings.banner_bg_image | img_url: 'master' }});
+}
+      {%- when 'banner_2' -%}
+  .rts-posters-section1.section-9 .container .product-box-medium3 {
+  background: url({{ block.settings.banner_bg_image | img_url: 'master' }});
+}
+      {%- endcase -%}
+      {%- endfor -%}
+  
+</style>
+
+    
+{%- render 'section-style' -%}
+
+{% schema %}
+  {
+    "name": "Banner 3",
+    "settings": [
+	
+	],
+	"blocks":[
+          {
+            "type": "banner",
+            "name": "Banner",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "banner_bg_image",
+                "label": "BG Image",
+        		"info": "Recommended Size: 705 x 225px"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Image",
+        		"info": "Recommended Size: 540 x 426px"
+              },
+              {
+                "type": "text",
+                "id": "banner_sub_title",
+                "label": "Sub Title",
+                "default": "Hot Offer"
+              },
+              {
+                "type": "textarea",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "Get 80% Off"
+              },
+              {
+                "type": "text",
+                "id": "banner_description",
+                "label": "Description",
+                "default": "on first order"
+              },
+              {
+                "type": "url",
+                "id": "banner_url",
+                "label": "URL"
+              }
+            ]
+         },
+          {
+            "type": "banner_2",
+            "name": "Banner 2",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "banner_bg_image",
+                "label": "BG Image",
+        		"info": "Recommended Size: 705 x 225px"
+              },
+              {
+                "type": "image_picker",
+                "id": "banner_image",
+                "label": "Image",
+        		"info": "Recommended Size: 540 x 426px"
+              },
+              {
+                "type": "text",
+                "id": "banner_sub_title",
+                "label": "Sub Title",
+                "default": "Summer Offer"
+              },
+              {
+                "type": "textarea",
+                "id": "banner_title",
+                "label": "Title",
+                "default": "Get 10% Extra Discount On Summer Items"
+              },
+              {
+                "type": "text",
+                "id": "banner_button_title",
+                "label": "Button Title",
+                "default": "Buy Now"
+              },
+              {
+                "type": "url",
+                "id": "banner_url",
+                "label": "URL"
+              }
+            ]
+         },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Banner 3",
+		  "category": "7. banner",
+		  "blocks":[
+				{
+					"type": "banner"
+				},
+				{
+					"type": "banner_2"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,449 @@
+{%- capture bg_image_class -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}bg-img lazyload{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture sections_bg_image -%}
+{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'section_background' -%}{%- if block.settings.section_bg_image -%}data-bgset="{%- render 'responsive-bg-image', image: block.settings.section_bg_image -%}"{%- endif -%}{%- endcase -%}{%- endfor -%}
+{%- endcapture -%} 
+
+ <section class="about-us-area pt-120 pb-75 pt-md-60 pb-md-15 pt-xs-50 pb-xs-10 {{ bg_image_class }}" id="section-{{ section.id }}" data-section="AboutInfo" {{ sections_bg_image }}>
+        <div class="container">
+            <div class="image-section">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="image-1">
+                            <img src="{{ section.settings.about_image| img_url: 'master' }}" alt="{{ section.settings.about_image.alt }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="image-2">
+                            <img src="{{ section.settings.about_image_2| img_url: 'master' }}" alt="{{ section.settings.about_image_2.alt }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="section-title">
+                    <div class="title-inner">
+                        <div class="wrapper">
+                            <div class="sub-content">
+                                <img class="line-1" src="{{ section.settings.title_image_1 | img_url: 'large' }}" alt="">
+          {%- if section.settings.highlight_content != '' -%}
+                                <span class="sub-text">{{ section.settings.highlight_content }}</span>
+          {%- endif -%}
+                                <img class="line-2" src="{{ section.settings.title_image_2 | img_url: 'large' }}" alt="">
+                            </div>
+          {%- if section.settings.title != '' -%}
+                            <h2 class="title">{{ section.settings.title }}</h2>
+          {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-text">
+                <div class="row">
+                    <div class="col-lg-4">
+          {%- if section.settings.content_1 != '' -%}
+                        <div class="description">
+                          {{ section.settings.content_1 }}
+                        </div>
+          {%- endif -%}
+                    </div>
+                    <div class="col-lg-4">
+          {%- if section.settings.content_2 != '' -%}
+                        <div class="description">
+                          {{ section.settings.content_2 }}
+                        </div>
+          {%- endif -%}
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-list">
+                            <ul>
+          {%- if section.settings.service_list_1 != '' -%}
+                                <li><a href="{{ section.settings.service_list_1_url }}">{{ section.settings.service_list_1 }}</a></li>
+          {%- endif -%}
+          {%- if section.settings.service_list_2 != '' -%}
+                                <li><a href="{{ section.settings.service_list_2_url }}">{{ section.settings.service_list_2 }}Orders go right to your restaurant points</a></li>
+          {%- endif -%}
+          {%- if section.settings.service_list_3 != '' -%}
+                                <li><a href="{{ section.settings.service_list_3_url }}">{{ section.settings.service_list_3 }}Orders go right to your restaurant points</a></li>
+          {%- endif -%}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% comment %}
+<section class="about-us {{ bg_image_class }}" id="section-{{ section.id }}" data-section="AboutInfo" {{ sections_bg_image }}>
+  <div class="container">
+    <div class="row align-items-center {% if section.settings.image_position_right %}flex-row-reverse{% endif %}">
+      <div class="col-lg-5">
+        {%- if section.settings.about_image -%}
+        <div class="about-thumb lazyload-wraper-position" style="padding-top:{{ 1 | divided_by: section.settings.about_image.aspect_ratio | times: 100}}%;">
+          {%- render 'responsive-image' with image: section.settings.about_image, image_class: "lazyload-main-image" -%}
+        </div>
+        {%- else -%}
+        <div class="about-thumb">
+          <img class="lazyload" data-src="https://via.placeholder.com/445x500" alt="{{ section.settings.about_image.alt }}">
+        </div>
+        {%- endif -%}
+      </div>
+      <div class="col-lg-7">
+        <div class="about-content">
+          {%- if section.settings.title != '' -%}
+          <h2 class="about-title">{{ section.settings.title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.highlight_content != '' -%}
+          <h5 class="about-sub-title">
+            {{ section.settings.highlight_content }}
+          </h5>
+          {%- endif -%}
+          {%- if section.settings.content_1 != '' -%}
+          {{ section.settings.content_1 }}
+          {%- endif -%}
+          {%- if section.settings.content_2 != '' -%}
+          {{ section.settings.content_2 }}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endcomment %}
+
+
+{%- if section.settings.section_color_enable -%}
+<style>
+  #section-{{ section.id }} .about-title {
+    color: {{ section.settings.title_color }};
+  }
+  #section-{{ section.id }} .about-sub-title {
+    color: {{ section.settings.sub_title_color }};
+  }
+  #section-{{ section.id }} .about-content p {
+    color: {{ section.settings.content_color }};
+  }
+</style>
+{%- endif -%}
+{%- render 'section-style' -%}
+{% schema %}
+  {
+    "name": "About Info",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "about_image",
+          "label": "Image",
+          "info": "Recommended Size: 445 x 550px"
+      	},
+		{
+          "type": "image_picker",
+          "id": "about_image_2",
+          "label": "Image 2",
+          "info": "Recommended Size: 445 x 550px"
+      	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "About Our Story"
+      	},
+		{
+          "type": "textarea",
+          "id": "highlight_content",
+          "label": "Highlight Content",
+          "default": "Since From 2000"
+      	},
+        {
+          "type": "image_picker",
+          "id": "title_image_1",
+          "label": "Image 1",
+          "info": "Recommended Size: 22 x 6px"
+        },
+        {
+          "type": "image_picker",
+          "id": "title_image_2",
+          "label": "Image 2",
+          "info": "Recommended Size: 22 x 6px"
+        },
+		{
+          "type": "richtext",
+          "id": "content_1",
+          "label": "About Content",
+		  "default": "<p>Your about content here</p>"
+      	},
+		{
+          "type": "richtext",
+          "id": "content_2",
+          "label": "About Content",
+		  "default": "<p>Your another about content here</p>"
+      	},
+        {
+          "type": "header",
+          "content": "Service List"
+        },
+		{
+          "type": "textarea",
+          "id": "service_list_1",
+          "label": "Service List 1",
+		  "default": "Orders go right to your restaurant points"
+      	},
+		{
+          "type": "url",
+          "id": "service_list_1_url",
+          "label": "URL"
+      	},
+		{
+          "type": "textarea",
+          "id": "service_list_2",
+          "label": "Service List 2",
+		  "default": "Provide in-person pickup, & delivery by professional"
+      	},
+		{
+          "type": "url",
+          "id": "service_list_2_url",
+          "label": "URL"
+      	},
+		{
+          "type": "textarea",
+          "id": "service_list_3",
+          "label": "Service List 3",
+		  "default": "Offer in-person diners self serve, contactless"
+      	},
+		{
+          "type": "url",
+          "id": "service_list_3_url",
+          "label": "URL"
+      	},
+		{
+          "type": "checkbox",
+          "id": "image_position_right",
+          "label": "Image Position Right",
+          "default": false
+      	},
+        {
+          "type": "header",
+          "content": "Color"
+        },
+        {
+          "type": "checkbox",
+          "id": "section_color_enable",
+          "label": "Color Enable",
+          "default": false,
+          "info": "Enable the field for color customization"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#d1d1d1"
+        },
+        {
+          "type": "color",
+          "id": "sub_title_color",
+          "label": "Sub Title Color",
+          "default": "#222222"
+        },
+        {
+          "type": "color",
+          "id": "content_color",
+          "label": "Content Color",
+          "default": "#555555"
+        }
+	],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "About Info",
+		  "category": "5. about",
+		  "blocks":[
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	],
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,87 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- if product.available -%}
+{%- assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" -%}
+{%- endif -%}
+                    <div class="special-offers-product  {{ variant.id }}">
+                      <a href="{{ product.url | within: collection }}" class="product-thumb">
+                         <img class="popup_cart_image" src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+                      </a>
+                        <div class="product-content">
+                           {%- assign truncate_count = settings.truncate_count_handle -%}
+                        <a class="detail popup_cart_title" href="{{ product.url | within: collection }}">
+                          {%- if settings.truncate_count_enable -%}
+                          {{ product.title | truncate: truncate_count }}
+                          {%- else -%}
+                          {{ product.title }}
+                          {%- endif -%}
+                        </a>
+                            <div class="product-btn">
+                                <p class="product-price">
+                                    {{ product.variants.first.price | money }}
+                              {%- if product.variants.first.compare_at_price > product.variants.first.price -%}
+                              <span class="old-price"><del>{{ product.variants.first.compare_at_price | money }}</del></span>
+                              {%- endif -%}
+                                </p>
+      {%- if product.available -%}
+      {%- if product.variants.size > 1 -%}
+      <a href="{{ product.url | within: collection }}" class="cart-btn">
+        <span>
+          <span>{{ settings.select_option_title }}</span>
+        </span>
+      </a>
+      {%- else -%}
+        {%- if settings.product_cart_type == 'ajax_cart_drawer' -%}
+      <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart ajax-spin-cart-drawer cart-btn">
+        <span>
+          <span class="cart-title">{{ settings.cart_button_title }}</span>
+          <span class="cart-loading">{{ settings.wait_title }}</span>
+          <span class="cart-added">{{ settings.added_title }}</span>
+          <span class="cart-unavailable">{{ settings.unavailable_title }}</span>
+        </span>
+      </a>
+      {%- elsif settings.product_cart_type == 'ajax_spin_cart' -%}
+      <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart  cart-btn">
+        <span>
+          <span class="cart-title">{{ settings.cart_button_title }}</span>
+          <span class="cart-loading">{{ settings.wait_title }}</span>
+          <span class="cart-added">{{ settings.added_title }}</span>
+          <span class="cart-unavailable">{{ settings.unavailable_title }}</span>
+        </span>
+      </a>
+      {%- elsif settings.product_cart_type == 'ajax_popup_cart' -%}
+      <a href="javascript:void(0);" onclick="{{ func }}; return false;" class=" cart-btn">
+        <span>
+          <span class="cart-title">{{ settings.cart_button_title }}</span>
+        </span>
+      </a>
+      {%- elsif settings.product_cart_type == 'without_ajax_cart' -%}
+      <form action="/cart/add" method="post" enctype="multipart/form-data">
+        <select name="id" style="display:none;">
+          {% for variant in product.variants %}
+          <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class=" cart-btn">
+          <span>
+            <span class="cart-title">{{ settings.cart_button_title }}</span>
+          </span>
+        </button>
+      </form>
+      {%- endif -%}
+      {%- endif -%}
+      {%- else -%}
+      <button class="cart-disable cart-btn">
+        <span class="cart-text"><i class="fal fa-shopping-cart"></i>{{ settings.soldout_button_title }}</span>
+      </button>
+      {%- endif -%}
+                            </div>
+                        </div>
+                    </div>
