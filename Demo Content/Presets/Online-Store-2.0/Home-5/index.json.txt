@@ -1,0 +1,246 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "slideshow_7_7dMYmN": {
+      "type": "slideshow-7",
+      "blocks": {
+        "slide_h7PwbL": {
+          "type": "slide",
+          "settings": {
+            "slide_bg_image": "shopify:\/\/shop_images\/craftbg.jpg",
+            "slide_image": "shopify:\/\/shop_images\/banner-product.jpg",
+            "slide_sub_title": "Hot Deal In This Week",
+            "slide_title": "Elegance <br> Hand Craft",
+            "slide_button_title": "Shop Now",
+            "slide_button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slide_Fqm7XT": {
+          "type": "slide",
+          "settings": {
+            "slide_bg_image": "shopify:\/\/shop_images\/craftbg.jpg",
+            "slide_image": "shopify:\/\/shop_images\/banner-product2.png",
+            "slide_sub_title": "Hot Deal In This Week",
+            "slide_title": "Modern <br> Hand Craft",
+            "slide_button_title": "Shop Now",
+            "slide_button_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "slide_h7PwbL",
+        "slide_Fqm7XT"
+      ],
+      "settings": {
+      }
+    },
+    "categories_product_area_2_Ek7rhK": {
+      "type": "categories-product-area-2",
+      "blocks": {
+        "collection_banner_9AfHd9": {
+          "type": "collection_banner",
+          "settings": {
+            "bg_color_style": "style_1",
+            "banner_bg_color": "#f1f6f5",
+            "banner_icon_image": "shopify:\/\/shop_images\/bell.png",
+            "banner_title": "Stationary & <br> Gift Card",
+            "banner_sub_title": "100 New Added",
+            "banner_hover_image": "shopify:\/\/shop_images\/cata1.png",
+            "button_title": "View Collection",
+            "button_title_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "collection_banner_PRrYUi": {
+          "type": "collection_banner",
+          "settings": {
+            "bg_color_style": "style_2",
+            "banner_bg_color": "#eeede9",
+            "banner_icon_image": "shopify:\/\/shop_images\/pins.png",
+            "banner_title": "Handmade  <br> Teapots & Mugs",
+            "banner_sub_title": "100 New Added",
+            "banner_hover_image": "shopify:\/\/shop_images\/cata2.png",
+            "button_title": "View Collection",
+            "button_title_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "collection_banner_xcDkcx": {
+          "type": "collection_banner",
+          "settings": {
+            "bg_color_style": "style_3",
+            "banner_bg_color": "#fdf5f0",
+            "banner_icon_image": "shopify:\/\/shop_images\/tape.png",
+            "banner_title": "Furniture Decor  <br> Objects",
+            "banner_sub_title": "100 New Added",
+            "banner_hover_image": "shopify:\/\/shop_images\/cata3.png",
+            "button_title": "View Collection",
+            "button_title_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "collection_banner_ciPCiy": {
+          "type": "collection_banner",
+          "settings": {
+            "bg_color_style": "style_4",
+            "banner_bg_color": "#f4f4f4",
+            "banner_icon_image": "shopify:\/\/shop_images\/tub.png",
+            "banner_title": "Vases & <br> Plant Pots",
+            "banner_sub_title": "100 New Added",
+            "banner_hover_image": "shopify:\/\/shop_images\/cata4.png",
+            "button_title": "View Collection",
+            "button_title_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "collection_banner_9AfHd9",
+        "collection_banner_PRrYUi",
+        "collection_banner_xcDkcx",
+        "collection_banner_ciPCiy"
+      ],
+      "settings": {
+      }
+    },
+    "featured_collection_5_cVt9Yh": {
+      "type": "featured-collection-5",
+      "settings": {
+        "section_title": "Wood Crafted Products",
+        "section_sub_title": "Featured",
+        "title_image_1": "shopify:\/\/shop_images\/curlyline.png",
+        "featured_product_handle": "wood",
+        "featured_product_limit_handle": 10,
+        "banner_button_title": "All products",
+        "banner_button_url": "shopify:\/\/collections\/all"
+      }
+    },
+    "newsletter_subscribe_3_73TbJ4": {
+      "type": "newsletter-subscribe-3",
+      "blocks": {
+        "section_background_xeKCXG": {
+          "type": "section_background",
+          "settings": {
+            "section_bg_image": "shopify:\/\/shop_images\/newsletter.jpg",
+            "section_bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "section_background_xeKCXG"
+      ],
+      "settings": {
+        "section_title": "Join Our Newsletter",
+        "title_image_1": "shopify:\/\/shop_images\/woodline.png",
+        "email_placeholder": "Enter email address",
+        "button_title": "Subscribe"
+      }
+    },
+    "featured_collection_4_fNL3bq": {
+      "type": "featured-collection-4",
+      "settings": {
+        "section_title": "Wood Crafted Products",
+        "section_sub_title": "Hand-Picked",
+        "title_image_1": "shopify:\/\/shop_images\/woodline.png",
+        "featured_product_handle": "crafted",
+        "featured_product_limit_handle": 8
+      }
+    },
+    "brand_logo_3_KteheF": {
+      "type": "brand-logo-3",
+      "blocks": {
+        "brand_eGUMTD": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/1_7892bf20-4b66-47d5-869d-08c8e116d49f.png",
+            "brand_url": "shopify:\/\/collections\/featured-product"
+          }
+        },
+        "brand_JtJjQx": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/3_97e4f37f-dd88-4c00-a56d-23f423a1ed39.png",
+            "brand_url": "shopify:\/\/collections\/latest"
+          }
+        },
+        "brand_jRijdU": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/8_98f69f9e-5c25-4661-bded-6ada04819c1b.png",
+            "brand_url": "shopify:\/\/collections\/featured-product"
+          }
+        },
+        "brand_3nVnfk": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/4_8febc49e-1a4b-4ab9-9fe6-d4c145d2c6f4.png",
+            "brand_url": "shopify:\/\/collections\/hand-picked-product"
+          }
+        },
+        "brand_DEAUmB": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/7_bb8183c7-4ded-4ec7-8f0d-09bfe418e344.png",
+            "brand_url": "shopify:\/\/collections\/hand-picked-product"
+          }
+        },
+        "brand_UiNAtr": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/9_51efe324-c331-465d-b25f-88ce9899eacc.png",
+            "brand_url": "shopify:\/\/collections\/popular"
+          }
+        },
+        "brand_K9J6Hk": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/6_1728296e-338b-4d55-84d0-c692639fbf35.png",
+            "brand_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "brand_qRpF8M": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/5_c4417339-6432-4e8d-b393-d96b1dd04e68.png",
+            "brand_url": "shopify:\/\/collections\/popular"
+          }
+        },
+        "brand_zk8LJe": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/2_37ec6153-5c6c-4402-90a1-03e4f4e53e23.png",
+            "brand_url": "shopify:\/\/collections\/latest"
+          }
+        }
+      },
+      "block_order": [
+        "brand_eGUMTD",
+        "brand_JtJjQx",
+        "brand_jRijdU",
+        "brand_3nVnfk",
+        "brand_DEAUmB",
+        "brand_UiNAtr",
+        "brand_K9J6Hk",
+        "brand_qRpF8M",
+        "brand_zk8LJe"
+      ],
+      "settings": {
+        "section_sub_title": "Sponsors",
+        "section_title": "100+ Happy Users",
+        "title_image_1": "shopify:\/\/shop_images\/curlyline.png"
+      }
+    }
+  },
+  "order": [
+    "slideshow_7_7dMYmN",
+    "categories_product_area_2_Ek7rhK",
+    "featured_collection_5_cVt9Yh",
+    "newsletter_subscribe_3_73TbJ4",
+    "featured_collection_4_fNL3bq",
+    "brand_logo_3_KteheF"
+  ]
+}

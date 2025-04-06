@@ -1,0 +1,120 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "welcome_text_CtMyWj": {
+          "type": "welcome_text",
+          "settings": {
+            "welcome_title": "Open Door To A worlds Of Fashion",
+            "welcome_button": "Discover Now",
+            "welcome_button_url": "shopify:\/\/collections"
+          }
+        },
+        "welcome_text_fAtkfc": {
+          "type": "welcome_text",
+          "settings": {
+            "welcome_title": "Enjoy free shipping on orders 100$ up",
+            "welcome_button": "Discover Now",
+            "welcome_button_url": "shopify:\/\/products\/bali-underwire-bra-1"
+          }
+        },
+        "welcome_text_pVNAjw": {
+          "type": "welcome_text",
+          "settings": {
+            "welcome_title": "Open Door To A worlds Of Fashion",
+            "welcome_button": "Discover Now",
+            "welcome_button_url": "shopify:\/\/collections\/lighting"
+          }
+        },
+        "welcome_text_ty9L9q": {
+          "type": "welcome_text",
+          "settings": {
+            "welcome_title": "Enjoy free shipping on orders 100$ up",
+            "welcome_button": "Discover Now",
+            "welcome_button_url": "shopify:\/\/products\/bali-underwire-bra-1"
+          }
+        }
+      },
+      "block_order": [
+        "welcome_text_CtMyWj",
+        "welcome_text_fAtkfc",
+        "welcome_text_pVNAjw",
+        "welcome_text_ty9L9q"
+      ],
+      "settings": {
+        "help_title": "Need help?",
+        "call_title": "568. 685. 350. 56",
+        "call_number": "info@webexample.com",
+        "location_text": "Store Location",
+        "location_url": "shopify:\/\/pages\/about",
+        "newsletter_text": "Track Order",
+        "newsletter_url": "shopify:\/\/pages\/about",
+        "welcome_text": "Free shipping for all orders of <span class=\"value\">150$<\/span>",
+        "search_text": "Search",
+        "close_text": "CLose",
+        "coupon_title": "COUPON CODE",
+        "coupon_code": "WEIBOO45%",
+        "main_menu_handle": "main-menu",
+        "header_style": "header_style_8",
+        "sticky_header_enable": true,
+        "menu_center_enable": false,
+        "logo": "shopify:\/\/shop_images\/logo7.svg",
+        "logo_width": 200,
+        "ratina_logo_enable": true,
+        "user_menu_enable": true,
+        "catagory_title": "All Catagory",
+        "user_menu_handle": "catagory-all",
+        "user_menu_2_handle": "header-top-2",
+        "login_title": "Login",
+        "logout_title": "Logout",
+        "wishlit_icon_enable": true,
+        "wishlist_page_handle": "wishlist",
+        "login_icon_enable": true,
+        "login_page_handle": "\/account\/login",
+        "cart_icon_enable": true,
+        "cart_icon_select": "shopbag",
+        "view_cart_title": "View Cart",
+        "checkout_title": "Checkout",
+        "sidebar_description": "We must explain to you how all seds this mistakens idea denouncing pleasures and praising account.",
+        "contact_title": "Get In Touch",
+        "contact_number": "780 907 908 90, 208 806 803",
+        "contact_email": "info@webmail.com",
+        "contact_webside": "www.webexample.com",
+        "contact_location": "13\/A, New Pro State, NYC",
+        "social_title": "Follow Us",
+        "social_icon_1_name": "facebook-f",
+        "social_icon_1_link": "shopify:\/\/pages\/about",
+        "social_icon_2_name": "twitter",
+        "social_icon_2_link": "shopify:\/\/pages\/about",
+        "social_icon_3_name": "youtube",
+        "social_icon_3_link": "shopify:\/\/pages\/about",
+        "social_icon_4_name": "linkedin",
+        "social_icon_4_link": "shopify:\/\/pages\/about",
+        "social_icon_5_name": "behance",
+        "social_icon_5_link": "shopify:\/\/pages\/about",
+        "mobile_search_field_enable": true,
+        "user_menu_title": "My Account",
+        "currency_title": "Currency:",
+        "mobile_tel_number": "(1245) 2456 012",
+        "mobile_email_address": "info@yourdomain.com",
+        "mobile_social_midea_enable": true,
+        "mobile_menu_right": true
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

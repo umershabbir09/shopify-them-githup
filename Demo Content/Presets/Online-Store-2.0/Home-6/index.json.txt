@@ -1,0 +1,402 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "slideshow_with_banner_8_YU3WzG": {
+      "type": "slideshow-with-banner-8",
+      "blocks": {
+        "slide_TiPhhM": {
+          "type": "slide",
+          "settings": {
+            "bg_image": "shopify:\/\/shop_images\/productbg.webp",
+            "slide_image": "shopify:\/\/shop_images\/laptop.webp",
+            "slide_sub_title": "Weekend Discount",
+            "slide_title": "Big screens in <br> incredibly slim <br> <span>designs...<\/span>",
+            "slide_description": "<span>Starts From<\/span> $499.99",
+            "slide_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slide_tGjP6U": {
+          "type": "slide",
+          "settings": {
+            "bg_image": "shopify:\/\/shop_images\/productbg.webp",
+            "slide_image": "shopify:\/\/shop_images\/laptop.webp",
+            "slide_sub_title": "Weekend Discount 20%",
+            "slide_title": "Small screens in <br> incredibly slim <br> <span>designs...<\/span>",
+            "slide_description": "<span>Starts From<\/span> $599.99",
+            "slide_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_VkHPaV": {
+          "type": "banner",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/productbg_64bacfe5-d1c6-48e0-bb8f-55909ab9fa85.webp",
+            "banner_image": "shopify:\/\/shop_images\/iphone-13.webp",
+            "banner_sub_title": "-45% Offer",
+            "banner_title": "New <span>Smartphone<\/span>",
+            "banner_description": "Don't miss the last opportunity",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_2_Q7Hthd": {
+          "type": "banner_2",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/productbg_64bacfe5-d1c6-48e0-bb8f-55909ab9fa85.webp",
+            "banner_image": "shopify:\/\/shop_images\/headphone.webp",
+            "banner_sub_title": "Great Stores",
+            "banner_title": "Call for up to 30% off",
+            "banner_button_title": "View Collections",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_3_UL7xfK": {
+          "type": "banner_3",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/productbghover.webp",
+            "banner_image": "shopify:\/\/shop_images\/speaker.webp",
+            "banner_sub_title": "SUPER DISCOUNT",
+            "banner_title": "Home Speaker",
+            "banner_button_title": "Shop Now",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "slide_TiPhhM",
+        "slide_tGjP6U",
+        "banner_VkHPaV",
+        "banner_2_Q7Hthd",
+        "banner_3_UL7xfK"
+      ],
+      "settings": {
+      }
+    },
+    "services_3_YXVkeA": {
+      "type": "services-3",
+      "blocks": {
+        "service_fxRWhK": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/shipment.svg",
+            "service_title": "International Shipment",
+            "service_content": "<p>Orders are shipped seamlessly between countries<\/p>",
+            "service_column": 3,
+            "service_column_md": 6,
+            "service_column_sm": 12
+          }
+        },
+        "service_DpN9Yi": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/support.svg",
+            "service_title": "Online Support 24\/7",
+            "service_content": "<p>Orders are shipped seamlessly between countries<\/p>",
+            "service_column": 3,
+            "service_column_md": 6,
+            "service_column_sm": 12
+          }
+        },
+        "service_NdcbbN": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/return.svg",
+            "service_title": "Money Return",
+            "service_content": "<p>Orders are shipped seamlessly between countries<\/p>",
+            "service_column": 3,
+            "service_column_md": 6,
+            "service_column_sm": 12
+          }
+        },
+        "service_F6H649": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/discount.svg",
+            "service_title": "Member Discount",
+            "service_content": "<p>Orders are shipped seamlessly between countries<\/p>",
+            "service_column": 3,
+            "service_column_md": 6,
+            "service_column_sm": 12
+          }
+        }
+      },
+      "block_order": [
+        "service_fxRWhK",
+        "service_DpN9Yi",
+        "service_NdcbbN",
+        "service_F6H649"
+      ],
+      "settings": {
+        "service_style": "style_1"
+      }
+    },
+    "featured_collection_6_4UNpzM": {
+      "type": "featured-collection-6",
+      "settings": {
+        "section_title": "Featured Products",
+        "button_title": "All Products",
+        "button_title_url": "shopify:\/\/collections\/all",
+        "featured_product_handle": "trending-2",
+        "featured_product_limit_handle": 8
+      }
+    },
+    "banner_2_7GGdx6": {
+      "type": "banner-2",
+      "blocks": {
+        "banner_W6chPb": {
+          "type": "banner",
+          "settings": {
+            "banner_image": "shopify:\/\/shop_images\/pot_84ea14ea-6ac6-4a00-b4b5-c4fbcf35ca85.png",
+            "banner_sub_title": "Great Stores",
+            "banner_title": "Last Call for up <br> to 30% off",
+            "banner_button_title": "VIEW COLLECTIONS",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_2_c6LCDa": {
+          "type": "banner_2",
+          "settings": {
+            "banner_image": "shopify:\/\/shop_images\/phones.png",
+            "banner_sub_title": "-45% Offer",
+            "banner_title": "New <span>Smartphone<\/span>",
+            "banner_description": "Don't miss the last opportunity",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_3_ixrmEm": {
+          "type": "banner_3",
+          "settings": {
+            "banner_image": "shopify:\/\/shop_images\/machine.png",
+            "banner_sub_title": "ELECTRONICS",
+            "banner_title": "Home Speaker",
+            "banner_button_title": "Shop Now",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "banner_W6chPb",
+        "banner_2_c6LCDa",
+        "banner_3_ixrmEm"
+      ],
+      "settings": {
+        "banner_style": "style_2"
+      }
+    },
+    "deal_product_4_yaTFtY": {
+      "type": "deal-product-4",
+      "blocks": {
+        "tab_with_product_DWbGEz": {
+          "type": "tab_with_product",
+          "settings": {
+            "tab_image": "shopify:\/\/shop_images\/1_6786e174-3b48-4b07-9e76-429a7dfcad29.png",
+            "tab_product_handle": "on-sale-2"
+          }
+        },
+        "tab_with_product_X3KnJX": {
+          "type": "tab_with_product",
+          "settings": {
+            "tab_image": "shopify:\/\/shop_images\/2_a54b7a8e-d535-446b-9fc2-82dd6e28874d.png",
+            "tab_product_handle": "popular-2"
+          }
+        },
+        "tab_with_product_Mg7VBw": {
+          "type": "tab_with_product",
+          "settings": {
+            "tab_image": "shopify:\/\/shop_images\/3_08e62d5e-883e-436b-92de-055f8f15f135.png",
+            "tab_product_handle": "on-sale-2"
+          }
+        },
+        "tab_with_product_YFXKHm": {
+          "type": "tab_with_product",
+          "settings": {
+            "tab_image": "shopify:\/\/shop_images\/4_93c2e752-0320-4f50-9c87-d2d2ad9e9e02.png",
+            "tab_product_handle": "popular-2"
+          }
+        }
+      },
+      "block_order": [
+        "tab_with_product_DWbGEz",
+        "tab_with_product_X3KnJX",
+        "tab_with_product_Mg7VBw",
+        "tab_with_product_YFXKHm"
+      ],
+      "settings": {
+        "section_title": "Super Deals Of The Week",
+        "button_title": "All Products",
+        "button_title_url": "shopify:\/\/collections\/all",
+        "product_limit_handle": 1,
+        "featured_product_handle": "wood-1",
+        "featured_product_limit_handle": 1
+      }
+    },
+    "categories_product_area_3_KxVpKy": {
+      "type": "categories-product-area-3",
+      "blocks": {
+        "collection_banner_i8t34c": {
+          "type": "collection_banner",
+          "settings": {
+            "banner_title": "Cell Phones",
+            "menu_handle": "menu-1",
+            "button_title": "All Cell Phones",
+            "button_title_url": "shopify:\/\/products\/bali-underwire-bra-1",
+            "banner_image": "shopify:\/\/shop_images\/1_b29737bd-7be7-487f-b7e7-0b36ef13108d.png"
+          }
+        },
+        "collection_banner_jBwjEq": {
+          "type": "collection_banner",
+          "settings": {
+            "banner_title": "Headphones",
+            "menu_handle": "menu-2",
+            "button_title": "All Headphones",
+            "button_title_url": "shopify:\/\/products\/bali-underwire-bra-1",
+            "banner_image": "shopify:\/\/shop_images\/2_47d0a207-8554-47cf-b473-1a44451e0991.png"
+          }
+        },
+        "collection_banner_NkFkbg": {
+          "type": "collection_banner",
+          "settings": {
+            "banner_title": "Watches",
+            "menu_handle": "menu-3",
+            "button_title": "All Watches",
+            "button_title_url": "shopify:\/\/collections\/all",
+            "banner_image": "shopify:\/\/shop_images\/3_02049159-1922-417c-8cc2-334627598865.png"
+          }
+        },
+        "collection_banner_EqVtek": {
+          "type": "collection_banner",
+          "settings": {
+            "banner_title": "Monitors",
+            "menu_handle": "menu-4",
+            "button_title": "All Monitors",
+            "button_title_url": "shopify:\/\/products\/bali-underwire-bra-1",
+            "banner_image": "shopify:\/\/shop_images\/4_17c25cbe-b419-43c5-9239-93d8d6789b68.png"
+          }
+        }
+      },
+      "block_order": [
+        "collection_banner_i8t34c",
+        "collection_banner_jBwjEq",
+        "collection_banner_NkFkbg",
+        "collection_banner_EqVtek"
+      ],
+      "settings": {
+        "section_title": "Best Category",
+        "button_title": "Other Category",
+        "button_title_url": "shopify:\/\/collections\/all"
+      }
+    },
+    "latest_blog_4_gMkpzz": {
+      "type": "latest-blog-4",
+      "settings": {
+        "section_title": "Blog & Insights",
+        "button_title": "Other Category",
+        "button_title_url": "shopify:\/\/blogs\/news",
+        "blog_handle": "news",
+        "blog_limit_handle": 3,
+        "auther_image": "shopify:\/\/shop_images\/author1.png",
+        "author_title": "Author",
+        "author_name_enable": false
+      }
+    },
+    "brand_logo_3_KteheF": {
+      "type": "brand-logo-3",
+      "blocks": {
+        "brand_eGUMTD": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/1_7892bf20-4b66-47d5-869d-08c8e116d49f.png",
+            "brand_url": "shopify:\/\/collections\/featured-product"
+          }
+        },
+        "brand_JtJjQx": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/3_97e4f37f-dd88-4c00-a56d-23f423a1ed39.png",
+            "brand_url": "shopify:\/\/collections\/latest"
+          }
+        },
+        "brand_jRijdU": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/8_98f69f9e-5c25-4661-bded-6ada04819c1b.png",
+            "brand_url": "shopify:\/\/collections\/featured-product"
+          }
+        },
+        "brand_3nVnfk": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/4_8febc49e-1a4b-4ab9-9fe6-d4c145d2c6f4.png",
+            "brand_url": "shopify:\/\/collections\/hand-picked-product"
+          }
+        },
+        "brand_DEAUmB": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/7_bb8183c7-4ded-4ec7-8f0d-09bfe418e344.png",
+            "brand_url": "shopify:\/\/collections\/hand-picked-product"
+          }
+        },
+        "brand_UiNAtr": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/9_51efe324-c331-465d-b25f-88ce9899eacc.png",
+            "brand_url": "shopify:\/\/collections\/popular"
+          }
+        },
+        "brand_K9J6Hk": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/6_1728296e-338b-4d55-84d0-c692639fbf35.png",
+            "brand_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "brand_qRpF8M": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/5_c4417339-6432-4e8d-b393-d96b1dd04e68.png",
+            "brand_url": "shopify:\/\/collections\/popular"
+          }
+        },
+        "brand_zk8LJe": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/2_37ec6153-5c6c-4402-90a1-03e4f4e53e23.png",
+            "brand_url": "shopify:\/\/collections\/latest"
+          }
+        }
+      },
+      "block_order": [
+        "brand_eGUMTD",
+        "brand_JtJjQx",
+        "brand_jRijdU",
+        "brand_3nVnfk",
+        "brand_DEAUmB",
+        "brand_UiNAtr",
+        "brand_K9J6Hk",
+        "brand_qRpF8M",
+        "brand_zk8LJe"
+      ],
+      "settings": {
+        "section_sub_title": "Sponsors",
+        "section_title": "100+ Happy Users"
+      }
+    }
+  },
+  "order": [
+    "slideshow_with_banner_8_YU3WzG",
+    "services_3_YXVkeA",
+    "featured_collection_6_4UNpzM",
+    "banner_2_7GGdx6",
+    "deal_product_4_yaTFtY",
+    "categories_product_area_3_KxVpKy",
+    "latest_blog_4_gMkpzz",
+    "brand_logo_3_KteheF"
+  ]
+}

@@ -1,0 +1,283 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "slideshow_11_7Y9dTg": {
+      "type": "slideshow-11",
+      "blocks": {
+        "slide_dWjdwj": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/cod.webp",
+            "slide_title": "CALL OF <br> DUTY GAMES",
+            "slide_button_title": "View Collections",
+            "slide_button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slide_DCqdEr": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/zombie-land.webp",
+            "slide_title": "BLADEPOINT MORUS <br> CUP SEASON 2",
+            "slide_button_title": "View Collections",
+            "slide_button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slide_GYtHM4": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/shadow-fight.webp",
+            "slide_title": "NEW GAMES <br> FOR RANDOM CLICK",
+            "slide_button_title": "View Collections",
+            "slide_button_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "slide_dWjdwj",
+        "slide_DCqdEr",
+        "slide_GYtHM4"
+      ],
+      "settings": {
+        "catagory_title": "All Categories",
+        "user_menu_handle": "all-categories-2"
+      }
+    },
+    "categories_product_area_5_CAT9EY": {
+      "type": "categories-product-area-5",
+      "blocks": {
+        "category_product_kd9RCg": {
+          "type": "category_product",
+          "settings": {
+            "category_image": "shopify:\/\/shop_images\/game01.webp",
+            "category_sub_title": "New Collections",
+            "category_title": "X24 Remote Game",
+            "button_title": "",
+            "button_title_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "category_product_iFeccH": {
+          "type": "category_product",
+          "settings": {
+            "category_image": "shopify:\/\/shop_images\/fifa.webp",
+            "category_sub_title": "New Collections",
+            "category_title": "Fifa World Cup 2023",
+            "button_title": "",
+            "button_title_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "category_product_dAwgU3": {
+          "type": "category_product",
+          "settings": {
+            "category_image": "shopify:\/\/shop_images\/samuri_8c5ed0d5-a0d1-4dcc-8ae9-aaa2663a3000.webp",
+            "category_sub_title": "New Collections",
+            "category_title": "Samurai Boost Game",
+            "button_title": "",
+            "button_title_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "category_product_kd9RCg",
+        "category_product_iFeccH",
+        "category_product_dAwgU3"
+      ],
+      "settings": {
+        "category_style": "style_2"
+      }
+    },
+    "featured_collection_10_iPEf4a": {
+      "type": "featured-collection-10",
+      "settings": {
+        "section_title": "Latest Games",
+        "button_title": "Veiw All",
+        "button_title_url": "shopify:\/\/collections\/all",
+        "featured_product_handle": "featured-product-4",
+        "featured_product_limit_handle": 8
+      }
+    },
+    "brand_logo_2_NcTNDp": {
+      "type": "brand-logo-2",
+      "blocks": {
+        "brand_HDfnAF": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/panther4.webp",
+            "brand_url": "shopify:\/\/collections\/featured-product-2"
+          }
+        },
+        "brand_jVWxwA": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/231.webp",
+            "brand_url": "shopify:\/\/products\/bali-underwire-bra"
+          }
+        },
+        "brand_ziNtbV": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/531.webp",
+            "brand_url": "shopify:\/\/collections\/latest"
+          }
+        },
+        "brand_MKfQit": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/5466967.webp",
+            "brand_url": "shopify:\/\/products\/bali-underwire-bra-5"
+          }
+        },
+        "brand_RBfhtB": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/5485618.webp",
+            "brand_url": "shopify:\/\/collections\/on-sale"
+          }
+        },
+        "brand_yq3dTX": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/5572905.webp",
+            "brand_url": "shopify:\/\/collections\/trending"
+          }
+        }
+      },
+      "block_order": [
+        "brand_HDfnAF",
+        "brand_jVWxwA",
+        "brand_ziNtbV",
+        "brand_MKfQit",
+        "brand_RBfhtB",
+        "brand_yq3dTX"
+      ],
+      "settings": {
+        "brand_style": "style_3",
+        "brand_column": 6,
+        "brand_column_md": 4,
+        "brand_column_sm": 2,
+        "autoplay_true": false,
+        "autoplay_speed": 7000
+      }
+    },
+    "newsletter_subscribe_2_R7hHVw": {
+      "type": "newsletter-subscribe-2",
+      "blocks": {
+        "section_background_fJ7EEn": {
+          "type": "section_background",
+          "settings": {
+            "section_bg_image": "shopify:\/\/shop_images\/dark.webp",
+            "section_bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "section_background_fJ7EEn"
+      ],
+      "settings": {
+        "newsletter_style": "style_2",
+        "section_sub_title": "Newsletter",
+        "section_title": "Join Our Newsletter",
+        "section_description": "Hey you, sign up it only takes a second to be the first to find out about <br>our latest news and promotions…",
+        "email_placeholder": "Enter email address",
+        "button_title": "Subscribe"
+      }
+    },
+    "services_3_F8tqaU": {
+      "type": "services-3",
+      "blocks": {
+        "service_tTNdJ6": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/cat-action.jpg",
+            "service_title": "Action",
+            "service_content": "<p>3 Items<\/p>",
+            "service_column": 15,
+            "service_column_md": 4,
+            "service_column_sm": 12
+          }
+        },
+        "service_tpgTHX": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/game2.webp",
+            "service_title": "Adventure",
+            "service_content": "<p>3 Items<\/p>",
+            "service_column": 15,
+            "service_column_md": 4,
+            "service_column_sm": 12
+          }
+        },
+        "service_dUWChw": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/modern-cars.jpg",
+            "service_title": "Ghost Story",
+            "service_content": "<p>3 Items<\/p>",
+            "service_column": 15,
+            "service_column_md": 4,
+            "service_column_sm": 12
+          }
+        },
+        "service_QMBpLH": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/120.jpg",
+            "service_title": "Racing",
+            "service_content": "<p>3 Items<\/p>",
+            "service_column": 15,
+            "service_column_md": 4,
+            "service_column_sm": 12
+          }
+        },
+        "service_xmXUpp": {
+          "type": "service",
+          "settings": {
+            "service_icon": "shopify:\/\/shop_images\/samuri.webp",
+            "service_title": "Gaming",
+            "service_content": "<p>3 Items<\/p>",
+            "service_column": 15,
+            "service_column_md": 4,
+            "service_column_sm": 12
+          }
+        }
+      },
+      "block_order": [
+        "service_tTNdJ6",
+        "service_tpgTHX",
+        "service_dUWChw",
+        "service_QMBpLH",
+        "service_xmXUpp"
+      ],
+      "settings": {
+        "service_style": "style_2"
+      }
+    },
+    "latest_blog_6_8T7DUq": {
+      "type": "latest-blog-6",
+      "settings": {
+        "section_title": "Latest News",
+        "section_sub_title": "News",
+        "blog_handle": "news",
+        "blog_limit_handle": 3,
+        "author_title": "Author",
+        "blog_date_enable": true
+      }
+    }
+  },
+  "order": [
+    "slideshow_11_7Y9dTg",
+    "categories_product_area_5_CAT9EY",
+    "featured_collection_10_iPEf4a",
+    "brand_logo_2_NcTNDp",
+    "newsletter_subscribe_2_R7hHVw",
+    "services_3_F8tqaU",
+    "latest_blog_6_8T7DUq"
+  ]
+}
