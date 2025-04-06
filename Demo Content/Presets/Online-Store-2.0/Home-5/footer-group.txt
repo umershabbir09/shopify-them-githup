@@ -1,0 +1,234 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "service_3BtKaR": {
+          "type": "service",
+          "settings": {
+            "service_image": "shopify:\/\/shop_images\/box.svg",
+            "service_title": "Free shipping",
+            "service_content": "Free shipping on orders over $65."
+          }
+        },
+        "service_9rypBy": {
+          "type": "service",
+          "settings": {
+            "service_image": "shopify:\/\/shop_images\/delivery-van.svg",
+            "service_title": "Free Returns",
+            "service_content": "30-days free return policy."
+          }
+        },
+        "service_rtVLbh": {
+          "type": "service",
+          "settings": {
+            "service_image": "shopify:\/\/shop_images\/credit-card.svg",
+            "service_title": "Secured Payments",
+            "service_content": "We accept all major credit cards"
+          }
+        },
+        "service_ytNGpt": {
+          "type": "service",
+          "settings": {
+            "service_image": "shopify:\/\/shop_images\/24hours.svg",
+            "service_title": "Customer Service",
+            "service_content": "Top notch customer setvice"
+          }
+        },
+        "1563181946119": {
+          "type": "about",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/logo7.svg",
+            "logo_width": 300,
+            "ratina_logo_enable": false,
+            "about_content": "Solid is the information & experience   directed at an end-user",
+            "margin_top_enable": false,
+            "about_image": "shopify:\/\/shop_images\/24clock.png",
+            "time_title": "0020 500 - CALL - 000",
+            "time_contact": "Mon - Fri: 9:00-20:00",
+            "about_image_2": "shopify:\/\/shop_images\/mail.png",
+            "support_title": "info@webmail.com",
+            "support_emain": "Get Support",
+            "social_icon_1_name": "twitter",
+            "social_icon_1_link": "shopify:\/\/pages\/about",
+            "social_icon_2_name": "instagram",
+            "social_icon_2_link": "shopify:\/\/pages\/about",
+            "social_icon_3_name": "google-plus",
+            "social_icon_3_link": "shopify:\/\/pages\/about",
+            "social_icon_4_name": "linkedin",
+            "social_icon_4_link": "shopify:\/\/pages\/about",
+            "widget_column": 3,
+            "widget_column_md": 6,
+            "widget_column_sm": 6
+          }
+        },
+        "contact_qiDLe3": {
+          "type": "contact",
+          "settings": {
+            "widget_title": "About Us",
+            "content": "Elegant pink origami design three type of dimensional view and decoration co Great for adding a decorative touch to any room’s decor.",
+            "buttont_title": "Get In Touch",
+            "buttont_url": "shopify:\/\/pages\/about",
+            "widget_column": 3,
+            "widget_column_md": 6,
+            "widget_column_sm": 6
+          }
+        },
+        "menu_LYM3qQ": {
+          "type": "menu",
+          "settings": {
+            "widget_title": "Information",
+            "menu_handle": "information",
+            "grid_view_enable": true,
+            "margin_top_enable": false,
+            "widget_column": 13,
+            "widget_column_md": 6,
+            "widget_column_sm": 6
+          }
+        },
+        "1563186251632": {
+          "type": "menu",
+          "settings": {
+            "widget_title": "My Account",
+            "menu_handle": "my-account",
+            "grid_view_enable": true,
+            "margin_top_enable": false,
+            "widget_column": 13,
+            "widget_column_md": 6,
+            "widget_column_sm": 6
+          }
+        },
+        "1563252960776": {
+          "type": "newsletter",
+          "settings": {
+            "widget_title": "Get Newsletter",
+            "newsletter_content": "<p>Get 10% off your first order! Hurry up<\/p>",
+            "margin_top_enable": true,
+            "widget_column": 25,
+            "widget_column_md": 6,
+            "widget_column_sm": 6
+          }
+        },
+        "payment_image_FxziCP": {
+          "type": "payment_image",
+          "settings": {
+            "widget_title": "Order faster with our App!",
+            "app_image_1": "shopify:\/\/shop_images\/appstore.jpg",
+            "app_image_1_url": "shopify:\/\/pages\/about",
+            "app_image_2": "shopify:\/\/shop_images\/playstore.jpg",
+            "app_image_2_url": "shopify:\/\/pages\/about",
+            "payment_image": "shopify:\/\/shop_images\/payment2.svg"
+          }
+        },
+        "footer_social_qY86CH": {
+          "type": "footer_social",
+          "settings": {
+            "widget_title": "Social Network",
+            "social_title_1": "Facebook",
+            "social_icon_1_name": "facebook",
+            "social_icon_1_link": "shopify:\/\/pages\/about",
+            "social_title_2": "Linkedin",
+            "social_icon_2_name": "linkedin",
+            "social_icon_2_link": "shopify:\/\/pages\/about",
+            "social_title_3": "Twitter",
+            "social_icon_3_name": "twitter",
+            "social_icon_3_link": "shopify:\/\/pages\/about",
+            "social_title_4": "Behance",
+            "social_icon_4_name": "behance",
+            "social_icon_4_link": "shopify:\/\/pages\/about",
+            "social_title_5": "YouTube",
+            "social_icon_5_name": "youtube",
+            "social_icon_5_link": "shopify:\/\/pages\/about",
+            "widget_column": 2,
+            "widget_column_md": 6,
+            "widget_column_sm": 6
+          }
+        },
+        "footer_instagram_fqz7EM": {
+          "type": "footer_instagram",
+          "settings": {
+            "widget_title": "Instagram Feeds",
+            "instagram_image_1": "shopify:\/\/shop_images\/feed-1.jpg",
+            "instagram_image_1_url": "shopify:\/\/pages\/about",
+            "instagram_image_2": "shopify:\/\/shop_images\/feed-2.jpg",
+            "instagram_image_2_url": "shopify:\/\/pages\/about",
+            "instagram_image_3": "shopify:\/\/shop_images\/feed.jpg",
+            "instagram_image_3_url": "shopify:\/\/pages\/about",
+            "instagram_image_4": "shopify:\/\/shop_images\/feed-4.jpg",
+            "instagram_image_4_url": "shopify:\/\/pages\/about",
+            "instagram_image_5": "shopify:\/\/shop_images\/feed-5.jpg",
+            "instagram_image_5_url": "shopify:\/\/pages\/about",
+            "instagram_image_6": "shopify:\/\/shop_images\/feed-3.jpg",
+            "instagram_image_6_url": "shopify:\/\/pages\/about",
+            "widget_column": 3,
+            "widget_column_md": 6,
+            "widget_column_sm": 12
+          }
+        }
+      },
+      "block_order": [
+        "service_3BtKaR",
+        "service_9rypBy",
+        "service_rtVLbh",
+        "service_ytNGpt",
+        "1563181946119",
+        "contact_qiDLe3",
+        "menu_LYM3qQ",
+        "1563186251632",
+        "1563252960776",
+        "payment_image_FxziCP",
+        "footer_social_qY86CH",
+        "footer_instagram_fqz7EM"
+      ],
+      "settings": {
+        "header_style": "header_style_4",
+        "footer_bottom_bg_color": "#111111",
+        "footer_copyright_anchor_color": "#777777",
+        "service_title_1": "International Shipment",
+        "service_content_1": "Orders are shipped seamlessly between countries",
+        "service_title_2": "Online Support 24\/7",
+        "service_content_2": "Orders are shipped seamlessly between countries",
+        "service_title_3": "Money Return",
+        "service_content_3": "Orders are shipped seamlessly between countries",
+        "service_title_4": "Member Discount",
+        "service_content_4": "Orders are shipped seamlessly between countries",
+        "copy_ritht_text_enable": true,
+        "copy_ritht_text": "<p>Copyright & Design By <a href=\"http:\/\/reacthemes.com\" target=\"_blank\">Reacthemes<\/a> -2024<\/p>",
+        "payment_image_enable": true,
+        "payment_image": "shopify:\/\/shop_images\/payment2_09e0cb48-f995-4ee2-ac69-a341db9597d8.svg",
+        "section_color_enable": false,
+        "footer_top_bg_color": "#f7f7f7",
+        "footer_top_color": "#555555",
+        "footer_top_widget_color": "#222222",
+        "footer_top_menu_color": "#555555",
+        "footer_top_menu_hover_color": "#c29958",
+        "footer_newsletter_border_color": "#bcbcbc",
+        "footer_newsletter_button_color": "#424242",
+        "footer_newsletter_button_hover_color": "#424242",
+        "social_link_color": "#777777",
+        "social_link_bg_color": "#ffffff",
+        "social_link_border_color": "#dedede",
+        "social_link_hover_color": "#777777",
+        "social_link_hover_bg_color": "#424242",
+        "social_link_hover_border_color": "#424242",
+        "copyright_bg_color": "#ffffff",
+        "copyright_text_color": "#555555",
+        "snow_enable": false
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

@@ -1,0 +1,276 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "slideshow_6_DQtTnE": {
+      "type": "slideshow-6",
+      "blocks": {
+        "slide_dmMhea": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/s2-1.webp",
+            "slide_title": "Weiboo <br> Wooden Furniture",
+            "slide_content": "Free shipping with our Special Service & not redeemable",
+            "slide_button_title": "Shop Now",
+            "slide_button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slide_9XUKQR": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/s20-3.webp",
+            "slide_title": "Weiboo <br> Wooden Chair",
+            "slide_content": "Free shipping with our Special Service & not redeemable",
+            "slide_button_title": "Shop Now",
+            "slide_button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slide_rdUY6Q": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/s41.webp",
+            "slide_title": "Weiboo <br> Wooden Table",
+            "slide_content": "Free shipping with our Special Service & not redeemable",
+            "slide_button_title": "Shop Now",
+            "slide_button_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "slide_dmMhea",
+        "slide_9XUKQR",
+        "slide_rdUY6Q"
+      ],
+      "settings": {
+        "bg_image": "shopify:\/\/shop_images\/bg.webp"
+      }
+    },
+    "banner_4_eAwbL3": {
+      "type": "banner-4",
+      "blocks": {
+        "banner_8bwkng": {
+          "type": "banner",
+          "settings": {
+            "banner_style": "style_1",
+            "banner_bg_image": "shopify:\/\/shop_images\/Group-39.webp",
+            "banner_image": "shopify:\/\/shop_images\/s19-2.webp",
+            "banner_url": "shopify:\/\/collections\/all",
+            "banner_sub_title": "Collection AW 2022r",
+            "banner_title": "Table & Lamps",
+            "banner_button_title": "Shop now",
+            "banner_button_title_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_8BgKET": {
+          "type": "banner",
+          "settings": {
+            "banner_style": "style_2",
+            "banner_bg_image": "shopify:\/\/shop_images\/bg-2.webp",
+            "banner_image": "shopify:\/\/shop_images\/s20.webp",
+            "banner_url": "shopify:\/\/collections\/all",
+            "banner_sub_title": "Collection AW 2022r",
+            "banner_title": "Table & Lamps",
+            "banner_button_title": "Shop now",
+            "banner_button_title_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_3ifi4j": {
+          "type": "banner",
+          "settings": {
+            "banner_style": "style_3",
+            "banner_bg_image": "shopify:\/\/shop_images\/bg-3.webp",
+            "banner_image": "shopify:\/\/shop_images\/s16.webp",
+            "banner_url": "shopify:\/\/collections\/all",
+            "banner_sub_title": "Collection AW 2022r",
+            "banner_title": "Table & Lamps",
+            "banner_button_title": "Shop now",
+            "banner_button_title_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "banner_8bwkng",
+        "banner_8BgKET",
+        "banner_3ifi4j"
+      ],
+      "settings": {
+      }
+    },
+    "tab_with_product_3_gET97W": {
+      "type": "tab-with-product-3",
+      "blocks": {
+        "tab_with_product_YAkAkb": {
+          "type": "tab_with_product",
+          "settings": {
+            "tab_product_handle": "on-sale"
+          }
+        },
+        "tab_with_product_K8nFXD": {
+          "type": "tab_with_product",
+          "settings": {
+            "tab_product_handle": "best-rated"
+          }
+        },
+        "tab_with_product_zFYQty": {
+          "type": "tab_with_product",
+          "settings": {
+            "tab_product_handle": "popular"
+          }
+        },
+        "tab_with_product_mimHrR": {
+          "type": "tab_with_product",
+          "settings": {
+            "tab_product_handle": "latest"
+          }
+        }
+      },
+      "block_order": [
+        "tab_with_product_YAkAkb",
+        "tab_with_product_K8nFXD",
+        "tab_with_product_zFYQty",
+        "tab_with_product_mimHrR"
+      ],
+      "settings": {
+        "section_sub_title": "Featured",
+        "section_title": "Recently added products",
+        "product_limit_handle": 10,
+        "banner_button_title": "All products",
+        "banner_button_url": "shopify:\/\/collections\/all"
+      }
+    },
+    "newsletter_subscribe_2_FWdTXk": {
+      "type": "newsletter-subscribe-2",
+      "blocks": {
+        "section_background_xA9XUF": {
+          "type": "section_background",
+          "settings": {
+            "section_bg_image": "shopify:\/\/shop_images\/img.webp",
+            "section_bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "section_background_xA9XUF"
+      ],
+      "settings": {
+        "newsletter_style": "style_1",
+        "section_sub_title": "Newsletter",
+        "section_title": "Join Our Newsletter",
+        "section_description": "Hey you, sign up it only takes a second to be the first to find out about our latest news and promotions…",
+        "email_placeholder": "Enter email address",
+        "button_title": "Subscribe"
+      }
+    },
+    "brand_logo_3_KteheF": {
+      "type": "brand-logo-3",
+      "blocks": {
+        "brand_eGUMTD": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/1_7892bf20-4b66-47d5-869d-08c8e116d49f.png",
+            "brand_url": "shopify:\/\/collections\/featured-product"
+          }
+        },
+        "brand_JtJjQx": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/3_97e4f37f-dd88-4c00-a56d-23f423a1ed39.png",
+            "brand_url": "shopify:\/\/collections\/latest"
+          }
+        },
+        "brand_jRijdU": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/8_98f69f9e-5c25-4661-bded-6ada04819c1b.png",
+            "brand_url": "shopify:\/\/collections\/featured-product"
+          }
+        },
+        "brand_3nVnfk": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/4_8febc49e-1a4b-4ab9-9fe6-d4c145d2c6f4.png",
+            "brand_url": "shopify:\/\/collections\/hand-picked-product"
+          }
+        },
+        "brand_DEAUmB": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/7_bb8183c7-4ded-4ec7-8f0d-09bfe418e344.png",
+            "brand_url": "shopify:\/\/collections\/hand-picked-product"
+          }
+        },
+        "brand_UiNAtr": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/9_51efe324-c331-465d-b25f-88ce9899eacc.png",
+            "brand_url": "shopify:\/\/collections\/popular"
+          }
+        },
+        "brand_K9J6Hk": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/6_1728296e-338b-4d55-84d0-c692639fbf35.png",
+            "brand_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "brand_qRpF8M": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/5_c4417339-6432-4e8d-b393-d96b1dd04e68.png",
+            "brand_url": "shopify:\/\/collections\/popular"
+          }
+        },
+        "brand_zk8LJe": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/2_37ec6153-5c6c-4402-90a1-03e4f4e53e23.png",
+            "brand_url": "shopify:\/\/collections\/latest"
+          }
+        }
+      },
+      "block_order": [
+        "brand_eGUMTD",
+        "brand_JtJjQx",
+        "brand_jRijdU",
+        "brand_3nVnfk",
+        "brand_DEAUmB",
+        "brand_UiNAtr",
+        "brand_K9J6Hk",
+        "brand_qRpF8M",
+        "brand_zk8LJe"
+      ],
+      "settings": {
+        "section_sub_title": "Sponsors",
+        "section_title": "100+ Happy Users"
+      }
+    },
+    "latest_blog_3_GTmyzd": {
+      "type": "latest-blog-3",
+      "settings": {
+        "section_sub_title": "News",
+        "section_title": "Shop insights & feeds",
+        "blog_handle": "news",
+        "blog_limit_handle": 3,
+        "auther_image": "shopify:\/\/shop_images\/author.png",
+        "author_title": "Author",
+        "blog_date_enable": true,
+        "author_name_enable": false
+      }
+    }
+  },
+  "order": [
+    "slideshow_6_DQtTnE",
+    "banner_4_eAwbL3",
+    "tab_with_product_3_gET97W",
+    "newsletter_subscribe_2_FWdTXk",
+    "brand_logo_3_KteheF",
+    "latest_blog_3_GTmyzd"
+  ]
+}

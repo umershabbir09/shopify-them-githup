@@ -1,0 +1,271 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "slideshow_12_eRwTyG": {
+      "type": "slideshow-12",
+      "blocks": {
+        "slide_image_CeT8wj": {
+          "type": "slide_image",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/banner-img.png",
+            "slide_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slide_content_4hMEmH": {
+          "type": "slide_content",
+          "settings": {
+            "slide_sub_title": "2024",
+            "slide_title": "New Arrivals",
+            "slide_description": "Sale up to 30% off",
+            "slide_button_title": "Veiw Collections",
+            "slide_button_url": "shopify:\/\/collections\/all",
+            "video_url": "https:\/\/www.youtube.com\/watch?v=S05bHj0LBE4"
+          }
+        },
+        "slide_product_hr3n6c": {
+          "type": "slide_product",
+          "settings": {
+            "featured_product_handle": "featured-product-6",
+            "featured_product_limit_handle": 4
+          }
+        }
+      },
+      "block_order": [
+        "slide_image_CeT8wj",
+        "slide_content_4hMEmH",
+        "slide_product_hr3n6c"
+      ],
+      "settings": {
+      }
+    },
+    "banner_6_LLWPye": {
+      "type": "banner-6",
+      "blocks": {
+        "banner_q9EXXA": {
+          "type": "banner",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/offer-bg.png",
+            "banner_image": "shopify:\/\/shop_images\/women.png",
+            "banner_sub_title": "-45% Offer",
+            "banner_title": "SUMMER DEAL 2024",
+            "banner_button_title": "SHOP NOW",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_2_6UG3tc": {
+          "type": "banner_2",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/offer-bg2.png",
+            "banner_image": "shopify:\/\/shop_images\/product2.png",
+            "banner_title": "SUMMER DEAL",
+            "banner_button_title": "SHOP NOW",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_2_LjFyAd": {
+          "type": "banner_2",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/offer-bg2.png",
+            "banner_image": "shopify:\/\/shop_images\/product3.png",
+            "banner_title": "SUMMER DEAL",
+            "banner_button_title": "SHOP NOW",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_2_PzimmT": {
+          "type": "banner_2",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/offer-bg2.png",
+            "banner_image": "shopify:\/\/shop_images\/product4.png",
+            "banner_title": "SUMMER DEAL",
+            "banner_button_title": "SHOP NOW",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_2_Ybbr7B": {
+          "type": "banner_2",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/offer-bg2.png",
+            "banner_image": "shopify:\/\/shop_images\/product5.png",
+            "banner_title": "SUMMER DEAL",
+            "banner_button_title": "SHOP NOW",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner_3_LU6E8E": {
+          "type": "banner_3",
+          "settings": {
+            "banner_bg_image": "shopify:\/\/shop_images\/offer-bg3.png",
+            "banner_image": "shopify:\/\/shop_images\/man.png",
+            "banner_sub_title": "-45% Offer",
+            "banner_title": "SUMMER DEAL 2024",
+            "banner_button_title": "SHOP NOW",
+            "banner_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "banner_q9EXXA",
+        "banner_2_6UG3tc",
+        "banner_2_LjFyAd",
+        "banner_2_PzimmT",
+        "banner_2_Ybbr7B",
+        "banner_3_LU6E8E"
+      ],
+      "settings": {
+      }
+    },
+    "featured_collection_12_HWKKxX": {
+      "type": "featured-collection-12",
+      "settings": {
+        "section_title": "Product of the Week",
+        "section_sub_title": "Collections",
+        "title_image_1": "shopify:\/\/shop_images\/icon-title.png",
+        "title_image_2": "shopify:\/\/shop_images\/icon-title.png",
+        "featured_product_handle": "featured-product-6",
+        "featured_product_limit_handle": 8
+      }
+    },
+    "full_width_banner_2_wtWG9C": {
+      "type": "full-width-banner-2",
+      "blocks": {
+        "section_background_UqjcLB": {
+          "type": "section_background",
+          "settings": {
+            "section_bg_image": "shopify:\/\/shop_images\/cta-bg.jpg",
+            "section_bg_color": "#f3f3f3"
+          }
+        }
+      },
+      "block_order": [
+        "section_background_UqjcLB"
+      ],
+      "settings": {
+        "section_sub_title": "Collections",
+        "title_image_1": "shopify:\/\/shop_images\/icon-title.png",
+        "title_image_2": "shopify:\/\/shop_images\/icon-title.png",
+        "section_title": "NEW ARRIVALS 2024",
+        "section_description": "Donec pretium mauris vitae leo ultrices aliquam, auctor litora fermentum vel lacinia <br> cursus placerat cras diam vestibulum montes nullam Cum inceptos et rutrum lectus <br> duis diam morbi fermentum class augue egestas libero.",
+        "button_title": "DISCOVER MORE",
+        "button_url": "shopify:\/\/pages\/about"
+      }
+    },
+    "featured_collection_11_kzhKfa": {
+      "type": "featured-collection-11",
+      "settings": {
+        "section_title": "Product of the Week",
+        "section_sub_title": "Collections",
+        "title_image_1": "shopify:\/\/shop_images\/icon-title.png",
+        "title_image_2": "shopify:\/\/shop_images\/icon-title.png",
+        "featured_product_handle": "featured-product-5",
+        "featured_product_limit_handle": 6,
+        "featured_product_handle_2": "featured-product-6",
+        "featured_product_limit_handle_2": 2
+      }
+    },
+    "brand_logo_2_WiUVFi": {
+      "type": "brand-logo-2",
+      "blocks": {
+        "brand_An9WcN": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/client-01_c52554a6-e62f-4b60-8f40-435bc91257e3.png",
+            "brand_url": "shopify:\/\/collections\/best-rated"
+          }
+        },
+        "brand_DFn7TV": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/client-02_65e3d59e-a2fc-4a59-9559-cbe289e63319.png",
+            "brand_url": "shopify:\/\/collections\/featured-product"
+          }
+        },
+        "brand_aaXxaf": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/client-03_2a5361b7-8ac6-4955-9d99-ad2526b6e6b3.png",
+            "brand_url": "shopify:\/\/collections\/featured-product-3"
+          }
+        },
+        "brand_PPQULA": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/client-04_f9b0d8c9-eed6-47a7-b63c-6bfe319552f8.png",
+            "brand_url": "shopify:\/\/collections\/hand-picked-product"
+          }
+        },
+        "brand_z9gr3H": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/client-05_9e1f25fd-009b-462e-9876-7c9d365edecf.png",
+            "brand_url": "shopify:\/\/collections\/featured-product"
+          }
+        },
+        "brand_qwVi4m": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/client-06_56540538-6311-4b0f-99ad-9201c80da0c7.png",
+            "brand_url": "shopify:\/\/collections\/latest"
+          }
+        },
+        "section_background_kQMiCh": {
+          "type": "section_background",
+          "settings": {
+            "section_bg_image": "shopify:\/\/shop_images\/sponsor-overley-1_e59f80fd-c25b-4753-bce2-8a04311dca38.jpg",
+            "section_bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "brand_An9WcN",
+        "brand_DFn7TV",
+        "brand_aaXxaf",
+        "brand_PPQULA",
+        "brand_z9gr3H",
+        "brand_qwVi4m",
+        "section_background_kQMiCh"
+      ],
+      "settings": {
+        "brand_style": "style_4",
+        "brand_column": 6,
+        "brand_column_md": 4,
+        "brand_column_sm": 2,
+        "autoplay_true": false,
+        "autoplay_speed": 7000
+      }
+    },
+    "latest_blog_2_LAqBEK": {
+      "type": "latest-blog-2",
+      "settings": {
+        "blog_style": "style_3",
+        "section_title": "BLOG & INSIGHTS",
+        "section_sub_title": "News",
+        "title_image_1": "shopify:\/\/shop_images\/icon-title.png",
+        "title_image_2": "shopify:\/\/shop_images\/icon-title.png",
+        "blog_handle": "news",
+        "blog_limit_handle": 3,
+        "auther_image": "shopify:\/\/shop_images\/author_8bc442b0-4b97-4b91-9435-c6228f0e94b8.png",
+        "author_title": "Author",
+        "blog_date_enable": true,
+        "author_name_enable": false
+      }
+    }
+  },
+  "order": [
+    "slideshow_12_eRwTyG",
+    "banner_6_LLWPye",
+    "featured_collection_12_HWKKxX",
+    "full_width_banner_2_wtWG9C",
+    "featured_collection_11_kzhKfa",
+    "brand_logo_2_WiUVFi",
+    "latest_blog_2_LAqBEK"
+  ]
+}
